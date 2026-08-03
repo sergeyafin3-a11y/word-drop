@@ -170,7 +170,9 @@
           '<div style="display:flex;justify-content:space-between;font-weight:700">' +
           '<span>' + esc(r.title) + '</span><span class="muted">' + p + '%</span></div>' +
           '<div class="bar"><i style="width:' + p + '%"></i></div></div>';
-      }).join('');
+      }).join('') +
+      '<button class="btn btn-g" id="resetAll" style="margin-top:26px;opacity:.7;font-size:15px">' +
+      'Start from zero</button>';
   }
 
   /* ================= обработчики ================= */
@@ -201,6 +203,12 @@
         ({ flash: W.actFlash, match: W.actMatch, build: W.actBuild, type: W.actType, sprint: W.actSprint }[a])(list);
       };
     });
+
+    if ($('#resetAll')) $('#resetAll').onclick = function () {
+      if (!confirm('Start from zero?\n\nXP, streak and all learned words will be cleared.')) return;
+      W.reset();
+      location.reload();
+    };
 
     Array.prototype.forEach.call(document.querySelectorAll('[data-rule]'), function (b) {
       b.onclick = function () { W.openRule(b.dataset.rule); };

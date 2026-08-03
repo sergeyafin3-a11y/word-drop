@@ -36,6 +36,11 @@
     try { localStorage.setItem(KEY, JSON.stringify(W.s)); } catch (e) { W.noStorage = true; }
   };
 
+  W.reset = function () {
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    W.s = W.defaults();
+  };
+
   /* ---------- даты ---------- */
   W.key = function (d) {
     d = d || new Date();
