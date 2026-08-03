@@ -43,6 +43,23 @@
     W.finishAct();
   };
 
+  /* красная вспышка + «Incorrect», правильный ответ НЕ показываем */
+  W.wrongFx = function (el, msg) {
+    if (el) {
+      el.classList.remove('shake');
+      void el.offsetWidth;
+      el.classList.add('shake', 'wrong-flash');
+      setTimeout(function () { el.classList.remove('wrong-flash', 'shake'); }, 700);
+    }
+    var inc = document.getElementById('inc');
+    if (inc) {
+      inc.textContent = msg || 'Incorrect — try again';
+      setTimeout(function () { if (inc) inc.textContent = ''; }, 1400);
+    } else {
+      W.toast(msg || 'Incorrect — try again');
+    }
+  };
+
   var toastT = null;
   W.toast = function (m) {
     var old = $('.toast'); if (old) old.remove();
@@ -150,8 +167,9 @@
           mistakes++; W.mark(w, false);
           var a = sel.c, b = c;
           a.classList.remove('sel'); a.classList.add('bad'); b.classList.add('bad');
+          W.wrongFx(b, 'Incorrect');
           sel = null;
-          setTimeout(function () { a.classList.remove('bad'); b.classList.remove('bad'); }, 450);
+          setTimeout(function () { a.classList.remove('bad'); b.classList.remove('bad'); }, 500);
         }
       }
     }
@@ -180,13 +198,15 @@
       var w = queue[idx];
       var words = w.en.trim().split(/\s+/);
       var pool2 = W.shuffle(words.map(function (x, i) { return { t: x, i: i }; }));
-      var placed = [];
+      var placed = [], tries = 0;
       W.count((idx + 1) + '/' + queue.length);
 
       body.innerHTML =
         '<div class="ru-hint">' + esc(w.ru) + '</div>' +
         '<div class="build-target" id="tgt"></div>' +
+        '<div class="inc" id="inc"></div>' +
         '<div class="build-pool" id="pool"></div>' +
+        '<div class="hintline" id="hint"></div>' +
         '<button class="btn btn-o" id="chk">Check</button>' +
         '<button class="btn btn-g" id="clr">Clear</button>';
 
@@ -214,14 +234,16 @@
       $('#chk').onclick = function () {
         var got = placed.map(function (x) { return x.t; }).join(' ');
         if (W.norm(got) === W.norm(w.en)) {
-          W.mark(w, true); right++; xp += W.XP.build; W.addXP(W.XP.build);
+          W.mark(w, tries === 0); if (tries === 0) right++;
+          xp += W.XP.build; W.addXP(W.XP.build);
           W.toast('Correct!');
+          idx++;
+          setTimeout(draw, 700);
         } else {
-          W.mark(w, false);
-          W.toast(w.en);
+          tries++;
+          W.wrongFx($('#tgt'));
+          if (tries >= 3) $('#hint').textContent = 'starts with: ' + words.slice(0, 2).join(' ') + ' …';
         }
-        idx++;
-        setTimeout(draw, 800);
       };
     }
     draw();
@@ -252,31 +274,39 @@
       }
       var w = queue[idx], t = task(w);
       W.count((idx + 1) + '/' + queue.length);
+      var tries = 0;
       body.innerHTML =
         '<div class="ru-hint">' + esc(w.ru) + '</div>' +
         (t.prompt ? '<div class="sprint-q" style="font-size:26px">' + esc(t.prompt) + '</div>'
           : '<div class="q-label">Write it in English</div>') +
         '<input class="type-in" id="inp" autocomplete="off" autocorrect="off" autocapitalize="off" ' +
         'spellcheck="false" placeholder="' + esc(t.answer.charAt(0)) + '…">' +
-        '<button class="btn btn-o" id="ok">Check</button>' +
-        '<button class="btn btn-g" id="skip">Show me</button>';
+        '<div class="inc" id="inc"></div>' +
+        '<div class="hintline" id="hint"></div>' +
+        '<button class="btn btn-o" id="ok">Check</button>';
 
       var inp = $('#inp');
       inp.focus();
       function check() {
-        var good = W.norm(inp.value) === W.norm(t.answer);
-        inp.classList.add(good ? 'ok' : 'bad');
-        if (good) { right++; xp += W.XP.type; W.addXP(W.XP.type); W.mark(w, true); W.toast('Correct!'); }
-        else { W.mark(w, false); W.toast(t.answer); }
-        idx++;
-        setTimeout(draw, good ? 500 : 1100);
+        if (W.norm(inp.value) === W.norm(t.answer)) {
+          inp.classList.add('ok');
+          if (tries === 0) right++;
+          xp += W.XP.type; W.addXP(W.XP.type); W.mark(w, tries === 0);
+          W.toast('Correct!');
+          idx++;
+          setTimeout(draw, 550);
+        } else {
+          tries++;
+          W.wrongFx(inp);
+          if (tries >= 3) {
+            var open2 = Math.min(t.answer.length, tries - 1);
+            $('#hint').textContent = 'starts with: ' + t.answer.slice(0, open2) + '…';
+          }
+          inp.focus();
+        }
       }
       $('#ok').onclick = check;
       inp.onkeydown = function (e) { if (e.key === 'Enter') check(); };
-      $('#skip').onclick = function () {
-        W.mark(w, false); W.toast(t.answer);
-        idx++; setTimeout(draw, 1100);
-      };
     }
     draw();
   };
@@ -307,11 +337,13 @@
       var w = W.pick(pool, 1)[0];
       var others = W.shuffle(pool.filter(function (x) { return x.ru !== w.ru; })).slice(0, 3);
       var opts = W.shuffle([w].concat(others));
+      var missed = false;
       body.innerHTML =
         '<div class="hud"><div class="t" id="tmr">' + left + 's</div>' +
         '<div class="t">' + score + '</div></div>' +
         '<div class="combo">' + (combo > 1 ? 'combo ×' + combo : '') + '</div>' +
-        '<div class="sprint-q">' + esc(w.en) + '</div><div id="opts"></div>';
+        '<div class="sprint-q">' + esc(w.en) + '</div>' +
+        '<div class="inc" id="inc"></div><div id="opts"></div>';
 
       var box = $('#opts');
       opts.forEach(function (o) {
@@ -319,16 +351,18 @@
         b.className = 'opt'; b.textContent = o.ru;
         b.onclick = function () {
           if (lock) return;
-          lock = true;
           if (o.ru === w.ru) {
-            combo++; if (combo > best) best = combo;
-            var add = W.XP.sprint + Math.min(combo, 5) * 2;
+            lock = true;
+            if (!missed) { combo++; if (combo > best) best = combo; }
+            var add = W.XP.sprint + (missed ? 0 : Math.min(combo, 5) * 2);
             score += add; xp += add; W.addXP(add);
-            W.mark(w, true); b.classList.add('ok');
+            W.mark(w, !missed); b.classList.add('ok');
+            setTimeout(function () { lock = false; draw(); }, 320);
           } else {
-            combo = 0; W.mark(w, false); b.classList.add('bad');
+            missed = true; combo = 0; W.mark(w, false);
+            b.classList.add('bad', 'dead');
+            W.wrongFx(b);
           }
-          setTimeout(function () { lock = false; draw(); }, 320);
         };
         box.appendChild(b);
       });

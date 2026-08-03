@@ -65,24 +65,27 @@
           right === queue.length ? 'You got the rule!' : 'Check ❌ / ✅ again.',
           xp, function () { W.ruleDrill(r); });
       }
-      var t = queue[idx];
+      var t = queue[idx], missed = false;
       W.count((idx + 1) + '/' + queue.length);
-      body.innerHTML = '<div class="sprint-q">' + esc(t.q) + '</div><div id="opts"></div>';
+      body.innerHTML = '<div class="sprint-q">' + esc(t.q) + '</div>' +
+        '<div class="inc" id="inc"></div><div id="opts"></div>';
       var box = $('#opts');
       W.shuffle(t.opts).forEach(function (o) {
         var b = document.createElement('button');
         b.className = 'opt'; b.textContent = o;
         b.onclick = function () {
           if (lock) return;
-          lock = true;
-          if (o === t.a) { b.classList.add('ok'); right++; xp += W.XP.rule; W.addXP(W.XP.rule); }
-          else {
-            b.classList.add('bad');
-            Array.prototype.forEach.call(box.children, function (c) {
-              if (c.textContent === t.a) c.classList.add('ok');
-            });
+          if (o === t.a) {
+            lock = true;
+            b.classList.add('ok');
+            if (!missed) right++;
+            xp += W.XP.rule; W.addXP(W.XP.rule);
+            setTimeout(function () { lock = false; idx++; draw(); }, 420);
+          } else {
+            missed = true;
+            b.classList.add('bad', 'dead');
+            W.wrongFx(b);
           }
-          setTimeout(function () { lock = false; idx++; draw(); }, o === t.a ? 420 : 1100);
         };
         box.appendChild(b);
       });
@@ -105,13 +108,15 @@
       var t = queue[idx];
       var words = t.en.trim().split(/\s+/);
       var pool = W.shuffle(words.map(function (x, i) { return { t: x, i: i }; }));
-      var placed = [];
+      var placed = [], tries = 0;
       W.count((idx + 1) + '/' + queue.length);
 
       body.innerHTML =
         '<div class="ru-hint">' + esc(t.ru) + '</div>' +
         '<div class="build-target" id="tgt"></div>' +
+        '<div class="inc" id="inc"></div>' +
         '<div class="build-pool" id="pool"></div>' +
+        '<div class="hintline" id="hint"></div>' +
         '<button class="btn btn-o" id="chk">Check</button>' +
         '<button class="btn btn-g" id="clr">Clear</button>';
 
@@ -139,10 +144,16 @@
       $('#chk').onclick = function () {
         var got = placed.map(function (x) { return x.t; }).join(' ');
         if (W.norm(got) === W.norm(t.en)) {
-          right++; xp += W.XP.build; W.addXP(W.XP.build); W.toast('Correct! Say it out loud');
-        } else W.toast(t.en);
-        idx++;
-        setTimeout(draw, 900);
+          if (tries === 0) right++;
+          xp += W.XP.build; W.addXP(W.XP.build);
+          W.toast('Correct! Say it out loud');
+          idx++;
+          setTimeout(draw, 800);
+        } else {
+          tries++;
+          W.wrongFx($('#tgt'));
+          if (tries >= 3) $('#hint').textContent = 'starts with: ' + words.slice(0, 2).join(' ') + ' …';
+        }
       };
     }
     draw();
