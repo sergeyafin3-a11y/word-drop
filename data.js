@@ -180,7 +180,7 @@ window.TOPICS = [
 window.BATCHES = [
   {
     id: 'b-02',
-    title: 'Lesson 2 · Daily routine',
+    title: 'Daily Routine',
     date: '4 Aug',
     items: [
       { en: 'wake up', ru: 'просыпаться', icon: '🌅' },
@@ -198,7 +198,7 @@ window.BATCHES = [
   },
   {
     id: 'b-01',
-    title: 'Lesson 1',
+    title: 'Hobbies',
     date: '3 Aug',
     items: [
       { en: 'hang out with friends', ru: 'тусоваться с друзьями', icon: '👯' },

@@ -43,7 +43,7 @@
   function menuHtml() {
     var sel = W.sel();
     return '<div class="dd">' +
-      '<div class="dd-h">New words</div>' +
+      '<div class="dd-h">New words after the lesson</div>' +
       W.batches().map(function (b) {
         var l = W.batchLic(b.id);
         return menuRow(sel.type === 'batch' && sel.id === b.id, '🆕', b.title,
@@ -52,25 +52,23 @@
       }).join('') +
       '<div class="dd-h">Topics</div>' +
       W.topics().map(function (t) {
-        var l = W.topicAll(t.id);
-        var on = sel.type === 'topic' && sel.id === t.id;
-        return menuRow(on, t.emoji || '📚', t.title,
-          l.length + ' words and phrases · ' + W.progress(l) + '%',
-          'data-set="topic" data-id="' + t.id + '"');
+        return '<div class="dd-topic">' + (t.emoji || '📚') + ' ' + esc(t.title) + '</div>' +
+          W.KINDS.map(function (k) {
+            var l = W.list(t.id, k.id);
+            var on = sel.type === 'topic' && sel.id === t.id && sel.kind === k.id;
+            return menuRow(on, k.id === 'phrases' ? '💬' : '📕', k.label,
+              l.length + ' items · ' + W.progress(l) + '%',
+              'data-set="topic" data-id="' + t.id + '" data-kind="' + k.id + '"');
+          }).join('');
       }).join('') +
       '</div>';
   }
 
-  /* ================= LEARN ================= */
-  function viewLearn() {
+  /* кнопка выбора набора — одинаковая на Learn и Lesson */
+  function setbarHtml() {
     var list = W.activeList();
-    if (!list.length) {
-      return '<div class="empty"><b>No words yet</b><p>Open the menu and pick a set.</p></div>';
-    }
     var p = W.progress(list), due = W.due(list).length;
-
-    return '' +
-      '<button class="setbar' + (W.menuOpen ? ' open' : '') + '" id="openMenu2">' +
+    return '<button class="setbar' + (W.menuOpen ? ' open' : '') + '" id="openMenu2">' +
       '<div class="sm">☰ Menu · tap to change</div>' +
       '<div class="srow"><div class="se">' + W.selEmoji() + '</div>' +
       '<div class="si"><div class="sn">' + esc(W.selTitle()) + '</div>' +
@@ -78,9 +76,15 @@
       '<div class="sv">' + (W.menuOpen ? '▴' : '▾') + '</div></div>' +
       '<div class="bar light"><i style="width:' + p + '%"></i></div>' +
       '</button>' +
+      (W.menuOpen ? menuHtml() : '');
+  }
 
-      (W.menuOpen ? menuHtml() : '') +
-
+  /* ================= LEARN ================= */
+  function viewLearn() {
+    if (!W.activeList().length) {
+      return '<div class="empty"><b>No words yet</b><p>Open the menu and pick a set.</p></div>';
+    }
+    return setbarHtml() +
       '<div class="h">Practice</div>' +
       '<div class="acts">' +
       act('sort', '🗂', 'Sort & Say', 'say a full sentence', 'accent') +
@@ -101,7 +105,7 @@
 
   /* ================= LESSON ================= */
   function viewLesson() {
-    return '' +
+    return setbarHtml() +
       '<div class="h">With the teacher</div>' +
       '<div class="acts">' +
       act('warmup', '🔥', 'Warm-up', '5 questions + 5 old words') +
@@ -213,6 +217,7 @@
   }
   W.load();
   if (!W.s.rules) W.s.rules = {};
+  W.migrate();
   W.sel();
   W.saveNow();
 

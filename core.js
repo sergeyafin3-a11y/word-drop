@@ -102,15 +102,46 @@
   };
 
   W.KINDS = [
-    { id: 'words', label: 'Words' },
+    { id: 'words', label: 'New words' },
     { id: 'phrases', label: 'Speaking phrases' }
   ];
-  W.kindLabel = function (k) { return k === 'phrases' ? 'Speaking phrases' : 'Words'; };
+  W.kindLabel = function (k) { return k === 'phrases' ? 'Speaking phrases' : 'New words'; };
 
-  W.wordState = function (a, b, i) {
-    var id = a + '|' + b + '|' + i;
+  /* Прогресс привязан к САМОМУ СЛОВУ, а не к его месту в списке.
+     Поэтому можно вставлять, удалять, переставлять и переименовывать
+     что угодно — выученное не собьётся. */
+  W.wkey = function (en) {
+    return 'w:' + String(en || '').toLowerCase().replace(/\s+/g, ' ').trim();
+  };
+
+  W.wordState = function (en) {
+    var id = W.wkey(en);
     if (!W.s.words[id]) W.s.words[id] = { box: 0, due: '', wrong: 0, right: 0 };
     return W.s.words[id];
+  };
+
+  /* однократный перенос старого прогресса (ключи вида hobbies|words|3) */
+  W.migrate = function () {
+    if (W.s.mig2) return 0;
+    var moved = 0;
+    function move(oldKey, en) {
+      var o = W.s.words[oldKey];
+      if (!o) return;
+      var nk = W.wkey(en), cur = W.s.words[nk];
+      if (!cur || (o.box || 0) > (cur.box || 0)) W.s.words[nk] = o;
+      delete W.s.words[oldKey];
+      moved++;
+    }
+    W.topics().forEach(function (t) {
+      (t.words || []).forEach(function (it, i) { move(t.id + '|words|' + i, it.en); });
+      (t.phrases || []).forEach(function (it, i) { move(t.id + '|phrases|' + i, it.en); });
+    });
+    W.batches().forEach(function (b) {
+      (b.items || []).forEach(function (it, i) { move(b.id + '|batch|' + i, it.en); });
+    });
+    W.s.mig2 = true;
+    W.saveNow();
+    return moved;
   };
 
   function wrap(a, b, arr) {
@@ -118,7 +149,7 @@
       return {
         tid: a, kind: b, i: i,
         en: it.en, ru: it.ru, icon: it.icon || '',
-        st: W.wordState(a, b, i)
+        st: W.wordState(it.en)
       };
     });
   }
@@ -154,6 +185,7 @@
       s = b ? { type: 'batch', id: b.id } : { type: 'topic', id: (W.topics()[0] || {}).id, kind: 'words' };
       W.s.sel = s;
     }
+    if (s.type === 'topic' && !s.kind) s.kind = 'words';
     return s;
   };
   W.setSel = function (type, id, kind) {
@@ -168,7 +200,7 @@
       return b ? 'New words · ' + b.title : 'New words';
     }
     var t2 = W.topic(s.id);
-    return t2 ? t2.title : '';
+    return t2 ? t2.title + ' · ' + W.kindLabel(s.kind) : '';
   };
   W.selEmoji = function () {
     var s = W.sel();
@@ -183,12 +215,12 @@
       return b ? b.items.length + ' new words · ' + b.date : '';
     }
     var t2 = W.topic(s.id);
-    return t2 ? (t2.words.length + t2.phrases.length) + ' words and phrases' : '';
+    return t2 ? W.list(t2.id, s.kind).length + ' items · ' + t2.title : '';
   };
 
   W.activeList = function () {
     var s = W.sel();
-    return s.type === 'batch' ? W.batchLic(s.id) : W.topicAll(s.id);
+    return s.type === 'batch' ? W.batchLic(s.id) : W.list(s.id, s.kind);
   };
 
   /* для режимов урока: фразы текущей темы либо всё подряд */

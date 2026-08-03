@@ -387,3 +387,6 @@ input,select{font-family:inherit;font-size:17px;color:inherit}
 .mrow .mt{font-weight:700;font-size:16px;line-height:1.2}
 .mrow .ms{color:var(--muted);font-size:13px;margin-top:3px}
 .mrow .mc{color:var(--accent);font-weight:700;font-size:18px}
+
+.dd-topic{font-weight:700;font-size:17px;margin:14px 8px 8px;display:flex;align-items:center;gap:8px}
+.dd .mrow{margin-left:14px;width:calc(100% - 14px)}
