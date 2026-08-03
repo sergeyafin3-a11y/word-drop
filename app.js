@@ -52,13 +52,11 @@
       }).join('') +
       '<div class="dd-h">Topics</div>' +
       W.topics().map(function (t) {
-        return W.KINDS.map(function (k) {
-          var l = W.list(t.id, k.id);
-          var on = sel.type === 'topic' && sel.id === t.id && sel.kind === k.id;
-          return menuRow(on, t.emoji || '📚', t.title + ' · ' + k.label,
-            l.length + ' items · ' + W.progress(l) + '%',
-            'data-set="topic" data-id="' + t.id + '" data-kind="' + k.id + '"');
-        }).join('');
+        var l = W.topicAll(t.id);
+        var on = sel.type === 'topic' && sel.id === t.id;
+        return menuRow(on, t.emoji || '📚', t.title,
+          l.length + ' words and phrases · ' + W.progress(l) + '%',
+          'data-set="topic" data-id="' + t.id + '"');
       }).join('') +
       '</div>';
   }
@@ -139,9 +137,7 @@
       sets.push({ n: 'New words · ' + b.title, p: W.progress(W.batchLic(b.id)) });
     });
     W.topics().forEach(function (t) {
-      W.KINDS.forEach(function (k) {
-        sets.push({ n: t.title + ' · ' + k.label, p: W.progress(W.list(t.id, k.id)) });
-      });
+      sets.push({ n: t.title, p: W.progress(W.topicAll(t.id)) });
     });
 
     return '' +

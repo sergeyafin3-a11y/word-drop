@@ -133,6 +133,10 @@
     return b ? wrap(b.id, 'batch', b.items) : [];
   };
 
+  W.topicAll = function (tid) {
+    return W.list(tid, 'words').concat(W.list(tid, 'phrases'));
+  };
+
   W.allWords = function () {
     var out = [];
     W.topics().forEach(function (t2) {
@@ -150,7 +154,6 @@
       s = b ? { type: 'batch', id: b.id } : { type: 'topic', id: (W.topics()[0] || {}).id, kind: 'words' };
       W.s.sel = s;
     }
-    if (s.type === 'topic' && !s.kind) s.kind = 'words';
     return s;
   };
   W.setSel = function (type, id, kind) {
@@ -180,12 +183,12 @@
       return b ? b.items.length + ' new words · ' + b.date : '';
     }
     var t2 = W.topic(s.id);
-    return t2 ? t2.words.length + ' words · ' + t2.phrases.length + ' speaking phrases' : '';
+    return t2 ? (t2.words.length + t2.phrases.length) + ' words and phrases' : '';
   };
 
   W.activeList = function () {
     var s = W.sel();
-    return s.type === 'batch' ? W.batchLic(s.id) : W.list(s.id, s.kind);
+    return s.type === 'batch' ? W.batchLic(s.id) : W.topicAll(s.id);
   };
 
   /* для режимов урока: фразы текущей темы либо всё подряд */
