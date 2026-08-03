@@ -367,3 +367,23 @@ input,select{font-family:inherit;font-size:17px;color:inherit}
 .setbar .sv{font-size:22px;color:var(--accent)}
 .setbar .bar.light{background:var(--surface-2);height:6px;margin-top:9px}
 .setbar .bar.light i{background:var(--accent-grad)}
+
+/* ---------- выпадающий список наборов ---------- */
+.setbar.open{border-bottom-left-radius:0;border-bottom-right-radius:0;margin-bottom:0}
+.dd{
+  background:var(--surface);border:2px solid var(--accent);border-top:0;
+  border-radius:0 0 var(--r) var(--r);padding:6px 10px 12px;margin-bottom:14px;
+  box-shadow:var(--shadow);
+}
+.dd-h{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.6px;
+  text-transform:uppercase;margin:12px 8px 8px}
+.mrow{
+  display:flex;align-items:center;gap:12px;width:100%;text-align:left;
+  background:var(--surface-2);border:2px solid transparent;border-radius:14px;
+  padding:13px;margin-bottom:8px;
+}
+.mrow.on{border-color:var(--accent)}
+.mrow .me{font-size:23px}
+.mrow .mt{font-weight:700;font-size:16px;line-height:1.2}
+.mrow .ms{color:var(--muted);font-size:13px;margin-top:3px}
+.mrow .mc{color:var(--accent);font-weight:700;font-size:18px}

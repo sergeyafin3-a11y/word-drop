@@ -30,55 +30,38 @@
   };
 
   /* ================= МЕНЮ НАБОРОВ ================= */
-  W.menu = function () {
+  W.menuOpen = false;
+
+  function menuRow(active, emoji, title, sub, data) {
+    return '<button class="mrow' + (active ? ' on' : '') + '" ' + data + '>' +
+      '<div class="me">' + emoji + '</div>' +
+      '<div style="flex:1"><div class="mt">' + esc(title) + '</div>' +
+      '<div class="ms">' + esc(sub) + '</div></div>' +
+      (active ? '<div class="mc">✓</div>' : '') + '</button>';
+  }
+
+  function menuHtml() {
     var sel = W.sel();
-    var el = document.createElement('div');
-    el.className = 'sheet';
-
-    function row(active, emoji, title, sub, data) {
-      return '<button class="mrow' + (active ? ' on' : '') + '" ' + data + '>' +
-        '<div class="me">' + emoji + '</div>' +
-        '<div style="flex:1"><div class="mt">' + esc(title) + '</div>' +
-        '<div class="ms">' + esc(sub) + '</div></div>' +
-        (active ? '<div class="mc">✓</div>' : '') + '</button>';
-    }
-
-    el.innerHTML =
-      '<div class="back"></div><div class="body">' +
-      '<div class="sheet-title">Choose what to study</div>' +
-
-      '<div class="sheet-h">New words</div>' +
-      (W.batches().length
-        ? W.batches().map(function (b) {
-          var l = W.batchLic(b.id);
-          return row(sel.type === 'batch' && sel.id === b.id, '🆕', b.title,
-            b.items.length + ' words · ' + b.date + ' · ' + W.progress(l) + '%',
-            'data-set="batch" data-id="' + b.id + '"');
-        }).join('')
-        : '<div class="muted" style="padding:6px 4px">Пока пусто</div>') +
-
-      '<div class="sheet-h">Topics</div>' +
+    return '<div class="dd">' +
+      '<div class="dd-h">New words</div>' +
+      W.batches().map(function (b) {
+        var l = W.batchLic(b.id);
+        return menuRow(sel.type === 'batch' && sel.id === b.id, '🆕', b.title,
+          b.items.length + ' words · ' + W.progress(l) + '%',
+          'data-set="batch" data-id="' + b.id + '"');
+      }).join('') +
+      '<div class="dd-h">Topics</div>' +
       W.topics().map(function (t) {
         return W.KINDS.map(function (k) {
           var l = W.list(t.id, k.id);
           var on = sel.type === 'topic' && sel.id === t.id && sel.kind === k.id;
-          return row(on, t.emoji || '📚', t.title + ' · ' + k.label,
+          return menuRow(on, t.emoji || '📚', t.title + ' · ' + k.label,
             l.length + ' items · ' + W.progress(l) + '%',
             'data-set="topic" data-id="' + t.id + '" data-kind="' + k.id + '"');
         }).join('');
       }).join('') +
       '</div>';
-
-    document.body.appendChild(el);
-    el.querySelector('.back').onclick = function () { el.remove(); };
-    Array.prototype.forEach.call(el.querySelectorAll('[data-set]'), function (b) {
-      b.onclick = function () {
-        W.setSel(b.dataset.set, b.dataset.id, b.dataset.kind);
-        el.remove();
-        W.go('learn');
-      };
-    });
-  };
+  }
 
   /* ================= LEARN ================= */
   function viewLearn() {
@@ -89,14 +72,16 @@
     var p = W.progress(list), due = W.due(list).length;
 
     return '' +
-      '<button class="setbar" id="openMenu2">' +
+      '<button class="setbar' + (W.menuOpen ? ' open' : '') + '" id="openMenu2">' +
       '<div class="sm">☰ Menu · tap to change</div>' +
       '<div class="srow"><div class="se">' + W.selEmoji() + '</div>' +
       '<div class="si"><div class="sn">' + esc(W.selTitle()) + '</div>' +
       '<div class="ss">' + p + '% learned · ' + due + ' to review</div></div>' +
-      '<div class="sv">▾</div></div>' +
+      '<div class="sv">' + (W.menuOpen ? '▴' : '▾') + '</div></div>' +
       '<div class="bar light"><i style="width:' + p + '%"></i></div>' +
       '</button>' +
+
+      (W.menuOpen ? menuHtml() : '') +
 
       '<div class="h">Practice</div>' +
       '<div class="acts">' +
@@ -106,8 +91,7 @@
       act('build', '🧩', 'Build it', 'words in the right order') +
       act('type', '⌨️', 'Type it', 'write from memory') +
       act('sprint', '⚡', 'Sprint', '60 seconds · best ' + (W.s.records.sprint || 0), 'full') +
-      '</div>' +
-      '<button class="btn btn-g" id="showList">See all words (' + list.length + ')</button>';
+      '</div>';
   }
 
   function act(id, ico, nm, sub, mode) {
@@ -116,20 +100,6 @@
       '<div class="ico">' + ico + '</div>' +
       '<div><div class="nm">' + nm + '</div><div class="sub">' + esc(sub) + '</div></div></button>';
   }
-
-  /* полный список слов — отдельным экраном */
-  W.wordList = function () {
-    var list = W.activeList();
-    var body = W.open(W.selTitle());
-    body.style.justifyContent = 'flex-start';
-    body.innerHTML = list.map(function (w) {
-      return '<div class="word' + (W.isKnown(w.st) ? ' known' : '') + '">' +
-        (w.icon ? '<div style="font-size:22px">' + w.icon + '</div>' : '') +
-        '<div style="flex:1"><div class="en">' + esc(w.en) + '</div>' +
-        '<div class="ru">' + esc(w.ru) + '</div></div>' +
-        '<div class="st">' + (W.isKnown(w.st) ? '✓' : (w.st.box || 0) + '/5') + '</div></div>';
-    }).join('');
-  };
 
   /* ================= LESSON ================= */
   function viewLesson() {
@@ -205,8 +175,18 @@
 
   /* ================= обработчики ================= */
   function wire() {
-    if ($('#openMenu2')) $('#openMenu2').onclick = W.menu;
-    if ($('#showList')) $('#showList').onclick = W.wordList;
+    if ($('#openMenu2')) $('#openMenu2').onclick = function () {
+      W.menuOpen = !W.menuOpen;
+      W.render();
+    };
+
+    Array.prototype.forEach.call(document.querySelectorAll('[data-set]'), function (b) {
+      b.onclick = function () {
+        W.setSel(b.dataset.set, b.dataset.id, b.dataset.kind);
+        W.menuOpen = false;
+        W.render();
+      };
+    });
 
     Array.prototype.forEach.call(document.querySelectorAll('[data-act]'), function (b) {
       b.onclick = function () {
