@@ -104,6 +104,67 @@ window.TOPICS = [
       'What do you do after school?',
       'What do you do at the weekend?'
     ]
+  },
+
+  {
+    id: 'routine',
+    title: 'Daily Routine',
+    emoji: '⏰',
+
+    /* ---------- NEW WORDS ---------- */
+    words: [
+      { en: 'wake up', ru: 'просыпаться', icon: '🌅' },
+      { en: 'get up early', ru: 'вставать рано', icon: '⏰' },
+      { en: 'brush my teeth', ru: 'чистить зубы', icon: '🪥' },
+      { en: 'have a shower', ru: 'принимать душ', icon: '🚿' },
+      { en: 'eat breakfast', ru: 'завтракать', icon: '🥞' },
+      { en: 'get ready', ru: 'собираться', icon: '🎒' },
+      { en: 'go to school', ru: 'идти в школу', icon: '🏫' },
+      { en: 'study', ru: 'учиться', icon: '📖' },
+      { en: 'have lunch', ru: 'обедать', icon: '🥪' },
+      { en: 'go home', ru: 'идти домой', icon: '🏠' },
+      { en: 'do homework', ru: 'делать домашку', icon: '✏️' },
+      { en: 'watch videos', ru: 'смотреть видео', icon: '📱' },
+      { en: 'eat dinner', ru: 'ужинать', icon: '🍽️' },
+      { en: 'relax', ru: 'отдыхать', icon: '🛋️' },
+      { en: 'go to bed late', ru: 'поздно ложиться', icon: '🌙' },
+      { en: 'go to sleep', ru: 'ложиться спать', icon: '😴' }
+    ],
+
+    /* ---------- SPEAKING PHRASES ---------- */
+    phrases: [
+      { en: 'In the morning, I wake up early', ru: 'утром я встаю рано' },
+      { en: 'After school, I go home and relax', ru: 'после школы я иду домой и отдыхаю' },
+      { en: 'In the evening, I watch videos', ru: 'вечером я смотрю видео' },
+      { en: 'Every day, I listen to music', ru: 'каждый день я слушаю музыку' },
+      { en: 'I usually get up at seven', ru: 'обычно я встаю в семь' },
+      { en: 'I always listen to music', ru: 'я всегда слушаю музыку' },
+      { en: 'I never go to bed early', ru: 'я никогда не ложусь рано' },
+      { en: 'I watch interviews on YouTube', ru: 'я смотрю интервью на ютубе' },
+      { en: 'I am watching a video right now', ru: 'я прямо сейчас смотрю видео' },
+      { en: 'Yesterday I watched two videos', ru: 'вчера я посмотрел два видео' },
+      { en: 'Last night I ate dinner at eight', ru: 'вчера вечером я ужинал в восемь' },
+      { en: 'Do you watch videos every day?', ru: 'ты смотришь видео каждый день?' },
+      { en: 'Yes, I do', ru: 'да' },
+      { en: "No, I don't", ru: 'нет' },
+      { en: 'One day I want to travel', ru: 'однажды я хочу путешествовать' },
+      { en: 'What about you?', ru: 'а ты?' }
+    ],
+
+    questions: [
+      'What time do you wake up?',
+      'What is the first thing you do?',
+      'What do you do every morning?',
+      'What do you do every single day?',
+      'What are you doing right now?',
+      'What did you do yesterday?',
+      'Where did you go last weekend?',
+      'What music do you listen to?',
+      'What did you watch last night?',
+      'What do you do after school?',
+      'What do you do in the evening?',
+      'Do you want to travel? Where?'
+    ]
   }
 
 ];
@@ -117,6 +178,24 @@ window.TOPICS = [
    ============================================================ */
 
 window.BATCHES = [
+  {
+    id: 'b-02',
+    title: 'Lesson 2 · Daily routine',
+    date: '4 Aug',
+    items: [
+      { en: 'wake up', ru: 'просыпаться', icon: '🌅' },
+      { en: 'eat breakfast', ru: 'завтракать', icon: '🥞' },
+      { en: 'get ready', ru: 'собираться', icon: '🎒' },
+      { en: 'go to school', ru: 'идти в школу', icon: '🏫' },
+      { en: 'study', ru: 'учиться', icon: '📖' },
+      { en: 'go home', ru: 'идти домой', icon: '🏠' },
+      { en: 'do homework', ru: 'делать домашку', icon: '✏️' },
+      { en: 'watch videos', ru: 'смотреть видео', icon: '📱' },
+      { en: 'eat dinner', ru: 'ужинать', icon: '🍽️' },
+      { en: 'relax', ru: 'отдыхать', icon: '🛋️' },
+      { en: 'go to sleep', ru: 'ложиться спать', icon: '😴' }
+    ]
+  },
   {
     id: 'b-01',
     title: 'Lesson 1',
@@ -143,7 +222,10 @@ window.WARMUP = [
   'What music did you listen to today?',
   'How was school today?',
   'What are your plans for the weekend?',
-  'What is one good thing about today?'
+  'What is one good thing about today?',
+  'What time did you wake up today?',
+  'What is the first thing you do in the morning?',
+  'Morning music or quiet morning?'
 ];
 
 /* Спид-раунд: отвечать сразу, без пауз */
@@ -157,7 +239,10 @@ window.SPEED = [
   'A hobby your family enjoys doing together.',
   'Something you hate doing before school.',
   'A hobby you would like to try.',
-  'Something you are really good at.'
+  'Something you are really good at.',
+  'Something you do every morning.',
+  'Something you did yesterday evening.',
+  'Something you are doing right now.'
 ];
 
 /* Детали, которые можно добавить к предложению */
@@ -192,6 +277,8 @@ window.DUELS = [
   { title: 'Free time', you: 'Ask what he does after school and at the weekend.', him: 'Answer with I like / I love / I enjoy + V-ing.' },
   { title: 'Invite a friend', you: 'Invite him out on Saturday. Offer two activities.', him: 'Say yes to one and no to the other: "Not really".' },
   { title: 'Interview', you: 'You write for the school blog. Interview him about his hobby.', him: "Answer in full sentences: I'm into..., I'm good at..." },
+  { title: 'New friend abroad', you: 'Ask: What do you do in the morning? What do you do after school? Do you watch interviews?', him: 'Answer and ask back: "What about you?"' },
+  { title: 'YouTube interview', you: 'You run a YouTube channel. Interview him about his daily routine — at least 4 questions.', him: 'Answer in full sentences, add one detail, finish with "What about you?"' },
   { title: 'Summer plans', you: 'Ask what he would like to try this summer and why.', him: 'Answer with I would like to... and say why.' }
 ];
 
@@ -376,10 +463,96 @@ window.GRAMMAR = [
       { ru: 'я никогда не пою', en: 'I never sing' },
       { ru: 'я иногда снимаю видео', en: 'I sometimes make videos' }
     ]
+  },
+
+  {
+    id: 'g-07',
+    title: 'Present Continuous',
+    sub: 'what you are doing now',
+    formula: 'I <b>am watching</b> a video now',
+    rule: 'Now, right now, Look! — use am / is / are + verb-ing.',
+    bad: 'I watching now',
+    ok: 'I am watching now',
+    examples: [
+      { en: 'I am waking up', ru: 'я просыпаюсь' },
+      { en: 'She is watching videos', ru: 'она смотрит видео' },
+      { en: 'Look! He is doing his homework', ru: 'смотри! он делает домашку' },
+      { en: 'We are eating dinner now', ru: 'мы сейчас ужинаем' }
+    ],
+    drill: [
+      { q: 'Listen! She ___ (listen) to music now', a: 'is listening', opts: ['listens', 'is listening'] },
+      { q: 'Look — he ___ (do) his homework now', a: 'is doing', opts: ['does', 'is doing'] },
+      { q: 'I ___ (watch) a video right now', a: 'am watching', opts: ['watch', 'am watching'] },
+      { q: 'We ___ (eat) dinner now', a: 'are eating', opts: ['eat', 'are eating'] },
+      { q: 'What ___ you doing right now?', a: 'are', opts: ['do', 'are'] }
+    ],
+    say: [
+      { ru: 'я сейчас смотрю видео', en: 'I am watching a video' },
+      { ru: 'она сейчас слушает музыку', en: 'She is listening to music' },
+      { ru: 'я делаю домашку прямо сейчас', en: 'I am doing my homework right now' },
+      { ru: 'что ты сейчас делаешь?', en: 'What are you doing now?' }
+    ]
+  },
+
+  {
+    id: 'g-08',
+    title: 'Past Simple',
+    sub: 'what you did yesterday',
+    formula: 'Yesterday I <b>watched</b> two videos',
+    rule: 'Yesterday, last night, two weeks ago — use the past form. Most verbs take -ed, but some change: go went, eat ate, wake up woke up.',
+    bad: 'Yesterday I watch two videos',
+    ok: 'Yesterday I watched two videos',
+    examples: [
+      { en: 'I woke up at seven', ru: 'я проснулся в семь' },
+      { en: 'She watched videos', ru: 'она смотрела видео' },
+      { en: 'We went to Italy', ru: 'мы ездили в Италию' },
+      { en: 'I ate dinner at eight', ru: 'я поужинал в восемь' }
+    ],
+    drill: [
+      { q: 'Yesterday, I ___ (watch) two videos', a: 'watched', opts: ['watch', 'watched'] },
+      { q: 'Two weeks ago, we ___ (go) to Italy', a: 'went', opts: ['go', 'goed', 'went'] },
+      { q: 'Last night, I ___ (eat) dinner at eight', a: 'ate', opts: ['eat', 'ate'] },
+      { q: 'Yesterday I ___ (wake up) late', a: 'woke up', opts: ['wake up', 'woke up'] },
+      { q: 'Last weekend she ___ (relax) at home', a: 'relaxed', opts: ['relax', 'relaxed'] }
+    ],
+    say: [
+      { ru: 'вчера я посмотрел два видео', en: 'Yesterday I watched two videos' },
+      { ru: 'вчера вечером я поужинал в восемь', en: 'Last night I ate dinner at eight' },
+      { ru: 'на прошлых выходных мы ездили в Италию', en: 'Last weekend we went to Italy' },
+      { ru: 'вчера я проснулся поздно', en: 'Yesterday I woke up late' }
+    ]
+  },
+
+  {
+    id: 'g-09',
+    title: 'Do you ...?',
+    sub: 'ask your friend back',
+    formula: '<b>Do</b> you watch videos?',
+    rule: 'To ask about a usual thing: Do you + verb? Short answers: Yes, I do / No, I do not. For he and she: Does he ...?',
+    bad: 'You watch videos?',
+    ok: 'Do you watch videos?',
+    examples: [
+      { en: 'Do you watch videos every day?', ru: 'ты смотришь видео каждый день?' },
+      { en: 'Yes, I do', ru: 'да' },
+      { en: "No, I don't", ru: 'нет' },
+      { en: 'Does he play football?', ru: 'он играет в футбол?' }
+    ],
+    drill: [
+      { q: '___ you watch videos?', a: 'Do', opts: ['Do', 'Are', 'Is'] },
+      { q: 'Do you like music? Yes, I ___', a: 'do', opts: ['do', 'am', 'like'] },
+      { q: "Do you play football? No, I ___", a: "don't", opts: ["don't", "doesn't", 'not'] },
+      { q: '___ he play football?', a: 'Does', opts: ['Do', 'Does'] },
+      { q: 'What ___ you do in the evening?', a: 'do', opts: ['do', 'are', 'does'] }
+    ],
+    say: [
+      { ru: 'ты смотришь видео каждый день?', en: 'Do you watch videos every day?' },
+      { ru: 'ты слушаешь музыку?', en: 'Do you listen to music?' },
+      { ru: 'что ты делаешь по утрам?', en: 'What do you do in the morning?' },
+      { ru: 'а ты?', en: 'What about you?' }
+    ]
   }
 
 ];
-
 /* ============================================================
    ★ САМОЕ ПРОСТОЕ МЕСТО ДЛЯ ДОБАВЛЕНИЯ ЛЕКСИКИ ★
 
