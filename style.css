@@ -122,11 +122,15 @@ input,select{font-family:inherit;font-size:17px;color:inherit}
 /* ---------- шапка ---------- */
 .top{
   position:sticky;top:0;z-index:30;background:transparent;backdrop-filter:blur(8px);
-  display:flex;align-items:center;gap:8px;padding:18px 2px 14px;
+  display:flex;align-items:center;gap:8px;padding:20px 2px 16px;
 }
-.logo{font-weight:700;font-size:23px;letter-spacing:-.4px;flex:1;display:flex;align-items:center;gap:7px}
-.logo i{font-style:normal;background:var(--accent-grad);color:var(--accent-ink);
-  padding:3px 10px;border-radius:10px;display:inline-block}
+.logo{flex:1;display:flex;align-items:center;min-width:0}
+.logo i{
+  font-family:'Bungee',var(--font),sans-serif;font-style:normal;font-size:19px;letter-spacing:.4px;
+  background:var(--accent-grad);color:var(--accent-ink);
+  padding:8px 14px;border-radius:13px;display:inline-block;
+  transform:rotate(-3deg);box-shadow:0 3px 0 rgba(0,0,0,.18);white-space:nowrap;
+}
 .pill{border:2px solid var(--line);border-radius:999px;padding:7px 13px;
   font-weight:700;font-size:15px;white-space:nowrap;background:var(--surface)}
 .pill.on{border-color:var(--accent);color:var(--accent)}

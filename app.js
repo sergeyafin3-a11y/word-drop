@@ -87,11 +87,11 @@
     return setbarHtml() +
       '<div class="h">Practice</div>' +
       '<div class="acts">' +
-      act('flash', '🃏', 'Cards', 'word → translation', 'accent') +
+      act('flash', '🃏', 'Cards', 'word → translation') +
       act('match', '🔀', 'Match', 'find the pairs') +
-      act('build', '🧩', 'Build it', 'words in the right order') +
+      act('build', '🧩', 'Build it', 'words in order') +
       act('type', '⌨️', 'Type it', 'write from memory') +
-      act('sprint', '⚡', 'Sprint', '60 seconds · best ' + (W.s.records.sprint || 0), 'full') +
+      act('sprint', '⚡', 'Sprint', '60 seconds · best ' + (W.s.records.sprint || 0), 'accent') +
       '</div>';
   }
 
@@ -111,8 +111,8 @@
       act('wheel', '🎡', 'Wheel', 'spin and speak') +
       act('speed', '⏱', 'Speed round', 'answer fast, no pauses') +
       act('revision', '🔁', 'Revision', 'words he keeps forgetting') +
-      act('duel', '🎤', 'Dialogue', 'roles and phrase counter') +
-      act('sort', '🗂', 'Sort & Say', 'sort activities and say sentences', 'full') +
+      act('duel', '🎤', 'Dialogue', 'roles and counter') +
+      act('sort', '🗂', 'Sort & Say', 'sort and say sentences') +
       '</div>';
   }
 
