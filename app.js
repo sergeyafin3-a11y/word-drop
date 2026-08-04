@@ -87,8 +87,7 @@
     return setbarHtml() +
       '<div class="h">Practice</div>' +
       '<div class="acts">' +
-      act('sort', '🗂', 'Sort & Say', 'say a full sentence', 'accent') +
-      act('flash', '🃏', 'Cards', 'word → translation') +
+      act('flash', '🃏', 'Cards', 'word → translation', 'accent') +
       act('match', '🔀', 'Match', 'find the pairs') +
       act('build', '🧩', 'Build it', 'words in the right order') +
       act('type', '⌨️', 'Type it', 'write from memory') +
@@ -121,13 +120,15 @@
   function viewGram() {
     return '' +
       '<div class="h">Grammar <b>' + W.rules().length + '</b></div>' +
+      '<button class="act wide accent" id="mixBtn" style="margin-bottom:14px">' +
+      '<div class="ico">🎲</div><div><div class="nm">Mix test</div>' +
+      '<div class="sub">30 questions from the rules you tick</div></div></button>' +
       W.rules().map(function (r) {
         var p = W.ruleProgress(r);
-        var seen = W.s.rules[r.id] && W.s.rules[r.id].seen;
         return '<button class="card" style="display:block;width:100%;text-align:left" data-rule="' + r.id + '">' +
           '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px">' +
           '<div style="font-weight:700;font-size:19px">' + esc(r.title) + '</div>' +
-          '<div class="muted" style="font-size:13px">' + (p >= 80 ? 'done' : seen ? 'in progress' : 'new') + '</div></div>' +
+          '<div class="muted" style="font-size:13px">' + W.ruleSolved(r) + ' / ' + W.ruleTotal(r) + '</div></div>' +
           '<div class="muted" style="font-size:14px;margin-top:4px">' + esc(r.sub) + '</div>' +
           '<div class="bar"><i style="width:' + p + '%"></i></div></button>';
       }).join('');
@@ -209,6 +210,8 @@
       W.reset();
       location.reload();
     };
+
+    if ($('#mixBtn')) $('#mixBtn').onclick = W.mixOpen;
 
     Array.prototype.forEach.call(document.querySelectorAll('[data-rule]'), function (b) {
       b.onclick = function () { W.openRule(b.dataset.rule); };
