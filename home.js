@@ -74,7 +74,7 @@
   W.actFlash = function (list) {
     var queue = W.due(list);
     if (!queue.length) queue = list;
-    queue = W.shuffle(queue).slice(0, 20);
+    queue = W.shuffle(queue).slice(0, 40);
     var idx = 0, shown = false, right = 0, xp = 0;
     var body = W.open('Cards');
 
@@ -87,6 +87,7 @@
       W.count((idx + 1) + '/' + queue.length);
       body.innerHTML =
         '<div class="flash" id="fl">' +
+        (W.canSpeak() ? '<button class="say" id="say" aria-label="Listen">🔊</button>' : '') +
         (w.icon ? '<div class="emoji">' + w.icon + '</div>' : '') +
         '<div class="big">' + esc(w.en) + '</div>' +
         (shown ? '<div class="tr">' + esc(w.ru) + '</div>'
@@ -98,6 +99,10 @@
           '<button class="btn btn-green" id="bKnow">I know it</button></div>'
           : '<button class="btn btn-o" id="bShow">Show translation</button>');
 
+      if ($('#say')) {
+        $('#say').onclick = function (e) { e.stopPropagation(); W.speak(w.en); };
+      }
+      W.speak(w.en);                       // произносим сразу, как показали карточку
       $('#fl').onclick = function () { if (!shown) { shown = true; draw(); } };
       if ($('#bShow')) $('#bShow').onclick = function () { shown = true; draw(); };
       if ($('#bKnow')) $('#bKnow').onclick = function () {
@@ -124,7 +129,7 @@
       }
       var left = W.shuffle(six), rightArr = W.shuffle(six);
       var sel = null, done = 0;
-      W.count('round ' + (round + 1) + '/3');
+      W.count('round ' + (round + 1) + '/6');
 
       body.innerHTML =
         '<div class="q-label">Match the pairs</div>' +
@@ -155,9 +160,9 @@
           done++; sel = null;
           if (done === left.length) {
             round++;
-            if (round >= 3) {
+            if (round >= 6) {
               var sec = Math.round((Date.now() - t0) / 1000);
-              return W.result(sec + 's', 'for 3 rounds',
+              return W.result(sec + 's', 'for 6 rounds',
                 mistakes === 0 ? 'Perfect — no mistakes!' : 'Mistakes: ' + mistakes,
                 xp, function () { W.actMatch(list); });
             }
@@ -178,15 +183,28 @@
 
   /* ---------- 3. BUILD IT ---------- */
   W.actBuild = function (list) {
-    var pool = list.filter(function (w) { return w.en.trim().split(/\s+/).length >= 3; });
-    if (pool.length < 3) {
-      pool = W.allWords().filter(function (w) { return w.en.trim().split(/\s+/).length >= 3; });
+    function long(arr) { return arr.filter(function (w) { return w.en.trim().split(/\s+/).length >= 3; }); }
+    var pool = long(list);
+    /* коротких фраз в наборе мало — добираем из той же темы, потом отовсюду */
+    if (pool.length < 30) {
+      var sel = W.sel(), extra = [];
+      if (sel.type === 'topic') {
+        extra = long(W.topicAll(sel.id));
+      } else {
+        var t2 = W.topics()[0];
+        if (t2) extra = long(W.topicAll(t2.id));
+      }
+      extra.concat(long(W.allWords())).forEach(function (w) {
+        if (pool.length >= 30) return;
+        var dup = pool.some(function (x) { return x.en === w.en; });
+        if (!dup) pool.push(w);
+      });
     }
     if (!pool.length) {
       W.open('Build it').innerHTML = '<div class="empty"><b>Add longer phrases first</b></div>';
       return;
     }
-    var queue = W.pick(pool, Math.min(8, pool.length));
+    var queue = W.pick(pool, Math.min(30, pool.length));
     var idx = 0, right = 0, xp = 0;
     var body = W.open('Build it');
 
@@ -251,7 +269,7 @@
 
   /* ---------- 4. TYPE IT ---------- */
   W.actType = function (list) {
-    var queue = W.pick(list, Math.min(10, list.length));
+    var queue = W.pick(list, Math.min(30, list.length));
     var idx = 0, right = 0, xp = 0;
     var body = W.open('Type it');
 

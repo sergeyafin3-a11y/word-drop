@@ -30,6 +30,15 @@ window.TOPICS = [
     title: 'Hobbies',
     emoji: '🎧',
 
+    /* полки для Sort & Say — с какими фразами живёт эта лексика */
+    buckets: [
+      { label: 'I love / enjoy', tpl: 'I love', ing: true },
+      { label: 'I like', tpl: 'I like', ing: true },
+      { label: "I don't like", tpl: "I don't like", ing: true },
+      { label: 'I hate', tpl: 'I hate', ing: true },
+      { label: 'I would like to', tpl: 'I would like to', ing: false }
+    ],
+
     /* ---------- NEW WORDS ---------- */
     words: [
       { en: 'play the guitar', ru: 'играть на гитаре', icon: '🎸' },
@@ -102,7 +111,15 @@ window.TOPICS = [
       'Why do you like it?',
       'What are you good at?',
       'What do you do after school?',
-      'What do you do at the weekend?'
+      'What do you do at the weekend?',
+      'How often do you do your hobby?',
+      'Who do you do it with?',
+      'Is your hobby expensive?',
+      'What hobby is popular at your school?',
+      'What hobby would you never try? Why?',
+      'Do you prefer sport or games?',
+      'What do your friends like doing?',
+      'What hobby do you want to start?'
     ]
   },
 
@@ -110,6 +127,14 @@ window.TOPICS = [
     id: 'routine',
     title: 'Daily Routine',
     emoji: '⏰',
+
+    buckets: [
+      { label: 'In the morning I …', tpl: 'In the morning I', ing: false },
+      { label: 'After school I …', tpl: 'After school I', ing: false },
+      { label: 'In the evening I …', tpl: 'In the evening I', ing: false },
+      { label: 'Every day I …', tpl: 'Every day I', ing: false },
+      { label: 'I never …', tpl: 'I never', ing: false }
+    ],
 
     /* ---------- NEW WORDS ---------- */
     words: [
@@ -128,7 +153,23 @@ window.TOPICS = [
       { en: 'eat dinner', ru: 'ужинать', icon: '🍽️' },
       { en: 'relax', ru: 'отдыхать', icon: '🛋️' },
       { en: 'go to bed late', ru: 'поздно ложиться', icon: '🌙' },
-      { en: 'go to sleep', ru: 'ложиться спать', icon: '😴' }
+      { en: 'go to sleep', ru: 'ложиться спать', icon: '😴' },
+      { en: 'set an alarm', ru: 'ставить будильник', icon: '⏰' },
+      { en: 'turn off the alarm', ru: 'выключать будильник', icon: '🔕' },
+      { en: 'get dressed', ru: 'одеваться', icon: '👕' },
+      { en: 'make my bed', ru: 'заправлять кровать', icon: '🛏️' },
+      { en: 'pack my bag', ru: 'собирать рюкзак', icon: '🎒' },
+      { en: 'catch the bus', ru: 'успеть на автобус', icon: '🚌' },
+      { en: 'walk to school', ru: 'идти в школу пешком', icon: '🚶' },
+      { en: 'have a snack', ru: 'перекусить', icon: '🍎' },
+      { en: 'feed my cat', ru: 'кормить кота', icon: '🐱' },
+      { en: 'take a nap', ru: 'вздремнуть', icon: '💤' },
+      { en: 'help at home', ru: 'помогать по дому', icon: '🧺' },
+      { en: 'do the dishes', ru: 'мыть посуду', icon: '🍽️' },
+      { en: 'check my phone', ru: 'проверять телефон', icon: '📱' },
+      { en: 'charge my phone', ru: 'заряжать телефон', icon: '🔌' },
+      { en: 'take out the rubbish', ru: 'выносить мусор', icon: '🗑️' },
+      { en: 'meet my friends', ru: 'встречаться с друзьями', icon: '🤝' }
     ],
 
     /* ---------- SPEAKING PHRASES ---------- */
@@ -148,7 +189,23 @@ window.TOPICS = [
       { en: 'Yes, I do', ru: 'да' },
       { en: "No, I don't", ru: 'нет' },
       { en: 'One day I want to travel', ru: 'однажды я хочу путешествовать' },
-      { en: 'What about you?', ru: 'а ты?' }
+      { en: 'What about you?', ru: 'а ты?' },
+      { en: 'I get up at seven o clock', ru: 'я встаю в семь часов' },
+      { en: 'I have breakfast with my family', ru: 'я завтракаю с семьёй' },
+      { en: 'I leave home at eight', ru: 'я выхожу из дома в восемь' },
+      { en: 'I get to school by bus', ru: 'я добираюсь до школы на автобусе' },
+      { en: 'Lessons start at half past eight', ru: 'уроки начинаются в полдевятого' },
+      { en: 'I have lunch at school', ru: 'я обедаю в школе' },
+      { en: 'I come home at three', ru: 'я прихожу домой в три' },
+      { en: 'I do my homework before dinner', ru: 'я делаю домашку до ужина' },
+      { en: 'I help my mum in the evening', ru: 'вечером я помогаю маме' },
+      { en: 'I go to bed at eleven', ru: 'я ложусь спать в одиннадцать' },
+      { en: 'I am always late in the morning', ru: 'по утрам я вечно опаздываю' },
+      { en: 'My day starts early', ru: 'мой день начинается рано' },
+      { en: 'My day is quite busy', ru: 'у меня довольно занятой день' },
+      { en: 'I have free time after seven', ru: 'после семи у меня свободное время' },
+      { en: 'At the weekend I get up late', ru: 'на выходных я встаю поздно' },
+      { en: 'I am not a morning person', ru: 'я не жаворонок' }
     ],
 
     questions: [
@@ -163,7 +220,15 @@ window.TOPICS = [
       'What did you watch last night?',
       'What do you do after school?',
       'What do you do in the evening?',
-      'Do you want to travel? Where?'
+      'Do you want to travel? Where?',
+      'What time do you go to bed?',
+      'Do you have breakfast every day?',
+      'What do you do at the weekend?',
+      'Who wakes up first in your family?',
+      'Is your morning quiet or busy?',
+      'What do you do before school?',
+      'How long is your day?',
+      'What is the best part of your day?'
     ]
   }
 
@@ -225,7 +290,28 @@ window.WARMUP = [
   'What is one good thing about today?',
   'What time did you wake up today?',
   'What is the first thing you do in the morning?',
-  'Morning music or quiet morning?'
+  'Morning music or quiet morning?',
+  'What did you have for breakfast?',
+  'Are you tired or full of energy?',
+  'What was funny this week?',
+  'What did you watch last night?',
+  'Who did you talk to today?',
+  'Tea or coffee? Why?',
+  'What is the weather like today?',
+  'What are you doing after our lesson?',
+  'What made you smile today?',
+  'Did you sleep well?',
+  'What is your plan for tonight?',
+  'What game are you playing now?',
+  'What song is stuck in your head?',
+  'Did you go outside today?',
+  'What do you want to do this summer?',
+  'What is the last photo on your phone?',
+  'Best thing about Mondays?',
+  'What did you eat for lunch?',
+  'Are you busy this week?',
+  'What is your favourite day? Why?',
+  'One word about today — go!'
 ];
 
 /* Спид-раунд: отвечать сразу, без пауз */
@@ -242,7 +328,25 @@ window.SPEED = [
   'Something you are really good at.',
   'Something you do every morning.',
   'Something you did yesterday evening.',
-  'Something you are doing right now.'
+  'Something you are doing right now.',
+  'Something you do after school.',
+  'Something you never do.',
+  'Something you do with your family.',
+  'Something you did last summer.',
+  'Something you want to do tomorrow.',
+  'Something you do on your phone.',
+  'Something you do when you are bored.',
+  'Something you do before you sleep.',
+  'Something you are good at.',
+  'Something you are bad at.',
+  'Something you do twice a week.',
+  'Something you watched this week.',
+  'Something you listened to today.',
+  'Something you would like to learn.',
+  'Something you hate doing at school.',
+  'Something you do at the weekend.',
+  'Something your friend likes doing.',
+  'Something you did five minutes ago.'
 ];
 
 /* Детали, которые можно добавить к предложению */
@@ -279,7 +383,13 @@ window.DUELS = [
   { title: 'Interview', you: 'You write for the school blog. Interview him about his hobby.', him: "Answer in full sentences: I'm into..., I'm good at..." },
   { title: 'New friend abroad', you: 'Ask: What do you do in the morning? What do you do after school? Do you watch interviews?', him: 'Answer and ask back: "What about you?"' },
   { title: 'YouTube interview', you: 'You run a YouTube channel. Interview him about his daily routine — at least 4 questions.', him: 'Answer in full sentences, add one detail, finish with "What about you?"' },
-  { title: 'Summer plans', you: 'Ask what he would like to try this summer and why.', him: 'Answer with I would like to... and say why.' }
+  { title: 'Summer plans', you: 'Ask what he would like to try this summer and why.', him: 'Answer with I would like to... and say why.' },
+  { title: 'Morning talk', you: 'Ask about his morning: time, breakfast, music, school.', him: 'Answer with In the morning I... and add one detail.' },
+  { title: 'After school', you: 'Ask what he does after school every day.', him: 'Answer and ask the same question back.' },
+  { title: 'Phone check', you: 'Ask what he watches on YouTube and how often.', him: 'Answer with I usually / I always / I never.' },
+  { title: 'Weekend plans', you: 'Ask about his last weekend and the next one.', him: 'Use Past Simple for last weekend and would like to for the next.' },
+  { title: 'Two friends', you: 'You both plan a Saturday. Suggest three activities.', him: 'Accept one, refuse two: "Not really, it is not my thing".' },
+  { title: 'Swap roles', you: 'He interviews you. Answer shortly and let him ask more.', him: 'Ask at least five questions about the teacher day.' }
 ];
 
 /* Грамматика лежит в отдельном файле grammar-data.js */

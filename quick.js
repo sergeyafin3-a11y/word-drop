@@ -32,7 +32,7 @@
           cur = { type: 'batch', title: parts[1] || 'New words', date: parts[2] || '', items: [] };
           batches.push(cur);
         } else {
-          cur = { type: 'topic', title: parts[1] || 'Topic', emoji: parts[2] || '📚', words: [], phrases: [], questions: [] };
+          cur = { type: 'topic', title: parts[1] || 'Topic', emoji: parts[2] || '📚', words: [], phrases: [], questions: [], frames: [] };
           topics.push(cur);
           section = 'words';
         }
@@ -44,6 +44,7 @@
         var s2 = line.replace(/^=+\s*/, '').toLowerCase();
         if (s2.indexOf('phr') === 0 || s2.indexOf('фраз') === 0) section = 'phrases';
         else if (s2.indexOf('quest') === 0 || s2.indexOf('вопрос') === 0) section = 'questions';
+        else if (s2.indexOf('frame') === 0 || s2.indexOf('полк') === 0) section = 'frames';
         else section = 'words';
         return;
       }
@@ -51,6 +52,12 @@
       if (!cur) return;
 
       if (cur.type === 'topic' && section === 'questions') { cur.questions.push(line); return; }
+      if (cur.type === 'topic' && section === 'frames') {
+        var ing = /\+\s*ing\s*$/i.test(line);
+        var tpl = line.replace(/\+\s*ing\s*$/i, '').replace(/[.…]+$/, '').trim();
+        cur.frames.push({ label: tpl + ' …', tpl: tpl, ing: ing });
+        return;
+      }
 
       var f = split(line);
       if (!f.length) return;
@@ -83,10 +90,12 @@
         found.words = found.words.concat(t.words);
         found.phrases = found.phrases.concat(t.phrases);
         found.questions = (found.questions || []).concat(t.questions);
+        if (t.frames && t.frames.length) found.buckets = t.frames;
       } else {
         window.TOPICS.push({
           id: idOf('qt', t.title), title: t.title, emoji: t.emoji,
-          words: t.words, phrases: t.phrases, questions: t.questions
+          words: t.words, phrases: t.phrases, questions: t.questions,
+          buckets: (t.frames && t.frames.length) ? t.frames : null
         });
       }
     });

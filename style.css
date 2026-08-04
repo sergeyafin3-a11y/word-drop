@@ -425,3 +425,12 @@ input,select{font-family:inherit;font-size:17px;color:inherit}
 .gtable b{color:var(--accent)}
 .gnote{color:var(--muted);font-size:14px;line-height:1.45;margin:4px 2px 10px}
 .gnote b{color:var(--ink)}
+
+/* ---------- кнопка озвучки на карточке ---------- */
+.flash{position:relative}
+.say{
+  position:absolute;top:14px;right:14px;width:48px;height:48px;border-radius:50%;
+  background:var(--surface-2);border:2px solid var(--line);font-size:22px;
+  display:flex;align-items:center;justify-content:center;
+}
+.say:active{background:var(--accent);border-color:transparent;transform:scale(.94)}

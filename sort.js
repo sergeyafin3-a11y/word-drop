@@ -22,11 +22,15 @@
   };
 
   W.actSort = function () {
-    var pool = W.activeList().filter(function (w) { return w.en.split(/\s+/).length <= 5; });
-    if (pool.length < 4) pool = W.allWords();
-    var queue = W.pick(pool, 8);
+    var sel0 = W.sel();
+    var tid = sel0.type === 'topic' ? sel0.id : (W.topics()[0] || {}).id;
+    var pool = W.list(tid, 'words').filter(function (w) { return w.en.split(/\s+/).length <= 5; });
+    if (pool.length < 4) pool = W.allWords().filter(function (w) { return w.en.split(/\s+/).length <= 5; });
+    var queue = W.pick(pool, Math.min(30, pool.length));
     var idx = 0, said = 0, xp = 0;
-    var buckets = window.BUCKETS || [];
+    var sel = W.sel();
+    var topic = W.topic(sel.type === 'topic' ? sel.id : (W.topics()[0] || {}).id);
+    var buckets = (topic && topic.buckets) || window.BUCKETS || [];
     var body = W.open('Sort & Say');
 
     function draw() {

@@ -47,8 +47,8 @@
 
   /* ---------- WARM-UP ---------- */
   W.actWarmup = function () {
-    var qs = W.pick(window.WARMUP || [], 5);
-    var words = W.pick(W.allWords(), 5);
+    var qs = W.pick(window.WARMUP || [], 15);
+    var words = W.pick(W.allWords(), 15);
     var steps = qs.map(function (q) { return { t: 'q', text: q }; })
       .concat(words.map(function (w) { return { t: 'w', w: w }; }));
     var idx = 0;
@@ -101,8 +101,8 @@
 
   /* ---------- REVISION ---------- */
   W.actRevision = function () {
-    var weak = W.weak(12);
-    if (!weak.length) weak = W.pick(W.allWords(), 12);
+    var weak = W.weak(30);
+    if (!weak.length) weak = W.pick(W.allWords(), 30);
     var idx = 0, ok = 0, xp = 0;
     var body = W.open('Revision');
 
@@ -130,7 +130,7 @@
   /* ---------- DIALOGUE ---------- */
   W.actDuel = function () {
     var d = W.pick(window.DUELS || [], 1)[0];
-    var sup = support(10);
+    var sup = support(14);
     var score = 0;
     var body = W.open('Dialogue');
 

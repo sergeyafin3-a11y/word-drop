@@ -293,6 +293,44 @@
     return false;
   };
 
+  /* ---------- озвучка: американский голос ---------- */
+  W.voices = [];
+  function loadVoices() {
+    W.voices = (window.speechSynthesis && window.speechSynthesis.getVoices()) || [];
+  }
+  if (window.speechSynthesis) {
+    loadVoices();
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+  }
+
+  W.usVoice = function () {
+    if (!W.voices.length) loadVoices();
+    var us = W.voices.filter(function (v) { return /en[-_]US/i.test(v.lang); });
+    if (!us.length) us = W.voices.filter(function (v) { return /^en/i.test(v.lang); });
+    var pref = ['Samantha', 'Ava', 'Allison', 'Susan', 'Nicky', 'Aaron', 'Alex', 'Google US English'];
+    for (var i = 0; i < pref.length; i++) {
+      var m = us.filter(function (v) { return v.name.indexOf(pref[i]) !== -1; })[0];
+      if (m) return m;
+    }
+    return us[0] || null;
+  };
+
+  W.canSpeak = function () { return !!window.speechSynthesis; };
+
+  W.speak = function (text) {
+    if (!window.speechSynthesis) return false;
+    try {
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(String(text || ''));
+      var v = W.usVoice();
+      if (v) u.voice = v;
+      u.lang = 'en-US';
+      u.rate = 0.92;
+      window.speechSynthesis.speak(u);
+      return true;
+    } catch (e) { return false; }
+  };
+
   /* ---------- утилиты ---------- */
   W.shuffle = function (a) {
     a = a.slice();
