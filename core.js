@@ -185,6 +185,9 @@
   /* текущий выбранный набор: {type:'batch'|'topic', id, kind} */
   W.sel = function () {
     var s = W.s.sel;
+    /* набор мог исчезнуть (тему переименовали или удалили) — не оставляем пустой экран */
+    if (s && s.type === 'topic' && !W.topic(s.id)) s = null;
+    if (s && s.type === 'batch' && !W.batch(s.id)) s = null;
     if (!s || !s.type) {
       var b = W.batches()[0];
       s = b ? { type: 'batch', id: b.id } : { type: 'topic', id: (W.topics()[0] || {}).id, kind: 'words' };
