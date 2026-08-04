@@ -434,3 +434,22 @@ input,select{font-family:inherit;font-size:17px;color:inherit}
   display:flex;align-items:center;justify-content:center;
 }
 .say:active{background:var(--accent);border-color:transparent;transform:scale(.94)}
+
+/* ---------- конфетти и похвала в конце ---------- */
+.conf{position:relative;height:64px;margin-bottom:2px}
+.conf i{
+  position:absolute;width:9px;height:9px;border-radius:2px;display:block;opacity:0;
+  animation:pop-conf .7s ease-out forwards;
+}
+@keyframes pop-conf{
+  0%{opacity:0;transform:translateY(-26px) scale(.4) rotate(0)}
+  60%{opacity:1}
+  100%{opacity:1;transform:translateY(0) scale(1) rotate(var(--r,120deg))}
+}
+.praise{
+  font-family:'Fredoka',var(--font),sans-serif;font-weight:700;font-size:34px;
+  color:var(--accent);text-align:center;line-height:1.1;margin-bottom:2px;
+  animation:praise-in .45s cubic-bezier(.2,1.4,.4,1) both;
+}
+@keyframes praise-in{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
+.result{padding:10px 10px 4px}

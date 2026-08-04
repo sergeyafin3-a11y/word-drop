@@ -27,10 +27,41 @@
   };
   W.count = function (txt) { var c = $('#scCount'); if (c) c.textContent = txt; };
 
+  /* похвала в конце — фразы крутятся, чтобы не приедалось */
+  W.praise = function (ratio) {
+    var perfect = ['PERFECT!', 'YOU GOT IT!', 'NAILED IT', 'FLAWLESS', 'TOO EASY?'];
+    var good = ['GOOD JOB!', 'NICE ONE', 'WELL DONE', 'GREAT WORK', 'ALMOST PERFECT'];
+    var ok = ['GOOD START', 'KEEP GOING', "YOU'RE GETTING IT", 'NICE TRY'];
+    var pool = ratio >= 1 ? perfect : (ratio >= 0.7 ? good : ok);
+    return pool[Math.floor(Math.random() * pool.length)];
+  };
+
+  function confettiHtml() {
+    var colors = ['#22D3EE', '#38BDF8', '#A3E635', '#FDE047', '#F472B6', '#FFFFFF'];
+    var out = '';
+    for (var i = 0; i < 22; i++) {
+      var c = colors[i % colors.length];
+      var left = Math.round(Math.random() * 92) + 2;
+      var top = Math.round(Math.random() * 40);
+      var d = (Math.random() * 0.5).toFixed(2);
+      var r = Math.round(Math.random() * 300 - 150);
+      out += '<i style="left:' + left + '%;top:' + top + 'px;background:' + c +
+        ';animation-delay:' + d + 's;--r:' + r + 'deg"></i>';
+    }
+    return '<div class="conf">' + out + '</div>';
+  }
+
   W.result = function (num, cap, msg, xp, again) {
     var b = $('#scBody');
     if (!b) return;
+    var m = String(num).match(/^(\d+)\s*\/\s*(\d+)$/);
+    var ratio = m ? (+m[2] ? +m[1] / +m[2] : 1) : 1;
+    var win = ratio >= 0.7;
+
+    b.style.justifyContent = 'center';
     b.innerHTML =
+      (win ? confettiHtml() : '') +
+      '<div class="praise">' + esc(W.praise(ratio)) + '</div>' +
       '<div class="result"><div class="num">' + esc(num) + '</div>' +
       '<div class="cap">' + esc(cap) + '</div>' +
       (xp ? '<div class="xp">+' + xp + ' XP</div>' : '') +
@@ -41,23 +72,6 @@
     $('#rAgain').onclick = again;
     $('#rBack').onclick = function () { W.close(); W.render(); };
     W.finishAct();
-  };
-
-  /* красная вспышка + «Incorrect», правильный ответ НЕ показываем */
-  W.wrongFx = function (el, msg) {
-    if (el) {
-      el.classList.remove('shake');
-      void el.offsetWidth;
-      el.classList.add('shake', 'wrong-flash');
-      setTimeout(function () { el.classList.remove('wrong-flash', 'shake'); }, 700);
-    }
-    var inc = document.getElementById('inc');
-    if (inc) {
-      inc.textContent = msg || 'Incorrect — try again';
-      setTimeout(function () { if (inc) inc.textContent = ''; }, 1400);
-    } else {
-      W.toast(msg || 'Incorrect — try again');
-    }
   };
 
   var toastT = null;
