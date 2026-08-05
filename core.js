@@ -179,6 +179,7 @@
       out = out.concat(W.list(t2.id, 'words')).concat(W.list(t2.id, 'phrases'));
     });
     W.batches().forEach(function (b) { out = out.concat(W.batchLic(b.id)); });
+    if (W.irregList) out = out.concat(W.irregList());
     return out;
   };
 
@@ -186,6 +187,7 @@
   W.sel = function () {
     var s = W.s.sel;
     /* набор мог исчезнуть (тему переименовали или удалили) — не оставляем пустой экран */
+    if (s && s.type === 'irreg' && !(window.IRREGULAR || []).length) s = null;
     if (s && s.type === 'topic' && !W.topic(s.id)) s = null;
     if (s && s.type === 'batch' && !W.batch(s.id)) s = null;
     if (!s || !s.type) {
@@ -203,6 +205,7 @@
 
   W.selTitle = function () {
     var s = W.sel();
+    if (s.type === 'irreg') return 'Irregular verbs';
     if (s.type === 'batch') {
       var b = W.batch(s.id);
       return b ? 'New words · ' + b.title : 'New words';
@@ -212,12 +215,14 @@
   };
   W.selEmoji = function () {
     var s = W.sel();
+    if (s.type === 'irreg') return '🔁';
     if (s.type === 'batch') return '🆕';
     var t2 = W.topic(s.id);
     return (t2 && t2.emoji) || '📚';
   };
   W.selSub = function () {
     var s = W.sel();
+    if (s.type === 'irreg') return (window.IRREGULAR || []).length + ' verbs · 3 forms each';
     if (s.type === 'batch') {
       var b = W.batch(s.id);
       return b ? b.items.length + ' new words · ' + b.date : '';
@@ -228,6 +233,7 @@
 
   W.activeList = function () {
     var s = W.sel();
+    if (s.type === 'irreg') return W.irregList ? W.irregList() : [];
     return s.type === 'batch' ? W.batchLic(s.id) : W.list(s.id, s.kind);
   };
 

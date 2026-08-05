@@ -424,6 +424,90 @@ window.GRAMMAR = [
       { ru: 'она иногда рисует', en: 'She sometimes draws' },
       { ru: 'обычно я встаю в семь', en: 'I usually get up at seven' }
     ]
+  },
+
+  /* ==================== СПЕЦИАЛЬНЫЕ ВОПРОСЫ ==================== */
+  {
+    id: 'g-wh',
+    title: 'Wh- questions',
+    sub: 'what · where · when · why · how',
+    formula: '<b>Where</b> do you live?',
+    table: {
+      cols: ['Word', 'Что спрашиваем', 'Пример'],
+      rows: [
+        ['What', 'что', '<b>What</b> do you do?'],
+        ['Where', 'где, куда', '<b>Where</b> do you live?'],
+        ['When', 'когда', '<b>When</b> do you get up?'],
+        ['Who', 'кто', '<b>Who</b> is your best friend?'],
+        ['Why', 'почему', '<b>Why</b> do you like it?'],
+        ['How', 'как', '<b>How</b> do you go to school?'],
+        ['How often', 'как часто', '<b>How often</b> do you play?'],
+        ['How many', 'сколько (можно сосчитать)', '<b>How many</b> books do you read?'],
+        ['How much', 'сколько (нельзя сосчитать)', '<b>How much</b> time do you have?']
+      ],
+      note: 'Порядок всегда один: <b>вопросительное слово → помощник → кто → глагол</b>.'
+    },
+    table2: {
+      cols: ['Время', 'Схема', 'Пример'],
+      rows: [
+        ['Present Simple', 'Wh + <b>do/does</b> + кто + глагол', '<b>Where do</b> you live?'],
+        ['Present Continuous', 'Wh + <b>am/is/are</b> + кто + V-ing', '<b>What are</b> you doing?'],
+        ['Past Simple', 'Wh + <b>did</b> + кто + глагол', '<b>Where did</b> you go?'],
+        ['to be', 'Wh + <b>am/is/are</b> + кто', '<b>Where is</b> your bag?']
+      ],
+      note: 'После <b>do / does / did</b> глагол всегда в начальной форме: Where <b>did</b> you <b>go</b>? (не went). Если <b>Who</b> — это сам подлежащее, помощник не нужен: <b>Who lives</b> here?'
+    },
+    rule: 'Wh-слово ставим первым, дальше обычный вопрос: помощник, кто, глагол.',
+    bad: 'Where you live? · Where did you went?',
+    ok: 'Where do you live? · Where did you go?',
+    examples: [
+      { en: 'What do you do at the weekend?', ru: 'что ты делаешь на выходных?' },
+      { en: 'Where are you now?', ru: 'где ты сейчас?' },
+      { en: 'When did you get home?', ru: 'когда ты пришёл домой?' },
+      { en: 'How often do you play football?', ru: 'как часто ты играешь в футбол?' }
+    ],
+    drill: [
+      '___ do you live? | Where | Where / What / When',
+      '___ is your name? | What | What / Who / How',
+      '___ do you get up? | When | When / Where / Why',
+      '___ do you like this song? | Why | Why / What / How',
+      '___ do you go to school? | How | How / What / Where',
+      '___ often do you play football? | How | How / What / When',
+      '___ many brothers do you have? | How | How / What / Who',
+      '___ is your best friend? | Who | Who / What / Where',
+      'Where ___ you live? | do | do / are / did',
+      'What ___ you doing now? | are | do / are / did',
+      'Where ___ you go yesterday? | did | do / did / were',
+      'Where ___ your bag? | is | is / does / do',
+      'What ___ he do every day? | does | do / does / is',
+      'Where did you ___ last summer? | go | go / went / gone',
+      'What did you ___ yesterday? | do | do / did / done',
+      'When ___ the lesson start? | does | does / is / do',
+      'Who ___ here? | lives | lives / does live / do live',
+      'How much time ___ you have? | do | do / are / does',
+      'What ___ your favourite film? | is | is / does / do',
+      'Why ___ she late? | is | is / does / do',
+      'How ___ are you? | old | old / much / many',
+      'Where ___ they going? | are | are / do / is',
+      'What music ___ you listen to? | do | do / are / does',
+      'When ___ you born? | were | were / did / was',
+      'How many videos ___ you watch yesterday? | did | did / do / were',
+      'Why ___ you like getting up early? | don\'t | don\'t / doesn\'t / not',
+      'Where ___ your brother study? | does | does / do / is',
+      'What ___ happening? | is | is / does / are',
+      'How often ___ he go to the gym? | does | does / do / is',
+      'Who ___ you talking to? | are | are / do / does',
+      'What time ___ you finish school? | do | do / are / did',
+      'Where ___ you at six yesterday? | were | were / did / are'
+    ],
+    say: [
+      { ru: 'где ты живёшь?', en: 'Where do you live?' },
+      { ru: 'что ты делаешь сейчас?', en: 'What are you doing now?' },
+      { ru: 'когда ты встаёшь?', en: 'When do you get up?' },
+      { ru: 'почему тебе это нравится?', en: 'Why do you like it?' },
+      { ru: 'куда ты ходил вчера?', en: 'Where did you go yesterday?' },
+      { ru: 'как часто ты играешь в футбол?', en: 'How often do you play football?' }
+    ]
   }
 
 ];

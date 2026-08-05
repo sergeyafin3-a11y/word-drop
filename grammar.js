@@ -82,6 +82,7 @@
       '<div class="q-label">' + esc(r.sub) + '</div>' +
       '<div class="big-q">' + r.formula + '</div>' +
       tableHtml(r.table) +
+      tableHtml(r.table2) +
       '<div class="card" style="font-size:16px;line-height:1.45">' + esc(r.rule) + '</div>' +
       '<div class="card" style="font-size:18px;line-height:1.9;text-align:center">' +
       '<div style="color:var(--bad)">❌ ' + esc(r.bad) + '</div>' +

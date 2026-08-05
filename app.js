@@ -50,6 +50,13 @@
           b.items.length + ' words · ' + W.progress(l) + '%',
           'data-set="batch" data-id="' + b.id + '"');
       }).join('') +
+      '<div class="dd-h">Verbs</div>' +
+      (function () {
+        var l = W.irregList ? W.irregList() : [];
+        if (!l.length) return '';
+        return menuRow(sel.type === 'irreg', '🔁', 'Irregular verbs',
+          l.length + ' verbs · ' + W.progress(l) + '%', 'data-set="irreg" data-id="all"');
+      })() +
       '<div class="dd-h">Topics</div>' +
       W.topics().map(function (t) {
         return '<div class="dd-topic">' + (t.emoji || '📚') + ' ' + esc(t.title) + '</div>' +
@@ -83,6 +90,18 @@
   function viewLearn() {
     if (!W.activeList().length) {
       return '<div class="empty"><b>No words yet</b><p>Open the menu and pick a set.</p></div>';
+    }
+    if (W.sel().type === 'irreg') {
+      return setbarHtml() +
+        '<div class="h">Practice</div>' +
+        '<div class="acts">' +
+        act('vtable', '📋', 'Verb table', 'all forms in one place') +
+        act('vcards', '🃏', 'Cards', 'go → went · gone') +
+        act('vmatch', '🔀', 'Match', 'verb → past form') +
+        act('vpast', '⌨️', 'Type the past', 'go → ?') +
+        act('vpart', '⌨️', 'Type the 3rd form', 'go → gone') +
+        act('vsprint', '⚡', 'Verb sprint', '60 seconds · best ' + (W.s.records.verbSprint || 0), 'accent') +
+        '</div>';
     }
     return setbarHtml() +
       '<div class="h">Practice</div>' +
@@ -201,6 +220,12 @@
         if (a === 'speed') return W.actSpeed();
         if (a === 'revision') return W.actRevision();
         if (a === 'duel') return W.actDuel();
+        if (a === 'vtable') return W.verbTable();
+        if (a === 'vcards') return W.verbCards();
+        if (a === 'vmatch') return W.verbMatch();
+        if (a === 'vpast') return W.verbType(2);
+        if (a === 'vpart') return W.verbType(3);
+        if (a === 'vsprint') return W.verbSprint();
         ({ flash: W.actFlash, match: W.actMatch, build: W.actBuild, type: W.actType, sprint: W.actSprint }[a])(list);
       };
     });
