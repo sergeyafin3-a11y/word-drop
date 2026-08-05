@@ -131,7 +131,6 @@
       act('speed', '⏱', 'Speed round', 'answer fast, no pauses') +
       act('revision', '🔁', 'Revision', 'words he keeps forgetting') +
       act('duel', '🎤', 'Dialogue', 'roles and counter') +
-      act('sort', '🗂', 'Sort & Say', 'sort and say sentences') +
       '</div>';
   }
 
@@ -214,7 +213,6 @@
       b.onclick = function () {
         var list = W.activeList();
         var a = b.dataset.act;
-        if (a === 'sort') return W.actSort();
         if (a === 'warmup') return W.actWarmup();
         if (a === 'wheel') return W.actWheel();
         if (a === 'speed') return W.actSpeed();

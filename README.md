@@ -15,13 +15,15 @@
 Наверху справа **☰** — меню наборов: сверху **New words** (пачка после каждого урока),
 ниже **Topics** (каждая тема двумя строками: Words и Speaking phrases).
 
-**Learn:** Sort & Say (раскладывает занятия по полкам I love / I like / I don't like /
-I hate / I would like to, приложение строит правильное предложение с V-ing и предлагает
-добавить деталь), Cards с возвратом забытых слов, Match на скорость, Build it,
-Type it по памяти, Sprint на 60 секунд с рекордом. Внизу — See all words.
+**Learn (лексика):** Cards с озвучкой и возвратом забытых слов, Match, Build it,
+Type it по памяти, Sprint на 60 секунд с рекордом.
+
+**Learn (Irregular verbs):** свой набор — Verb table по группам, Cards с тремя формами,
+Match «глагол → прошедшее», Type the past, Type the 3rd form, Verb sprint.
+Глаголы лежат в `irregular-data.js`, новые пачки дописываются в конец.
 
 **Lesson:** Warm-up, Wheel (колесо вопросов), Speed round, Revision по словам, которые
-он реально забывает, Dialogue с ролями и счётчиком фраз, Sort & Say вдвоём.
+он реально забывает, Dialogue с ролями и счётчиком фраз.
 
 **Grammar:** формула → две строчки объяснения → ❌/✅ типичная ошибка → примеры →
 две практики (Choose the form, Say it in English).
@@ -129,7 +131,9 @@ data.js      ← ЛЕКСИКА И ГРАММАТИКА (обновляется 
 quick.js     разбор простого текстового формата
 core.js      прогресс, XP, стрик, интервальное повторение
 home.js      активности для дома
-sort.js      Sort & Say
+irreg.js     неправильные глаголы
+irregular-data.js ← СПИСОК ГЛАГОЛОВ
+grammar-data.js   ← ПРАВИЛА ГРАММАТИКИ
 grammar.js   раздел грамматики
 lesson.js    режимы для урока
 app.js       вкладки, меню и экраны
