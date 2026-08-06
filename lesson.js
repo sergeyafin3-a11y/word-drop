@@ -64,9 +64,19 @@
     var t = W.warmTopic();
     var list = W.activeList();
     var full = t ? W.list(t.id, 'words') : list;            /* обои — из слов темы */
-    var sticks = W.sel().type === 'irreg'
-      ? ['🔁', '⏪', '💪']
-      : W.topicStickers(t, full.length ? full : list);
+    var pool = full.length ? full : list;
+    var irreg = W.sel().type === 'irreg';
+
+    /* свой фон на каждый вопрос, но всегда из этой же темы */
+    function wallFor(text) {
+      if (irreg) {
+        var v = ['🔁', '⏪', '💪', '✅', '🕰️', '📝', '🗣️', '⭐️'];
+        var st = Math.abs(W.hashText(text)) % v.length, out = [];
+        for (var i = 0; i < 6; i++) out.push(v[(st + i) % v.length]);
+        return out;
+      }
+      return W.topicStickers(t, pool, 6, text);
+    }
 
     var qs = W.warmQuestions(15);
 
@@ -96,7 +106,7 @@
       var s = steps[idx];
       W.count((idx + 1) + '/' + steps.length);
       if (s.t === 'q') {
-        body.innerHTML = W.qCard(s.text, 'Answer in English', sticks) +
+        body.innerHTML = W.qCard(s.text, 'Answer in English', wallFor(s.text)) +
           '<button class="btn btn-o" id="nx">Next</button>';
       } else {
         body.innerHTML = '<div class="q-label">Do you remember this word?</div>' +

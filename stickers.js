@@ -58,6 +58,7 @@ window.STICKER_FALLBACK = [
     for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
     return h;
   }
+  W.hashText = hash;
 
   /* набор эмодзи для любого текста.
      Ищем по НАЧАЛУ слова: 'music' поймает 'musical', но 'eat' уже не поймает 'weather'.
@@ -92,25 +93,49 @@ window.STICKER_FALLBACK = [
      получает свои картинки. Можно задать вручную — полем sticker:
        { id:'travel', title:'Travel', emoji:'✈️', sticker:['🧳','✈️','🗺️'], ... }
      ============================================================ */
-  W.topicStickers = function (t, list, n) {
+  W.topicStickers = function (t, list, n, seed) {
     n = n || 6;
-    if (t && t.sticker && t.sticker.length >= 3) return t.sticker;
 
+    /* весь запас эмодзи темы */
     var seen = {}, icons = [];
+    if (t && t.sticker && t.sticker.length) {
+      t.sticker.forEach(function (ic) { if (!seen[ic]) { seen[ic] = 1; icons.push(ic); } });
+    }
     (list || []).forEach(function (w) {
       var ic = w.icon || w.emoji;
       if (ic && !seen[ic]) { seen[ic] = 1; icons.push(ic); }
     });
 
-    /* первые n — в начале списка обычно самые узнаваемые слова темы */
-    if (icons.length > n) icons = icons.slice(0, n);
-    if (icons.length >= 3) return icons;
-
-    if (t && t.emoji) {
-      var byTitle = W.stickers(t.title);
-      return [t.emoji, byTitle[1], byTitle[2]];
+    if (icons.length < 3) {
+      if (t && t.emoji) {
+        var byTitle = W.stickers(t.title);
+        return [t.emoji, byTitle[1], byTitle[2]];
+      }
+      return null;   /* эмодзи в теме нет — пусть работает подбор по словам вопроса */
     }
-    return null;   /* эмодзи в теме нет — пусть работает подбор по словам вопроса */
+
+    /* На каждый вопрос свой набор: вперёд выходят слова, которые в нём упомянуты,
+       остальное добирается по кругу от места, посчитанного из текста вопроса.
+       Фон каждый раз разный, но всегда из этой же темы. */
+    var head = [];
+    if (seed) {
+      var low = ' ' + String(seed).toLowerCase() + ' ';
+      (list || []).forEach(function (w) {
+        var ic = w.icon || w.emoji;
+        if (!ic || head.indexOf(ic) !== -1) return;
+        var en = String(w.en || '').toLowerCase();
+        var key = en.split(/\s+/).filter(function (x) { return x.length > 3; })[0];
+        if (key && low.indexOf(key) !== -1) head.push(ic);
+      });
+    }
+
+    var start = seed ? hash(String(seed)) % icons.length : 0;
+    var out = head.slice(0, n);
+    for (var i = 0; i < icons.length && out.length < n; i++) {
+      var ic2 = icons[(start + i) % icons.length];
+      if (out.indexOf(ic2) === -1) out.push(ic2);
+    }
+    return out;
   };
 
   /* стабильный оттенок: один и тот же для одного вопроса. Наклона нет — всё ровно. */
