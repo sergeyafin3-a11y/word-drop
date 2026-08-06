@@ -190,6 +190,13 @@
           '<span>' + esc(r.title) + '</span><span class="muted">' + p + '%</span></div>' +
           '<div class="bar"><i style="width:' + p + '%"></i></div></div>';
       }).join('') +
+      '<div class="h">My progress code</div>' +
+      '<div class="card" style="padding:14px;font-size:15px;line-height:1.5;color:var(--muted)">' +
+      'Your progress lives in this browser. Always open the app the same way — ' +
+      'from the icon on your Home Screen. Moving to another phone or browser? ' +
+      'Copy the code here and paste it there.</div>' +
+      '<button class="btn btn-g" id="bkShow">Copy my code</button>' +
+      '<button class="btn btn-g" id="bkPut">Paste a code</button>' +
       '<button class="btn btn-g" id="resetAll" style="margin-top:26px;opacity:.7;font-size:15px">' +
       'Start from zero</button>';
   }
@@ -227,6 +234,9 @@
         ({ flash: W.actFlash, match: W.actMatch, build: W.actBuild, type: W.actType, sprint: W.actSprint }[a])(list);
       };
     });
+
+    if ($('#bkShow')) $('#bkShow').onclick = W.backupShow;
+    if ($('#bkPut')) $('#bkPut').onclick = W.backupPaste;
 
     if ($('#resetAll')) $('#resetAll').onclick = function () {
       if (!confirm('Start from zero?\n\nXP, streak and all learned words will be cleared.')) return;

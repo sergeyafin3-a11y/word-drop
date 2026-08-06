@@ -41,6 +41,71 @@
     W.s = W.defaults();
   };
 
+  /* просим браузер не выкидывать хранилище (Safari чистит редко посещаемые сайты) */
+  try {
+    if (navigator.storage && navigator.storage.persist) navigator.storage.persist();
+  } catch (e) {}
+
+  /* ---------- КОД ПЕРЕНОСА ПРОГРЕССА ----------
+     Прогресс лежит в конкретном браузере. Иконка с домашнего экрана и Safari —
+     это РАЗНЫЕ хранилища. Код позволяет перенести прогресс куда угодно.
+     Восстановление не стирает текущее, а СЛИВАЕТ: берётся лучшее из двух. */
+  W.backupCode = function () {
+    /* выкидываем пустышки: слова, которых ученик ещё не касался */
+    var s = W.s, p = { v: s.v, xp: s.xp, words: {}, days: s.days, records: s.records, rules: s.rules, mig2: s.mig2 };
+    Object.keys(s.words || {}).forEach(function (k) {
+      var w = s.words[k];
+      if (w && (w.box || w.right || w.wrong)) p.words[k] = w;
+    });
+    try { return btoa(unescape(encodeURIComponent(JSON.stringify(p)))); }
+    catch (e) { return ''; }
+  };
+
+  W.applyCode = function (code) {
+    var p;
+    try {
+      p = JSON.parse(decodeURIComponent(escape(atob(String(code).replace(/\s+/g, '')))));
+    } catch (e) { return false; }
+    if (!p || typeof p !== 'object') return false;
+
+    var s = W.s;
+    s.xp = Math.max(s.xp || 0, p.xp || 0);
+
+    Object.keys(p.words || {}).forEach(function (k) {
+      var a = s.words[k], b = p.words[k] || {};
+      if (!a) { s.words[k] = b; return; }
+      a.box = Math.max(a.box || 0, b.box || 0);
+      a.right = (a.right || 0) + (b.right || 0);
+      a.wrong = (a.wrong || 0) + (b.wrong || 0);
+      if (!a.due || (b.due && b.due < a.due)) a.due = b.due || a.due;
+    });
+
+    Object.keys(p.days || {}).forEach(function (k) {
+      var a = s.days[k], b = p.days[k] || {};
+      if (!a) { s.days[k] = b; return; }
+      a.acts = Math.max(a.acts || 0, b.acts || 0);
+      a.words = Math.max(a.words || 0, b.words || 0);
+      a.xp = Math.max(a.xp || 0, b.xp || 0);
+    });
+
+    Object.keys(p.records || {}).forEach(function (k) {
+      s.records[k] = Math.max(s.records[k] || 0, p.records[k] || 0);
+    });
+
+    Object.keys(p.rules || {}).forEach(function (k) {
+      if (!s.rules[k]) s.rules[k] = { ok: {}, seen: false };
+      var a = s.rules[k], b = p.rules[k] || {};
+      if (!a.ok) a.ok = {};
+      Object.keys(b.ok || {}).forEach(function (q) { a.ok[q] = 1; });
+      a.seen = a.seen || !!b.seen;
+    });
+
+    if (p.mig2) s.mig2 = p.mig2;
+    if (p.mix && !s.mix) s.mix = p.mix;
+    W.saveNow();
+    return true;
+  };
+
   /* ---------- даты ---------- */
   W.key = function (d) {
     d = d || new Date();
@@ -244,6 +309,21 @@
     var pool = t2 ? W.list(t2.id, 'phrases') : [];
     return pool.length >= 4 ? pool : W.allWords();
   };
+  /* тема, к которой относится выбранный набор.
+     Для пачки «New words · Hobbies» это тема Hobbies — ищем по названию. */
+  W.warmTopic = function () {
+    var s = W.sel();
+    if (s.type === 'topic') return W.topic(s.id);
+    if (s.type === 'batch') {
+      var b = W.batch(s.id), found = null;
+      if (b) W.topics().forEach(function (t2) {
+        if (String(t2.title).toLowerCase() === String(b.title).toLowerCase()) found = t2;
+      });
+      return found;
+    }
+    return null;
+  };
+
   W.questionPool = function () {
     var s = W.sel();
     var t2 = s.type === 'topic' ? W.topic(s.id) : W.topics()[0];

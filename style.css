@@ -276,6 +276,89 @@ input,select{font-family:inherit;font-size:17px;color:inherit}
 .type-in.ok{border-color:var(--ok)}
 .type-in.bad{border-color:var(--bad)}
 
+/* ============ СТИКЕРЫ К ВОПРОСАМ (варианты оформления) ============ */
+
+/* 1 · sticker — одна большая наклейка */
+.sk-one{
+  width:132px;height:132px;margin:0 auto 18px;border-radius:34px;
+  background:hsl(var(--h) 70% 62% / .22);border:3px solid hsl(var(--h) 70% 62% / .5);
+  display:flex;align-items:center;justify-content:center;position:relative;
+  box-shadow:0 14px 30px rgba(0,0,0,.28);
+}
+.sk-one b{font-size:70px;line-height:1;filter:drop-shadow(0 4px 8px rgba(0,0,0,.3))}
+.sk-one i{
+  position:absolute;right:-14px;bottom:-12px;font-size:36px;
+  filter:drop-shadow(0 3px 6px rgba(0,0,0,.35));
+}
+
+/* 2 · collage — эмодзи разбросаны вокруг вопроса */
+.sk-collage{position:relative;padding:34px 8px 30px;margin-bottom:6px}
+.sk-collage i{position:absolute;line-height:1;opacity:.9;filter:drop-shadow(0 4px 10px rgba(0,0,0,.35))}
+.sk-collage .c1{font-size:56px;top:-4px;left:2px}
+.sk-collage .c2{font-size:44px;top:6px;right:4px}
+.sk-collage .c3{font-size:50px;bottom:-8px;right:24%}
+.sk-collage .big-q{position:relative;z-index:1}
+
+/* 3 · polaroid — карточка с цветной шапкой */
+.sk-pol{
+  background:var(--surface);border:2px solid var(--line);border-radius:26px;overflow:hidden;
+  box-shadow:0 16px 34px rgba(0,0,0,.3);margin-bottom:10px;
+}
+.sk-pol-top{
+  height:112px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,hsl(var(--h) 75% 60%),hsl(calc(var(--h) + 45) 75% 56%));
+}
+.sk-pol-top span{font-size:64px;filter:drop-shadow(0 5px 10px rgba(0,0,0,.3))}
+.sk-pol-body{padding:20px 18px 18px}
+.sk-pol-foot{margin-top:12px;font-size:26px;text-align:center;opacity:.85}
+
+/* 4 · wall — эмодзи-обои позади вопроса */
+.sk-wall{position:relative;border-radius:26px;overflow:hidden;margin-bottom:10px;
+  border:2px solid var(--line);background:var(--surface)}
+.sk-wall-bg{
+  position:absolute;inset:0;display:grid;grid-template-columns:repeat(5,1fr);
+  align-content:center;gap:16px 0;justify-items:center;padding:0 6px;
+  opacity:.2;font-size:30px;line-height:1;pointer-events:none;overflow:hidden;
+}
+.sk-wall-in{position:relative;padding:30px 18px 34px}
+/* вопрос лежит прямо на обоях — без своей подложки, чтобы узор было видно */
+.sk-wall-in .big-q{background:none;box-shadow:none;padding:6px 4px;
+  text-shadow:0 2px 12px var(--bg),0 0 22px var(--bg)}
+.sk-wall-in .q-label{text-shadow:0 2px 10px var(--bg)}
+
+/* 5 · reaction — большая эмодзи + строка реакций */
+.sk-react-big{font-size:88px;text-align:center;line-height:1;margin:2px 0 14px;
+  filter:drop-shadow(0 8px 16px rgba(0,0,0,.32))}
+.sk-react-row{display:flex;justify-content:center;gap:10px;margin-top:16px}
+.sk-react-row span{
+  width:56px;height:56px;border-radius:18px;background:var(--surface);border:2px solid var(--line);
+  display:flex;align-items:center;justify-content:center;font-size:28px;
+}
+
+/* 6 · bubble — переписка */
+.sk-bub{display:flex;align-items:flex-end;gap:10px;margin:6px 0 4px}
+.sk-bub-av{
+  width:56px;height:56px;flex:0 0 56px;border-radius:50%;background:var(--surface);
+  border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:30px;
+}
+.sk-bub-txt{
+  background:var(--surface);border:2px solid var(--line);border-radius:24px 24px 24px 6px;
+  padding:16px 18px;font-size:24px;font-weight:700;line-height:1.25;box-shadow:var(--shadow);
+}
+.sk-bub-me{
+  margin:14px 0 0 auto;max-width:80%;background:var(--accent);color:var(--accent-ink);
+  border-radius:24px 24px 6px 24px;padding:12px 16px;font-weight:700;text-align:right;
+}
+
+/* поле с кодом переноса прогресса */
+.code{
+  width:100%;min-height:170px;background:var(--surface);border:3px solid var(--line);
+  border-radius:18px;padding:16px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:13px;line-height:1.4;color:inherit;outline:none;resize:vertical;
+  word-break:break-all;margin-bottom:14px;
+}
+.code:focus{border-color:var(--accent)}
+
 .sprint-q{font-size:32px;font-weight:700;text-align:center;margin:10px 0 22px;line-height:1.15}
 .opt{
   background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:18px;

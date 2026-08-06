@@ -45,14 +45,49 @@
     };
   };
 
-  /* ---------- WARM-UP ---------- */
+  /* ---------- WARM-UP ----------
+     Всё зависит от выбранного набора: вопросы берутся из его темы,
+     слова — из его же лексики, обои — из эмодзи этой темы.
+     Открыл Hobbies — разогрев про хобби. Открыл Daily Routine — про режим дня. */
+
+  /* пара общих вопросов «как дела» в начало, остальное — по теме */
+  W.warmQuestions = function (n) {
+    var t = W.warmTopic();
+    var own = W.shuffle(((t && t.questions) || []).slice());
+    var open = W.pick(window.WARMUP || [], own.length ? 4 : n);
+    var qs = open.concat(own).slice(0, n);
+    if (qs.length < n) qs = qs.concat(W.pick(window.WARMUP || [], n - qs.length));
+    return qs;
+  };
+
   W.actWarmup = function () {
-    var qs = W.pick(window.WARMUP || [], 15);
-    var words = W.pick(W.allWords(), 15);
+    var t = W.warmTopic();
+    var list = W.activeList();
+    var full = t ? W.list(t.id, 'words') : list;            /* обои — из слов темы */
+    var sticks = W.sel().type === 'irreg'
+      ? ['🔁', '⏪', '💪']
+      : W.topicStickers(t, full.length ? full : list);
+
+    var qs = W.warmQuestions(15);
+
+    /* 15 слов всегда: маленькую пачку добираем из её же темы, потом из общего словаря */
+    var words = W.pick(list, 15);
+    if (words.length < 15) {
+      var seen = {};
+      words.forEach(function (w) { seen[W.wkey(w.en)] = 1; });
+      var extra = (t ? W.topicAll(t.id) : []).concat(W.allWords())
+        .filter(function (w) {
+          var k = W.wkey(w.en);
+          if (seen[k]) return false;
+          seen[k] = 1;
+          return true;
+        });
+      words = words.concat(W.pick(extra, 15 - words.length));
+    }
     var steps = qs.map(function (q) { return { t: 'q', text: q }; })
       .concat(words.map(function (w) { return { t: 'w', w: w }; }));
     var idx = 0;
-    var body = W.open('Warm-up');
+    var body = W.open('Warm-up' + (t ? ' · ' + t.title : ''));
 
     function draw() {
       if (idx >= steps.length) {
@@ -61,8 +96,7 @@
       var s = steps[idx];
       W.count((idx + 1) + '/' + steps.length);
       if (s.t === 'q') {
-        body.innerHTML = '<div class="q-label">Answer in English</div>' +
-          '<div class="big-q">' + esc(s.text) + '</div>' +
+        body.innerHTML = W.qCard(s.text, 'Answer in English', sticks) +
           '<button class="btn btn-o" id="nx">Next</button>';
       } else {
         body.innerHTML = '<div class="q-label">Do you remember this word?</div>' +

@@ -27,6 +27,47 @@
   };
   W.count = function (txt) { var c = $('#scCount'); if (c) c.textContent = txt; };
 
+  /* ---------- перенос прогресса кодом ---------- */
+  W.backupShow = function () {
+    var body = W.open('My progress code');
+    body.style.justifyContent = 'flex-start';
+    body.innerHTML =
+      '<div class="q-label">Keep this code. Paste it on a new phone or browser ' +
+      'and all your XP, streak and words come back.</div>' +
+      '<textarea class="code" id="bkTxt" readonly>' + esc(W.backupCode()) + '</textarea>' +
+      '<button class="btn btn-o" id="bkCopy">Copy code</button>';
+    $('#bkCopy').onclick = function () {
+      var t = $('#bkTxt');
+      t.focus(); t.select(); t.setSelectionRange(0, 999999);
+      var done = false;
+      try { done = document.execCommand('copy'); } catch (e) {}
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(t.value).then(function () { W.toast('Copied!'); },
+          function () { if (!done) W.toast('Select the text and copy it'); });
+      } else W.toast(done ? 'Copied!' : 'Select the text and copy it');
+      if (done) W.toast('Copied!');
+    };
+  };
+
+  W.backupPaste = function () {
+    var body = W.open('Paste a code');
+    body.style.justifyContent = 'flex-start';
+    body.innerHTML =
+      '<div class="q-label">Paste the code from your other phone or browser. ' +
+      'Nothing here is deleted — the two are merged and the best of each is kept.</div>' +
+      '<textarea class="code" id="bkIn" placeholder="paste here"></textarea>' +
+      '<div class="inc" id="inc"></div>' +
+      '<button class="btn btn-o" id="bkGo">Restore my progress</button>';
+    $('#bkGo').onclick = function () {
+      var v = $('#bkIn').value.trim();
+      if (!v) return W.wrongFx($('#bkIn'), 'Paste the code first');
+      if (!W.applyCode(v)) return W.wrongFx($('#bkIn'), 'This code is not readable');
+      W.close();
+      W.render();
+      W.toast('Progress restored · ' + (W.s.xp || 0) + ' XP');
+    };
+  };
+
   /* красная вспышка + «Incorrect», правильный ответ НЕ показываем */
   W.wrongFx = function (el, msg) {
     if (el) {

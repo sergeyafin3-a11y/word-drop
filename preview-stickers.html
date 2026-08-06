@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!-- Превью стикеров для Warm-up. Открыть в браузере, выбрать номер.
+     Этот файл в GitHub заливать НЕ нужно — он только чтобы посмотреть. -->
+<html lang="ru" data-theme="midnight">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WORD DROP · стикеры для Warm-up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fredoka:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  body{padding:0 0 60px}
+  .pv{max-width:520px;margin:0 auto;padding:0 16px}
+  .pv-h{font-family:Bungee,sans-serif;font-size:26px;text-align:center;margin:26px 0 6px;color:var(--accent)}
+  .pv-s{text-align:center;color:var(--muted);margin-bottom:30px;font-size:15px}
+  .pv-num{
+    display:flex;align-items:center;gap:10px;margin:38px 0 14px;
+  }
+  .pv-num b{
+    width:44px;height:44px;border-radius:14px;background:var(--accent);color:var(--accent-ink);
+    display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;flex:0 0 44px;
+  }
+  .pv-num span{font-size:20px;font-weight:800}
+  .pv-num em{color:var(--muted);font-size:14px;font-style:normal;display:block;font-weight:500}
+  .pv-box{
+    background:var(--bg);border:2px solid var(--line);border-radius:26px;padding:22px 18px;
+    margin-bottom:14px;
+  }
+  .pv-box + .pv-box{margin-top:-4px}
+</style>
+</head>
+<body>
+
+<div class="pv">
+  <div class="pv-h">WARM-UP · СТИКЕРЫ</div>
+  <div class="pv-s">Шесть вариантов на одних и тех же вопросах.<br>Скажи номер — поставлю его в приложение.</div>
+  <div id="out"></div>
+</div>
+
+<script src="data.js"></script>
+<script src="core.js"></script>
+<script src="stickers.js"></script>
+<script>
+  var DEMO = [
+    'What music did you listen to today?',
+    'What did you have for breakfast?',
+    'What game are you playing now?'
+  ];
+  var STYLES = [
+    ['sticker',  'Наклейка',    'одна большая эмодзи в цветном квадрате, чуть криво — как стикер'],
+    ['collage',  'Коллаж',      'три эмодзи разбросаны вокруг вопроса'],
+    ['polaroid', 'Карточка',    'цветная шапка с картинкой, вопрос под ней'],
+    ['wall',     'Обои',        'эмодзи-узор фоном за вопросом'],
+    ['reaction', 'Реакции',     'огромная эмодзи сверху и три кнопки-реакции снизу'],
+    ['bubble',   'Переписка',   'вопрос как сообщение в чате, ответ ученика — справа']
+  ];
+
+  var html = '';
+  STYLES.forEach(function (s, i) {
+    document.documentElement.setAttribute('data-sticker', s[0]);
+    html += '<div class="pv-num"><b>' + (i + 1) + '</b><span>' + s[1] +
+            '<em>' + s[2] + '</em></span></div>';
+    DEMO.forEach(function (q) {
+      html += '<div class="pv-box">' + WD.qCard(q, 'Answer in English') + '</div>';
+    });
+  });
+  document.getElementById('out').innerHTML = html;
+  document.documentElement.setAttribute('data-sticker', 'sticker');
+</script>
+</body>
+</html>

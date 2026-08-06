@@ -32,7 +32,13 @@
           cur = { type: 'batch', title: parts[1] || 'New words', date: parts[2] || '', items: [] };
           batches.push(cur);
         } else {
-          cur = { type: 'topic', title: parts[1] || 'Topic', emoji: parts[2] || '📚', words: [], phrases: [], questions: [], frames: [] };
+          /* 4-е поле (необязательное) — свои обои: # TOPIC | Travel | ✈️ | 🧳✈️🗺️ */
+          var st = (parts[3] || '').match(/\p{Extended_Pictographic}(️|‍\p{Extended_Pictographic})*/gu) || [];
+          cur = {
+            type: 'topic', title: parts[1] || 'Topic', emoji: parts[2] || '📚',
+            sticker: st.length >= 3 ? st.slice(0, 3) : null,
+            words: [], phrases: [], questions: [], frames: []
+          };
           topics.push(cur);
           section = 'words';
         }
@@ -90,10 +96,12 @@
         found.words = found.words.concat(t.words);
         found.phrases = found.phrases.concat(t.phrases);
         found.questions = (found.questions || []).concat(t.questions);
+        if (t.sticker) found.sticker = t.sticker;
         if (t.frames && t.frames.length) found.buckets = t.frames;
       } else {
         window.TOPICS.push({
           id: idOf('qt', t.title), title: t.title, emoji: t.emoji,
+          sticker: t.sticker || null,
           words: t.words, phrases: t.phrases, questions: t.questions,
           buckets: (t.frames && t.frames.length) ? t.frames : null
         });
