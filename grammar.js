@@ -59,7 +59,11 @@
   /* ---------- табличка ---------- */
   function tableHtml(t) {
     if (!t) return '';
-    return '<div class="gtable-wrap"><table class="gtable">' +
+    /* w: ['46%','34%','20%'] — необязательные ширины колонок */
+    var cg = t.w ? '<colgroup>' + t.w.map(function (x) {
+      return '<col style="width:' + x + '">';
+    }).join('') + '</colgroup>' : '';
+    return '<div class="gtable-wrap"><table class="gtable">' + cg +
       '<tr>' + t.cols.map(function (c) { return '<th>' + c + '</th>'; }).join('') + '</tr>' +
       t.rows.map(function (r) {
         return '<tr>' + r.map(function (c, i) {
@@ -83,6 +87,7 @@
       '<div class="big-q">' + r.formula + '</div>' +
       tableHtml(r.table) +
       tableHtml(r.table2) +
+      tableHtml(r.table3) +
       '<div class="card" style="font-size:16px;line-height:1.45">' + esc(r.rule) + '</div>' +
       '<div class="card" style="font-size:18px;line-height:1.9;text-align:center">' +
       '<div style="color:var(--bad)">❌ ' + esc(r.bad) + '</div>' +
@@ -133,7 +138,7 @@
             b.classList.add('ok');
             if (!missed) { first++; markSolved(t); }
             xp += W.XP.rule; W.addXP(W.XP.rule);
-            setTimeout(function () { lock = false; idx++; draw(); }, 420);
+            W.later(body, function () { lock = false; idx++; draw(); }, 420);
           } else {
             missed = true;
             b.classList.add('bad', 'dead');
@@ -149,6 +154,16 @@
   /* ---------- MIX ---------- */
   W.mixOpen = function () {
     if (!W.s.mix) W.s.mix = W.rules().map(function (r) { return r.id; });
+    /* новое правило само попадает в Mix, а снятые галочки остаются снятыми */
+    if (!W.s.mixSeen) W.s.mixSeen = W.s.mix.slice();
+    W.rules().forEach(function (r) {
+      if (W.s.mixSeen.indexOf(r.id) === -1) {
+        W.s.mixSeen.push(r.id);
+        if (W.s.mix.indexOf(r.id) === -1) W.s.mix.push(r.id);
+      }
+    });
+    W.save();
+
     var body = W.open('Mix test');
     body.style.justifyContent = 'flex-start';
 
@@ -242,7 +257,7 @@
           xp += W.XP.build; W.addXP(W.XP.build);
           W.toast('Correct! Say it out loud');
           idx++;
-          setTimeout(draw, 800);
+          W.later(body, draw, 800);
         } else {
           tries++;
           W.wrongFx($('#tgt'));

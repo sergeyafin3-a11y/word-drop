@@ -508,6 +508,102 @@ window.GRAMMAR = [
       { ru: 'куда ты ходил вчера?', en: 'Where did you go yesterday?' },
       { ru: 'как часто ты играешь в футбол?', en: 'How often do you play football?' }
     ]
+  },
+
+  /* ==================== АРТИКЛИ ==================== */
+  {
+    id: 'g-art',
+    title: 'Articles: a · an · the',
+    sub: 'три вопроса — и артикль найден',
+    formula: 'She is <b>a</b> singer · <b>The</b> song is new · I love <b>music</b>',
+    table: {
+      cols: ['Спроси себя', 'Если да', 'Артикль'],
+      w: ['40%', '40%', '20%'],
+      rows: [
+        ['1. Можно посчитать?', 'нет: music, money, love', '<b>—</b>'],
+        ['2. Знает, какой именно?', 'да: уже говорили', '<b>the</b>'],
+        ['3. Один из многих?', 'да: называем впервые', '<b>a / an</b>']
+      ],
+      note: 'Идём сверху вниз и останавливаемся на первом «да». <b>the</b> — если уже говорили, если единственный (the sun) или если уточнили какой (the song <b>you sent me</b>). <b>an</b> — перед звуком гласного: an actor, an hour. <b>a</b> — перед согласным: a university (звучит «ю»).'
+    },
+    table2: {
+      cols: ['Тема', 'a / an', 'the', '—'],
+      w: ['28%', '24%', '26%', '22%'],
+      rows: [
+        ['Музыка', '<b>a</b> singer', '<b>the</b> new album', 'music'],
+        ['Мода', '<b>a</b> hoodie', '<b>the</b> black jacket', 'clothes'],
+        ['Шоу-биз', '<b>an</b> actor', '<b>the</b> Grammys', 'Netflix'],
+        ['Люди', '<b>a</b> fan', '<b>The</b> Beatles', 'Billie Eilish']
+      ],
+      note: 'Одно и то же слово меняет артикль: <b>a</b> song (какая-то песня) → <b>the</b> song (та самая) → <b>—</b> songs (песни вообще).'
+    },
+    table3: {
+      cols: ['Всегда <b>the</b>', 'Всегда без артикля'],
+      w: ['50%', '50%'],
+      rows: [
+        ['<b>the</b> best song, <b>the</b> first video', 'имена: Zara, Spotify, Milan'],
+        ['<b>the</b> guitar, <b>the</b> piano', 'спорт: football, tennis'],
+        ['<b>the</b> internet, <b>the</b> sun', 'еда: breakfast, pizza'],
+        ['<b>the</b> Beatles, <b>the</b> Rolling Stones', 'языки: English, maths'],
+        ['<b>the</b> same, <b>the</b> only', 'go to school, go home, in bed']
+      ],
+      note: 'Группы во множественном числе — с <b>the</b>: the Beatles. Один человек — без: Billie Eilish, Zendaya.'
+    },
+    rule: 'Три вопроса по порядку. Нельзя посчитать — ничего. Он знает, какой именно — the. Просто один из многих — a/an. Останавливайся на первом «да».',
+    bad: 'I want to be actor. I love the music.',
+    ok: 'I want to be an actor. I love music.',
+    examples: [
+      { en: 'She is a singer', ru: 'она певица — одна из многих' },
+      { en: 'The singer we saw was amazing', ru: 'та самая певица, которую видели' },
+      { en: 'I love music', ru: 'музыку вообще — не посчитать' },
+      { en: 'He plays the guitar', ru: 'инструменты всегда с the' }
+    ],
+    drill: [
+      'She is ___ singer. | a | a / an / the',
+      'I want to be ___ actor. | an | a / an / the',
+      'I love ___ music. | — | a / the / —',
+      'He plays ___ guitar every day. | the | a / the / —',
+      '___ Beatles are a famous band. | The | A / The / —',
+      'Billie Eilish is ___ pop star. | a | a / an / the',
+      'This is ___ best song on the album. | the | a / the / —',
+      'She wears ___ vintage clothes. | — | a / the / —',
+      'I bought ___ hoodie yesterday. | a | a / an / the',
+      '___ hoodie you gave me is my favourite. | The | A / The / —',
+      'He is ___ influencer from Milan. | an | a / an / the',
+      'I watch ___ Netflix every evening. | — | a / the / —',
+      '___ Grammys are on TV tonight. | The | A / The / —',
+      'My sister wants to be ___ designer. | a | a / an / the',
+      'Do you like ___ fashion? | — | a / the / —',
+      'This is ___ first video on her channel. | the | a / the / —',
+      'I saw ___ concert last week. | a | a / an / the',
+      '___ concert was amazing! | The | A / The / —',
+      'She speaks ___ English very well. | — | a / the / —',
+      'He plays ___ football after school. | — | a / the / —',
+      'I found this on ___ internet. | the | a / the / —',
+      'Zendaya is ___ actress. | an | a / an / the',
+      'We had ___ breakfast at eight. | — | a / the / —',
+      'Can I have ___ apple, please? | an | a / an / the',
+      'She is ___ only girl in the band. | the | a / the / —',
+      'My brother goes to ___ school by bus. | — | a / the / —',
+      'This is ___ hour of good music. | an | a / an / the',
+      'He studies at ___ university in London. | a | a / an / the',
+      'I am ___ big fan of The Weeknd. | a | a / an / the',
+      'Turn on ___ radio, please. | the | a / the / —',
+      'She bought ___ new phone and ___ case. | a | a / an / the',
+      'I love ___ songs from the nineties. | the | a / the / —',
+      'He wants ___ job in showbiz. | a | a / an / the',
+      'Look at ___ sun — it is so bright today. | the | a / the / —',
+      '___ Rolling Stones are still on tour. | The | A / The / —',
+      'Do you play ___ piano? | the | a / the / —'
+    ],
+    say: [
+      { ru: 'она певица', en: 'She is a singer' },
+      { ru: 'я люблю музыку', en: 'I love music' },
+      { ru: 'он играет на гитаре', en: 'He plays the guitar' },
+      { ru: 'я хочу быть актёром', en: 'I want to be an actor' },
+      { ru: 'это лучшая песня на альбоме', en: 'This is the best song on the album' },
+      { ru: 'я большой фанат The Weeknd', en: 'I am a big fan of The Weeknd' }
+    ]
   }
 
 ];

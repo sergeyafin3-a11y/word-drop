@@ -81,7 +81,7 @@
       if ($('#bShow')) $('#bShow').onclick = function () { shown = true; draw(); };
       if ($('#bKnow')) $('#bKnow').onclick = function () {
         W.mark(v, true); right++; xp += W.XP.card; W.addXP(W.XP.card);
-        idx++; shown = false; setTimeout(draw, 260);
+        idx++; shown = false; W.later(body, draw, 260);
       };
       if ($('#bAgain')) $('#bAgain').onclick = function () {
         W.mark(v, false); idx++; shown = false; draw();
@@ -124,7 +124,7 @@
           xp += W.XP.type; W.addXP(W.XP.type); W.mark(v, tries === 0);
           W.speak(v.v1 + ', ' + answer);
           idx++;
-          setTimeout(draw, 620);
+          W.later(body, draw, 620);
         } else {
           tries++;
           W.wrongFx(inp);
@@ -181,7 +181,7 @@
                 mistakes === 0 ? 'No mistakes at all!' : 'Mistakes: ' + mistakes,
                 xp, function () { W.verbMatch(); });
             }
-            setTimeout(draw, 350);
+            W.later(body, draw, 350);
           }
         } else {
           mistakes++; W.mark(v, false);
@@ -239,7 +239,7 @@
             var add = W.XP.sprint + (missed ? 0 : Math.min(combo, 5) * 2);
             score += add; xp += add; W.addXP(add);
             W.mark(v, !missed); b.classList.add('ok');
-            setTimeout(function () { lock = false; draw(); }, 320);
+            W.later(body, function () { lock = false; draw(); }, 320);
           } else {
             missed = true; combo = 0; W.mark(v, false);
             b.classList.add('bad', 'dead');

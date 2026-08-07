@@ -27,6 +27,11 @@
   };
   W.count = function (txt) { var c = $('#scCount'); if (c) c.textContent = txt; };
 
+  /* отложенная перерисовка: если экран уже закрыли крестиком — ничего не делаем */
+  W.later = function (body, fn, ms) {
+    setTimeout(function () { if (body && body.isConnected) fn(); }, ms);
+  };
+
   /* ---------- перенос прогресса кодом ---------- */
   W.backupShow = function () {
     var body = W.open('My progress code');
@@ -179,7 +184,7 @@
       if ($('#bShow')) $('#bShow').onclick = function () { shown = true; draw(); };
       if ($('#bKnow')) $('#bKnow').onclick = function () {
         W.mark(w, true); right++; xp += W.XP.card; W.addXP(W.XP.card);
-        idx++; shown = false; setTimeout(draw, 260);
+        idx++; shown = false; W.later(body, draw, 260);
       };
       if ($('#bAgain')) $('#bAgain').onclick = function () {
         W.mark(w, false); idx++; shown = false; draw();
@@ -238,7 +243,7 @@
                 mistakes === 0 ? 'Perfect — no mistakes!' : 'Mistakes: ' + mistakes,
                 xp, function () { W.actMatch(list); });
             }
-            setTimeout(draw, 350);
+            W.later(body, draw, 350);
           }
         } else {
           mistakes++; W.mark(w, false);
@@ -328,7 +333,7 @@
           xp += W.XP.build; W.addXP(W.XP.build);
           W.toast('Correct!');
           idx++;
-          setTimeout(draw, 700);
+          W.later(body, draw, 700);
         } else {
           tries++;
           W.wrongFx($('#tgt'));
@@ -384,7 +389,7 @@
           xp += W.XP.type; W.addXP(W.XP.type); W.mark(w, tries === 0);
           W.toast('Correct!');
           idx++;
-          setTimeout(draw, 550);
+          W.later(body, draw, 550);
         } else {
           tries++;
           W.wrongFx(inp);
@@ -447,7 +452,7 @@
             var add = W.XP.sprint + (missed ? 0 : Math.min(combo, 5) * 2);
             score += add; xp += add; W.addXP(add);
             W.mark(w, !missed); b.classList.add('ok');
-            setTimeout(function () { lock = false; draw(); }, 320);
+            W.later(body, function () { lock = false; draw(); }, 320);
           } else {
             missed = true; combo = 0; W.mark(w, false);
             b.classList.add('bad', 'dead');
