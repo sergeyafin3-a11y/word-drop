@@ -429,4 +429,58 @@ window.QUICK = `
 // Where would you like to go?
 // Do you like travelling with your family?
 
+
+# NEW WORDS | Lesson 12 Aug | 12 Aug
+
+// --- история про сватовство и ссору ---
+a matchmaker - сваха - 💘
+to propose to someone - сделать предложение - 💍
+he proposed to her - он сделал ей предложение - 💍
+he asked her to be his wife - он попросил её стать его женой - 💒
+pregnant - беременная - 🤰
+a belly - живот - 🫃
+a mother - мать - 👩‍🍼
+cruel - жестокий - 😈
+difficult to manage - трудно справляться - 😮‍💨
+ugly - уродливый - 🙈
+depressed - подавленный - 😔
+to get worse - становиться хуже - 📉
+to argue - спорить - 😤
+an argument - ссора - 💢
+they had an argument - они поссорились - 💢
+we had a bad conversation - мы плохо поговорили - 🗯️
+what is the reason for this argument? - в чём причина этой ссоры? - ❓
+to agree - соглашаться - 👍
+to disagree - не соглашаться - 👎
+to join someone - присоединиться к кому-то - 🤝
+would you like to join her? - хочешь присоединиться к ней? - 🤝
+
+// --- фразы для урока ---
+since our last class - с нашего прошлого урока - 📅
+nothing special - ничего особенного - 🤷
+nothing new - ничего нового - 🤷
+got it? - понял? - ✅
+did you understand me? - ты меня понял? - ❓
+is that clear? - понятно? - 💡
+you did not finish - ты не закончил - ✋
+feedback - обратная связь - 💬
+a break - перерыв - ☕️
+an app - приложение - 📱
+
+// --- время и привычки ---
+in advance - заранее - ⏳
+as usual - как обычно - 🔁
+for a long time - долго - ⌛️
+one day - когда-нибудь - 🌅
+once - один раз - 1️⃣
+I would like to try it one day - я бы хотел когда-нибудь попробовать - 🌟
+I would like to take photos one day - я бы хотел когда-нибудь фотографировать - 📸
+you have no plans today - у тебя сегодня нет планов - 📭
+I do not have a lot of free time in the morning - у меня мало свободного времени утром - ⏰
+to pack my bag - собрать рюкзак - 🎒
+
+// --- really и very ---
+I really like it - мне очень нравится - 💯
+it is very interesting - это очень интересно - ✨
+
 `;
