@@ -42,13 +42,6 @@
           '<div class="ld">' + esc(l.date || '') +
           (was ? ' · opened ' + esc(was) : ' · new') + '</div></div>' +
           '<div class="lgo">›</div></button>' +
-          ((l.hw && l.hw.length)
-            ? '<div class="lhw"><div class="lhw-h">Homework</div>' +
-              l.hw.map(function (h) {
-                return '<button class="hwb" data-lesson="' + l.id +
-                  '" data-part="' + esc(h) + '">📌 ' + esc(h) + '</button>';
-              }).join('') + '</div>'
-            : '') +
           '</div>';
       }).join('');
   };
