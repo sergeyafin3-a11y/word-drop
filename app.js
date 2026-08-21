@@ -25,6 +25,7 @@
     if (W.tab === 'learn') v.innerHTML = viewLearn();
     if (W.tab === 'lesson') v.innerHTML = viewLesson();
     if (W.tab === 'gram') v.innerHTML = viewGram();
+    if (W.tab === 'topics') v.innerHTML = W.viewTopics();
     if (W.tab === 'me') v.innerHTML = viewMe();
     wire();
   };
@@ -233,6 +234,10 @@
         if (a === 'vsprint') return W.verbSprint();
         ({ flash: W.actFlash, match: W.actMatch, build: W.actBuild, type: W.actType, sprint: W.actSprint }[a])(list);
       };
+    });
+
+    Array.prototype.forEach.call(document.querySelectorAll('[data-lesson]'), function (b) {
+      b.onclick = function () { W.openLesson(b.dataset.lesson, b.dataset.part || ''); };
     });
 
     if ($('#bkShow')) $('#bkShow').onclick = W.backupShow;
