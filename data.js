@@ -573,4 +573,102 @@ a match - пара - ❤️
 we are a good match - мы хорошо подходим друг другу - ❤️
 it is a win-win situation - это выгодно обоим - 🤝
 
+
+# TOPIC | Travel | ✈️ | 🧳🎫🏨
+= frames
+I always
+I never
+Before a flight I
+When I travel I
+I would like to
+= words
+a check-in desk - стойка регистрации - 🛄
+a boarding pass - посадочный талон - 🎫
+a gate - выход на посадку - 🚪
+a carry-on bag - ручная кладь - 🎒
+checked baggage - багаж в багажное отделение - 🧳
+baggage claim - выдача багажа - 🛄
+security - досмотр - 🛂
+a flight - рейс - ✈️
+delayed - задержан - ⏰
+a delay - задержка - ⌛️
+a window seat - место у окна - 🪟
+an aisle seat - место у прохода - 💺
+a passport - паспорт - 📔
+a suitcase - чемодан - 🧳
+to land - приземлиться - 🛬
+a reservation - бронь - 📖
+to check in - заселиться - 🔑
+to check out - выселиться - 🚪
+a key card - ключ-карта - 💳
+included - включено в стоимость - ✅
+air conditioning - кондиционер - ❄️
+available - свободен - 🆓
+a towel - полотенце - 🧻
+to go straight - идти прямо - ⬆️
+to turn left - повернуть налево - ⬅️
+to turn right - повернуть направо - ➡️
+next to - рядом с - 📍
+opposite - напротив - ↔️
+at the corner - на углу - 📐
+far from here - далеко отсюда - 🗺️
+a menu - меню - 📜
+the bill - счёт - 🧾
+to recommend - советовать - 👍
+to get lost - заблудиться - 😵
+= phrases
+Where is the check-in desk? - где стойка регистрации?
+I would like to check in for this flight - я бы хотел зарегистрироваться на этот рейс
+Can I have a window seat? - можно мне место у окна?
+Can I take this as carry-on? - можно это в ручную кладь?
+I have one bag to check in - у меня одна сумка в багаж
+What gate is it? - какой выход на посадку?
+Has the gate changed? - выход на посадку поменялся?
+How long is the delay? - надолго задержка?
+My bag is missing - моя сумка потерялась
+Where is baggage claim? - где выдача багажа?
+I have a reservation under Kovalev - у меня бронь на фамилию Ковалёв
+Is breakfast included? - завтрак включён?
+What time is check-out? - во сколько выселение?
+My key card is not working - моя ключ-карта не работает
+Could I have another towel? - можно ещё одно полотенце?
+What is the Wi-Fi password? - какой пароль от вайфая?
+Excuse me, how do I get to the station? - извините, как пройти к вокзалу?
+Is it far from here? - это далеко отсюда?
+Can I walk there? - туда можно дойти пешком?
+It is next to the museum - это рядом с музеем
+Could we see the menu, please? - можно нам меню?
+What do you recommend? - что вы посоветуете?
+Does this have meat in it? - здесь есть мясо?
+I will have this, please - я буду вот это
+Could we have the bill, please? - можно счёт?
+Could you help me, please? - вы не могли бы мне помочь?
+I do not understand - я не понимаю
+Could you say that again, please? - повторите, пожалуйста
+Could you speak more slowly? - можно помедленнее?
+Is this your first time here? - вы здесь впервые?
+How long are you staying? - надолго вы здесь?
+We are here for five days - мы здесь на пять дней
+= questions
+Do you like airports? Why?
+What do you always take on a trip?
+Window seat or aisle seat?
+What can go wrong before a flight?
+Hotel or apartment? Why?
+What is important in a good hotel?
+Have you ever got lost in a new city?
+What food do you want to try when you travel?
+Where would you like to go one day?
+Who do you usually travel with?
+How do you get to the airport?
+What do you do on a long flight?
+Do you pack your bag early or at the last minute?
+What was your best trip?
+Do you prefer the sea or the mountains?
+What do you do when your flight is delayed?
+Do you ask people for directions or use a map?
+What do you always buy when you travel?
+Would you like to travel alone?
+What country would you never visit? Why?
+
 `;
