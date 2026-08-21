@@ -483,4 +483,94 @@ to pack my bag - собрать рюкзак - 🎒
 I really like it - мне очень нравится - 💯
 it is very interesting - это очень интересно - ✨
 
+
+# NEW WORDS | Lesson 21 Aug | 21 Aug
+
+// --- 1. Шопинг и уход за собой ---
+I went shopping - я ходил по магазинам - 🛍️
+a mall - торговый центр - 🏬
+soap - мыло - 🧼
+liquid - жидкий - 💧
+solid - твёрдый - 🧊
+liquid soap - жидкое мыло - 🧴
+solid soap - твёрдое мыло - 🧼
+a skincare set - набор для ухода за кожей - 🧴
+stuff for skincare - средства для ухода за кожей - 🧖
+medicines - лекарства - 💊
+vitamins - витамины - 💊
+clothes - одежда - 👕
+something to wear - что надеть - 👗
+a charger - зарядка - 🔌
+to charge my phone - зарядить телефон - 🔋
+the rest - остальное - ➕
+already - уже - ⏱️
+I went to the mall and bought the rest - я сходил в торговый центр и купил остальное - 🏬
+I need vitamins not to die - мне нужны витамины чтобы не умереть - 💊
+I have already charged my phone - я уже зарядил телефон - 🔋
+I have nothing to wear - мне нечего надеть - 👗
+
+// --- 2. Сериалы и слухи ---
+a series - сериал - 📺
+an episode - серия - 🎬
+a season - сезон - 📅
+rumours - слухи - 🗣️
+to come back - вернуться - 🔙
+to cheat on somebody - изменить кому-то - 💔
+a wedding - свадьба - 💒
+wedding preparation - подготовка к свадьбе - 💐
+bright - умный - 💡
+I watched the whole season in one day - я посмотрел весь сезон за один день - 📺
+there are rumours that he cheated on her - ходят слухи что он ей изменил - 🗯️
+the new season comes back in autumn - новый сезон выйдет осенью - 🍂
+
+// --- 3. Опоздания и время ---
+to run late - опаздывать - 🏃
+I am five minutes late - я опаздываю на пять минут - ⏰
+everyone is running late because of him - все опаздывают из-за него - 😤
+to forget something all the time - постоянно всё забывать - 🤦
+you are bad at timing - ты плохо рассчитываешь время - ⌛️
+I am good at waking up early - я хорошо встаю рано - 🌅
+it depends - смотря как - 🤷
+
+// --- 4. Чувства и рост ---
+anxiety - тревожность - 😰
+anxious - тревожный - 😟
+chilled - расслабленный - 😎
+being chilled - быть расслабленным - 🧘
+successful - успешный - 🏆
+to succeed - добиться успеха - 🎯
+success - успех - 🌟
+to develop - развиваться - 📈
+to improve - улучшать - 📊
+support - поддержка - 🤝
+to support somebody - поддерживать кого-то - 🫂
+you have your own way - у тебя свой путь - 🛤️
+to follow it - идти по нему - 👣
+I feel anxious before exams - я тревожусь перед экзаменами - 😰
+she is chilled about everything - она ко всему относится спокойно - 😎
+I want to develop my English - я хочу развивать свой английский - 📈
+you have your own way so follow it - у тебя свой путь так что иди по нему - 🛤️
+
+// --- 5. Поездки ---
+a trip - поездка - 🧳
+an adventure - приключение - 🗺️
+our trip was a real adventure - наша поездка была настоящим приключением - 🗺️
+
+// --- 6. Туалет по-разному ---
+a restroom - туалет в общественном месте - 🚻
+a toilet - унитаз - 🚽
+a bathroom - ванная - 🛁
+WC - туалет на табличке - 🚻
+where is the restroom? - где здесь туалет? - 🚻
+
+// --- 7. Люди и возраст ---
+I am the same age as Zhenya - мы с Женей ровесники - 🎂
+a peer - ровесник - 👥
+Zhenya is your peer - Женя твой ровесник - 👥
+contemporary - современный - 🆕
+win-win - выгодно обоим - 🤝
+a match - пара - ❤️
+we are a good match - мы хорошо подходим друг другу - ❤️
+it is a win-win situation - это выгодно обоим - 🤝
+
 `;

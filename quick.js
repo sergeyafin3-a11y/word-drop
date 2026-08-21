@@ -81,8 +81,11 @@
     window.BATCHES = window.BATCHES || [];
     window.TOPICS = window.TOPICS || [];
 
-    /* новые пачки — сверху, самые свежие первыми */
-    q.batches.reverse().forEach(function (b) {
+    /* новые пачки — сверху, самые свежие первыми.
+       Идём в порядке файла и каждую кладём наверх, поэтому последняя
+       дописанная пачка оказывается первой в меню. reverse() здесь не нужен:
+       при двух и более пачках он как раз поднимал наверх самую старую. */
+    q.batches.forEach(function (b) {
       if (!b.items.length) return;
       window.BATCHES.unshift({ id: idOf('qb', b.title), title: b.title, date: b.date, items: b.items });
     });
