@@ -11,6 +11,8 @@
       days: {},         // 'YYYY-MM-DD' -> {acts,words,xp}
       records: {},      // 'sprint' -> число
       rules: {},        // 'g-01' -> {done,seen}
+      hw: {},           // 'hw-...' -> {d1t0:1} — галочки домашки
+      lessons: {},      // 'travel' -> дата, когда открывал урок
       sel: null
     };
   };
@@ -52,7 +54,10 @@
      Восстановление не стирает текущее, а СЛИВАЕТ: берётся лучшее из двух. */
   W.backupCode = function () {
     /* выкидываем пустышки: слова, которых ученик ещё не касался */
-    var s = W.s, p = { v: s.v, xp: s.xp, words: {}, days: s.days, records: s.records, rules: s.rules, mig2: s.mig2 };
+    var s = W.s, p = {
+      v: s.v, xp: s.xp, words: {}, days: s.days, records: s.records, rules: s.rules,
+      hw: s.hw, lessons: s.lessons, mig2: s.mig2
+    };
     Object.keys(s.words || {}).forEach(function (k) {
       var w = s.words[k];
       if (w && (w.box || w.right || w.wrong)) p.words[k] = w;
@@ -102,6 +107,17 @@
 
     if (p.mig2) s.mig2 = p.mig2;
     if (p.mix && !s.mix) s.mix = p.mix;
+
+    /* домашка: галочки объединяем, сделанное не пропадает */
+    Object.keys(p.hw || {}).forEach(function (id) {
+      if (!s.hw) s.hw = {};
+      if (!s.hw[id]) s.hw[id] = {};
+      Object.keys(p.hw[id] || {}).forEach(function (k) { s.hw[id][k] = 1; });
+    });
+    Object.keys(p.lessons || {}).forEach(function (id) {
+      if (!s.lessons) s.lessons = {};
+      if (!s.lessons[id]) s.lessons[id] = p.lessons[id];
+    });
     W.saveNow();
     return true;
   };

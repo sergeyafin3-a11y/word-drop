@@ -25,6 +25,7 @@
     if (W.tab === 'learn') v.innerHTML = viewLearn();
     if (W.tab === 'lesson') v.innerHTML = viewLesson();
     if (W.tab === 'gram') v.innerHTML = viewGram();
+    if (W.tab === 'hw') v.innerHTML = W.viewHomework();
     if (W.tab === 'topics') v.innerHTML = W.viewTopics();
     if (W.tab === 'me') v.innerHTML = viewMe();
     wire();
@@ -234,6 +235,12 @@
         if (a === 'vsprint') return W.verbSprint();
         ({ flash: W.actFlash, match: W.actMatch, build: W.actBuild, type: W.actType, sprint: W.actSprint }[a])(list);
       };
+    });
+
+    if ($('#searchBtn')) $('#searchBtn').onclick = W.searchOpen;
+
+    Array.prototype.forEach.call(document.querySelectorAll('[data-hw]'), function (b) {
+      b.onclick = function () { W.openHomework(b.dataset.hw); };
     });
 
     Array.prototype.forEach.call(document.querySelectorAll('[data-lesson]'), function (b) {
