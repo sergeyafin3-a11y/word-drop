@@ -1,4 +1,4 @@
-/* homework.js — вкладка Homework: одна домашка = одна тема, без деления по дням */
+/* homework.js — домашка: заметить → выучить фразой → сказать про себя → рассказать бегло */
 (function () {
   var W = window.WD;
   var $ = function (s, r) { return (r || document).querySelector(s); };
@@ -11,32 +11,32 @@
     return null;
   };
 
-  /* ---------- что сделано ---------- */
   function st(id) {
     if (!W.s.hw) W.s.hw = {};
-    var s = W.s.hw[id];
-    if (!s) s = W.s.hw[id] = {};
-    if (!s.found) s.found = {};
-    if (!s.gaps) s.gaps = {};
-    if (!s.used) s.used = {};
+    var s = W.s.hw[id] || (W.s.hw[id] = {});
+    ['found', 'gaps', 'said', 'mine', 'told', 'used'].forEach(function (k) {
+      if (!s[k] || typeof s[k] !== 'object') s[k] = {};
+    });
     return s;
   }
   function n(o) { return Object.keys(o || {}).length; }
 
   W.hwDone = function (h) {
     var s = st(h.id);
-    return n(s.found) + n(s.gaps) + (s.linkers ? 1 : 0) + (s.speak ? 1 : 0);
+    return n(s.found) + n(s.gaps) + n(s.said) + n(s.mine) + n(s.told);
   };
   W.hwTotal = function (h) {
     return (h.find || []).length + (h.gaps || []).length +
-      (h.linkers ? 1 : 0) + (h.speaking ? 1 : 0);
+      ((h.chunks && h.chunks.items) || []).length +
+      ((h.mine && h.mine.items) || []).length +
+      ((h.retell && h.retell.items) || []).length;
   };
   W.hwProgress = function (h) {
     var t = W.hwTotal(h);
     return t ? Math.round(W.hwDone(h) * 100 / t) : 0;
   };
 
-  /* ---------- список домашек ---------- */
+  /* ---------- список ---------- */
   W.viewHomework = function () {
     var list = W.homeworks();
     if (!list.length) {
@@ -53,35 +53,45 @@
           '<div class="htitle">' + esc(h.title) + '</div>' +
           '<div class="hsub">' + esc(h.sub || '') + '</div></div>' +
           '<div class="hp">' + p + '%</div></div>' +
-          '<div class="bar"><i style="width:' + p + '%"></i></div>' +
-          '</button>';
+          '<div class="bar"><i style="width:' + p + '%"></i></div></button>';
       }).join('');
   };
 
-  /* ---------- подсветка слов прямо в тексте ---------- */
+  /* ---------- текст: слова НЕ подсвечены, ученик ищет сам ----------
+     Каждое слово можно нажать. Нужное — засчитывается и зеленеет,
+     ненужное — просто вздрагивает, без подсказки. */
   function reEsc(x) { return String(x).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 
-  function markStory(text, targets) {
-    var out = esc(text);
-    if (!targets || !targets.length) return out;
-    /* длинные раньше коротких: delayed не должен ловиться как delay */
-    var words = targets.map(function (t) { return t.en; })
-      .sort(function (a, b) { return b.length - a.length; });
-    var re = new RegExp('(' + words.map(reEsc).join('|') + ')', 'gi');
-    return out.replace(re, function (m) {
-      return '<b class="tw" data-w="' + m.toLowerCase() + '">' + m + '</b>';
+  function wrapPlain(s) {
+    return s.replace(/([A-Za-z][A-Za-z’'-]*)|([\s\S][^A-Za-z]*)/g, function (m, w, other) {
+      return w ? '<b class="w">' + esc(w) + '</b>' : esc(other || '');
     });
+  }
+
+  function markStory(text, targets) {
+    var words = (targets || []).map(function (t) { return t.en; })
+      .sort(function (a, b) { return b.length - a.length; });
+    if (!words.length) return wrapPlain(text);
+
+    var re = new RegExp('(' + words.map(reEsc).join('|') + ')', 'gi');
+    var out = '', last = 0, m;
+    while ((m = re.exec(text)) !== null) {
+      out += wrapPlain(text.slice(last, m.index));
+      out += '<b class="w" data-t="' + esc(m[0].toLowerCase()) + '">' + esc(m[0]) + '</b>';
+      last = m.index + m[0].length;
+    }
+    return out + wrapPlain(text.slice(last));
   }
 
   function ruOf(h, w) {
-    var found = null;
+    var r = '';
     (h.find || []).forEach(function (t) {
-      if (!found && t.en.toLowerCase() === String(w).toLowerCase()) found = t.ru;
+      if (!r && t.en.toLowerCase() === String(w).toLowerCase()) r = t.ru;
     });
-    return found || '';
+    return r;
   }
 
-  /* ---------- сама домашка ---------- */
+  /* ---------- экран домашки ---------- */
   W.openHomework = function (id) {
     var h = W.homework(id);
     if (!h) return;
@@ -91,27 +101,45 @@
 
     function draw() {
       var s = st(h.id);
-      var foundN = n(s.found), findN = (h.find || []).length;
-      var gapN = n(s.gaps), gapsN = (h.gaps || []).length;
+      var findN = (h.find || []).length;
+      var gapsN = (h.gaps || []).length;
+      var ch = (h.chunks && h.chunks.items) || [];
+      var mine = (h.mine && h.mine.items) || [];
+      var ret = (h.retell && h.retell.items) || [];
 
       body.innerHTML =
         '<div class="q-label">' + esc(h.topic) + '</div>' +
 
-        /* ---- текст ---- */
-        '<div class="h">The story <b>' + W.hwDone(h) + ' / ' + W.hwTotal(h) + '</b></div>' +
-        '<div class="task-note">Найди в тексте <b>' + findN + '</b> слов темы. ' +
-        'Нажми на слово — оно подсветится и покажет перевод.</div>' +
+        /* 1 — найти слова */
+        '<div class="h">1 · Find the words <b>' + W.hwDone(h) + ' / ' + W.hwTotal(h) + '</b></div>' +
+        '<div class="task-note">В тексте спрятаны <b>' + findN + '</b> слов темы. ' +
+        'Подсказок нет — читай и нажимай на те, которые считаешь нужными.</div>' +
         '<div class="story">' +
         h.story.map(function (p) {
           return '<p class="sp">' + markStory(p.en, h.find) +
             '<span class="sru' + (ruOn ? '' : ' hidden') + '">' + esc(p.ru) + '</span></p>';
         }).join('') + '</div>' +
-        '<div class="counter-line"><b>' + foundN + '</b> / ' + findN + ' words found</div>' +
+        '<div class="counter-line"><b>' + n(s.found) + '</b> / ' + findN + ' found</div>' +
         '<button class="btn btn-g" id="ruBtn">' +
         (ruOn ? 'Спрятать перевод' : 'Показать перевод') + '</button>' +
 
-        /* ---- пропуски ---- */
-        (gapsN ? '<div class="h">Fill the gaps <b>' + gapN + ' / ' + gapsN + '</b></div>' +
+        /* 2 — фразы целиком */
+        (ch.length ? '<div class="h">2 · Say these phrases <b>' + n(s.said) + ' / ' + ch.length + '</b></div>' +
+          '<div class="task-note">' + esc(h.chunks.note) + '</div>' +
+          '<div class="card">' +
+          ch.map(function (c, i) {
+            var on = !!s.said['c' + i];
+            return '<div class="ch-line' + (on ? ' done' : '') + '">' +
+              '<button class="ch-say" data-say="' + i + '">🔊</button>' +
+              '<div style="flex:1;min-width:0"><div class="ch-en">' + esc(c.en) + '</div>' +
+              '<div class="ch-ru">' + esc(c.ru) + '</div></div>' +
+              '<button class="tick' + (on ? ' on' : '') + '" data-c="' + i + '">' +
+              (on ? '✓' : '3×') + '</button></div>';
+          }).join('') + '</div>' : '') +
+
+        /* 3 — пропуски */
+        (gapsN ? '<div class="h">3 · Fill and say <b>' + n(s.gaps) + ' / ' + gapsN + '</b></div>' +
+          '<div class="task-note">Впиши слово и сразу <b>скажи всё предложение вслух</b>.</div>' +
           '<div class="card gapbox">' +
           h.gaps.map(function (g, i) {
             var ok = !!s.gaps['g' + i];
@@ -119,38 +147,45 @@
             return '<div class="gline' + (ok ? ' ok' : '') + '">' +
               '<span>' + parts[0] + '</span>' +
               (ok ? '<b class="gword">' + esc(g.a) + '</b>'
-                  : '<input class="ginp" id="g' + i + '" data-g="' + i + '" ' +
-                    'autocomplete="off" autocorrect="off" autocapitalize="off">') +
+                  : '<input class="ginp" id="g' + i + '" autocomplete="off" ' +
+                    'autocorrect="off" autocapitalize="off">') +
               '<span>' + (parts[1] || '') + '</span></div>';
           }).join('') +
           '<div class="inc" id="inc"></div>' +
-          (gapN < gapsN ? '<button class="btn btn-o" id="gCheck">Check</button>' : '') +
+          (n(s.gaps) < gapsN ? '<button class="btn btn-o" id="gCheck">Check</button>' : '') +
           '</div>' : '') +
 
-        /* ---- связки ---- */
-        (h.linkers ? '<div class="h">Linkers · связки для рассказа</div>' +
-          '<div class="task-note">Без них получится список предложений, а не рассказ.</div>' +
-          '<div class="card linkbox">' +
-          h.linkers.map(function (l) {
-            return '<div class="lk"><b>' + esc(l.en) + '</b><span>' + esc(l.ru) + '</span></div>';
-          }).join('') +
-          '<button class="btn ' + (s.linkers ? 'btn-green' : 'btn-o') + '" id="lkBtn">' +
-          (s.linkers ? 'Learned ✓' : 'I know these') + '</button></div>' : '') +
+        /* 4 — про себя */
+        (mine.length ? '<div class="h">4 · Your turn <b>' + n(s.mine) + ' / ' + mine.length + '</b></div>' +
+          '<div class="task-note">' + esc(h.mine.note) + '</div>' +
+          '<div class="card">' +
+          mine.map(function (q, i) {
+            var on = !!s.mine['m' + i];
+            return '<div class="ch-line' + (on ? ' done' : '') + '">' +
+              '<div style="flex:1">' + esc(q) + '</div>' +
+              '<button class="tick' + (on ? ' on' : '') + '" data-m="' + i + '">' +
+              (on ? '✓' : '') + '</button></div>';
+          }).join('') + '</div>' : '') +
 
-        /* ---- устное ---- */
-        (h.speaking ? '<div class="h">Speaking</div>' +
-          '<div class="card speakbox">' +
-          '<div class="spk-t">' + esc(h.speaking.title) + '</div>' +
-          '<div class="spk-x">' + esc(h.speaking.text) + '</div>' +
+        /* 5 — рассказать три раза */
+        (ret.length ? '<div class="h">5 · Tell it three times <b>' + n(s.told) + ' / ' + ret.length + '</b></div>' +
+          '<div class="task-note">' + esc(h.retell.note) + '</div>' +
+          '<div class="card">' +
           '<div class="chips">' +
           (h.linkers || []).map(function (l, i) {
             return '<button class="chip' + (s.used['u' + i] ? ' in' : '') +
-              '" data-u="' + i + '">' + esc(l.en) + '</button>';
+              '" data-u="' + i + '" title="' + esc(l.ru) + '">' + esc(l.en) + '</button>';
           }).join('') + '</div>' +
-          '<button class="btn ' + (s.speak ? 'btn-green' : 'btn-o') + '" id="spBtn">' +
-          (s.speak ? 'Done ✓' : 'I said it out loud') + '</button></div>' : '') +
+          '<div class="hintline" style="margin-bottom:12px">' + esc(h.retell.use) + '</div>' +
+          ret.map(function (r, i) {
+            var on = !!s.told['t' + i];
+            return '<div class="ch-line' + (on ? ' done' : '') + '">' +
+              '<div style="flex:1">' + esc(r) + '</div>' +
+              '<button class="tick' + (on ? ' on' : '') + '" data-r="' + i + '">' +
+              (on ? '✓' : '') + '</button></div>';
+          }).join('') + '</div>' : '') +
 
-        /* ---- вопросы к уроку ---- */
+        /* вопросы к уроку */
         '<div class="h">Questions for the lesson</div>' +
         '<div class="card qlist">' +
         (h.questions || []).map(function (q, i) {
@@ -160,24 +195,43 @@
       /* --- обработчики --- */
       $('#ruBtn').onclick = function () { ruOn = !ruOn; draw(); };
 
-      Array.prototype.forEach.call(body.querySelectorAll('.tw'), function (b) {
-        if (s.found[b.dataset.w]) b.classList.add('on');
+      Array.prototype.forEach.call(body.querySelectorAll('.w'), function (b) {
+        var t = b.dataset.t;
+        if (t && s.found[t]) b.classList.add('on');
         b.onclick = function () {
-          var w = b.dataset.w;
-          if (!s.found[w]) {
-            s.found[w] = 1;
+          if (!t) { W.wrongFx(b); return; }          /* не то слово — только вздрогнуло */
+          if (!s.found[t]) {
+            s.found[t] = 1;
             W.saveNow();
             W.addXP(5);
-            W.toast(b.textContent + ' — ' + ruOf(h, w));
+            W.toast(b.textContent + ' — ' + ruOf(h, t));
             draw();
           } else {
-            W.toast(b.textContent + ' — ' + ruOf(h, w));
+            W.toast(b.textContent + ' — ' + ruOf(h, t));
           }
         };
       });
 
+      Array.prototype.forEach.call(body.querySelectorAll('[data-say]'), function (b) {
+        b.onclick = function () { W.speak(ch[+b.dataset.say].en); };
+      });
+
+      function toggle(sel, bag, pre) {
+        Array.prototype.forEach.call(body.querySelectorAll(sel), function (b) {
+          b.onclick = function () {
+            var k = pre + b.dataset[sel.replace(/\[data-|\]/g, '')];
+            if (bag[k]) delete bag[k]; else bag[k] = 1;
+            W.saveNow(); draw();
+          };
+        });
+      }
+      toggle('[data-c]', s.said, 'c');
+      toggle('[data-m]', s.mine, 'm');
+      toggle('[data-r]', s.told, 't');
+      toggle('[data-u]', s.used, 'u');
+
       if ($('#gCheck')) $('#gCheck').onclick = function () {
-        var wrong = 0, right = 0;
+        var right = 0, wrong = 0;
         h.gaps.forEach(function (g, i) {
           var el = $('#g' + i);
           if (!el) return;
@@ -188,26 +242,6 @@
         });
         if (right) { W.saveNow(); W.addXP(right * 10); draw(); }
         else if (!wrong) W.toast('Впиши хотя бы одно слово');
-      };
-
-      if ($('#lkBtn')) $('#lkBtn').onclick = function () {
-        s.linkers = s.linkers ? 0 : 1;
-        if (!s.linkers) delete s.linkers;
-        W.saveNow(); draw();
-      };
-
-      Array.prototype.forEach.call(body.querySelectorAll('[data-u]'), function (b) {
-        b.onclick = function () {
-          var k = 'u' + b.dataset.u;
-          if (s.used[k]) delete s.used[k]; else s.used[k] = 1;
-          W.saveNow(); draw();
-        };
-      });
-
-      if ($('#spBtn')) $('#spBtn').onclick = function () {
-        s.speak = s.speak ? 0 : 1;
-        if (!s.speak) delete s.speak;
-        W.saveNow(); draw();
       };
     }
     draw();

@@ -6,7 +6,9 @@
      find     — слова, которые ученик ищет прямо в тексте
      gaps     — предложения с пропуском: { s:'... ___ ...', a:'ответ' }
      linkers  — связки для рассказа
-     speaking — устное задание в конце
+     chunks   — готовые фразы с озвучкой
+     mine     — вопросы про себя
+     retell   — пересказ три раза
      questions— вопросы для обсуждения на уроке
 
    set — какой набор открывать по стрелке. Ищется ПО НАЗВАНИЮ темы:
@@ -50,6 +52,7 @@ window.HOMEWORK = [
         ru: 'Иван смотрит на Валентину и её большую коробку печенья. «Валя, — медленно говорит он. — А где твой посадочный талон?»' }
     ],
 
+    /* 1. NOTICING — ученик сам находит слова в тексте, подсказок нет */
     find: [
       { en: 'check-in desk', ru: 'стойка регистрации' },
       { en: 'suitcase', ru: 'чемодан' },
@@ -65,6 +68,22 @@ window.HOMEWORK = [
       { en: 'boarding pass', ru: 'посадочный талон' }
     ],
 
+    /* 2. CHUNKS — учим не слова, а готовые фразы, которые он скажет в аэропорту */
+    chunks: {
+      note: 'Не учи слова по отдельности — учи фразы целиком. ' +
+            'Нажми 🔊 и скажи каждую три раза: медленно, обычно, быстро. ' +
+            'Так фраза ложится на язык и вылетает сама.',
+      items: [
+        { en: 'Where is the check-in desk?', ru: 'где стойка регистрации?' },
+        { en: 'Can I have a window seat, please?', ru: 'можно мне место у окна?' },
+        { en: 'How long is the delay?', ru: 'надолго задержка?' },
+        { en: 'I am looking for gate 12.', ru: 'я ищу выход 12' },
+        { en: 'My bag is missing.', ru: 'моя сумка потерялась' },
+        { en: 'Could you help me, please?', ru: 'вы не могли бы мне помочь?' }
+      ]
+    },
+
+    /* 3. ТОЧНОСТЬ — вписал и сразу сказал предложение целиком вслух */
     gaps: [
       { s: 'Ivan is looking for the ___ desk.', a: 'check-in' },
       { s: 'Olga has her ___ in her hand.', a: 'passport' },
@@ -78,6 +97,20 @@ window.HOMEWORK = [
       { s: 'He has a big ___ and a small carry-on bag.', a: 'suitcase' }
     ],
 
+    /* 4. ПЕРСОНАЛИЗАЦИЯ — слово живёт, только когда сказано про себя */
+    mine: {
+      note: 'Теперь про себя. Отвечай вслух полными предложениями. ' +
+            'Ошибки не важны — важно не молчать.',
+      items: [
+        'Do you like airports? Say two sentences.',
+        'Window seat or aisle seat? I prefer … because …',
+        'What do you always take in your carry-on bag? Name three things.',
+        'Your flight is delayed for three hours. What do you do?',
+        'You are Ivan. Your suitcase is missing. Say three sentences to the airport worker.'
+      ]
+    },
+
+    /* 5. БЕГЛОСТЬ — один и тот же рассказ три раза, каждый раз быстрее */
     linkers: [
       { en: 'First', ru: 'сначала' },
       { en: 'Then', ru: 'потом' },
@@ -89,11 +122,15 @@ window.HOMEWORK = [
       { en: 'because', ru: 'потому что' }
     ],
 
-    speaking: {
-      title: 'Retell the story out loud',
-      text: 'Tell the story in 8 sentences. Nobody is listening — say it to the wall. ' +
-            'Use every linker at least once and tap it when you have used it. ' +
-            'Start like this: First, the Kovalev family is at the airport…'
+    retell: {
+      note: 'Один и тот же рассказ три раза. С каждым разом слов меньше, ' +
+            'а говоришь быстрее — так появляется беглость. Никто не слушает, говори стене.',
+      items: [
+        'Раз. Смотри в текст. Расскажи историю в 8 предложениях.',
+        'Два. Закрой текст. Расскажи ещё раз, чуть быстрее.',
+        'Три. Только 5 предложений, без текста, как можно быстрее.'
+      ],
+      use: 'Используй связки и нажимай на них, когда сказал.'
     },
 
     questions: [
