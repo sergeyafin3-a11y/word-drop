@@ -671,4 +671,57 @@ What do you always buy when you travel?
 Would you like to travel alone?
 What country would you never visit? Why?
 
+
+# NEW WORDS | Lesson 25 Aug | 25 Aug
+
+// --- 1. Вкус и еда ---
+tasty - вкусный - 😋
+yummy - вкуснятина - 🤤
+delicious - очень вкусный - 🍰
+it isn't tasty - это невкусно - 😕
+it's delicious - это очень вкусно - 😍
+ice - лёд - 🧊
+an iced coffee - холодный кофе - 🧋
+hot - горячий - ♨️
+a Snickers bar - батончик сникерс - 🍫
+Do you want ice in your drink? - тебе лёд в напиток? - 🥤
+This cake is delicious - этот торт очень вкусный - 🍰
+
+// --- 2. Умения и хобби ---
+to knit - вязать - 🧶
+knitting - вязание - 🧶
+how to knit - как вязать - 🧶
+to teach - учить кого-то - 👩‍🏫
+to be good at something - хорошо что-то уметь - 🏅
+Liza is good at knitting - Лиза хорошо вяжет - 🧶
+Can you teach me how to knit? - научишь меня вязать? - 🧶
+I'm good at drawing - я хорошо рисую - 🎨
+
+// --- 3. Характер ---
+to show off - хвастаться - 😎
+a show-off - хвастун - 🙄
+responsible - ответственный - ✅
+He is really responsible - он очень ответственный - 💪
+caring - заботливый - 🤗
+to care about somebody - заботиться о ком-то - ❤️
+care - забота - 🫶
+careful - осторожный - ⚠️
+Be careful! - осторожно! - ⚠️
+She is a caring person - она заботливый человек - 🤗
+He never shows off - он никогда не хвастается - 😌
+
+// --- 4. Вещи ---
+a toy - игрушка - 🧸
+a coaster - подставка под стакан - 🥤
+a glass stand - подставка для стакана - 🥛
+
+// --- 5. Время и планы ---
+on Friday - в пятницу - 📅
+to book - бронировать - 📝
+to book a table - забронировать столик - 🍽️
+a shortcut - короткий путь - ✂️
+to take a shortcut - срезать путь - 🚶
+I'll book a table on Friday - я забронирую столик в пятницу - 📅
+Let's take a shortcut - давай срежем - 🚶
+
 `;
