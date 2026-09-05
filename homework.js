@@ -1,4 +1,4 @@
-/* homework.js — вкладка Homework: домашка по темам */
+/* homework.js — вкладка Homework: одна домашка = одна тема, без деления по дням */
 (function () {
   var W = window.WD;
   var $ = function (s, r) { return (r || document).querySelector(s); };
@@ -11,28 +11,29 @@
     return null;
   };
 
-  /* ---------- галочки ---------- */
+  /* ---------- что сделано ---------- */
   function st(id) {
     if (!W.s.hw) W.s.hw = {};
-    if (!W.s.hw[id]) W.s.hw[id] = {};
-    return W.s.hw[id];
+    var s = W.s.hw[id];
+    if (!s) s = W.s.hw[id] = {};
+    if (!s.found) s.found = {};
+    if (!s.gaps) s.gaps = {};
+    if (!s.used) s.used = {};
+    return s;
   }
-  function key(d, i) { return 'd' + d + 't' + i; }
+  function n(o) { return Object.keys(o || {}).length; }
+
   W.hwDone = function (h) {
-    var s = st(h.id), n = 0;
-    h.days.forEach(function (d, di) {
-      d.tasks.forEach(function (t, ti) { if (s[key(d.n || di + 1, ti)]) n++; });
-    });
-    return n;
+    var s = st(h.id);
+    return n(s.found) + n(s.gaps) + (s.linkers ? 1 : 0) + (s.speak ? 1 : 0);
   };
   W.hwTotal = function (h) {
-    var n = 0;
-    h.days.forEach(function (d) { n += d.tasks.length; });
-    return n;
+    return (h.find || []).length + (h.gaps || []).length +
+      (h.linkers ? 1 : 0) + (h.speaking ? 1 : 0);
   };
   W.hwProgress = function (h) {
-    var tot = W.hwTotal(h);
-    return tot ? Math.round(W.hwDone(h) * 100 / tot) : 0;
+    var t = W.hwTotal(h);
+    return t ? Math.round(W.hwDone(h) * 100 / t) : 0;
   };
 
   /* ---------- список домашек ---------- */
@@ -50,14 +51,37 @@
           '<div style="flex:1;min-width:0">' +
           '<div class="htopic">' + esc(h.topic) + '</div>' +
           '<div class="htitle">' + esc(h.title) + '</div>' +
-          '<div class="hsub">' + esc(h.sub || '') + ' · ' + esc(h.due || '') + '</div></div>' +
+          '<div class="hsub">' + esc(h.sub || '') + '</div></div>' +
           '<div class="hp">' + p + '%</div></div>' +
           '<div class="bar"><i style="width:' + p + '%"></i></div>' +
           '</button>';
       }).join('');
   };
 
-  /* ---------- открыть домашку ---------- */
+  /* ---------- подсветка слов прямо в тексте ---------- */
+  function reEsc(x) { return String(x).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+  function markStory(text, targets) {
+    var out = esc(text);
+    if (!targets || !targets.length) return out;
+    /* длинные раньше коротких: delayed не должен ловиться как delay */
+    var words = targets.map(function (t) { return t.en; })
+      .sort(function (a, b) { return b.length - a.length; });
+    var re = new RegExp('(' + words.map(reEsc).join('|') + ')', 'gi');
+    return out.replace(re, function (m) {
+      return '<b class="tw" data-w="' + m.toLowerCase() + '">' + m + '</b>';
+    });
+  }
+
+  function ruOf(h, w) {
+    var found = null;
+    (h.find || []).forEach(function (t) {
+      if (!found && t.en.toLowerCase() === String(w).toLowerCase()) found = t.ru;
+    });
+    return found || '';
+  }
+
+  /* ---------- сама домашка ---------- */
   W.openHomework = function (id) {
     var h = W.homework(id);
     if (!h) return;
@@ -67,99 +91,125 @@
 
     function draw() {
       var s = st(h.id);
+      var foundN = n(s.found), findN = (h.find || []).length;
+      var gapN = n(s.gaps), gapsN = (h.gaps || []).length;
+
       body.innerHTML =
         '<div class="q-label">' + esc(h.topic) + '</div>' +
 
+        /* ---- текст ---- */
         '<div class="h">The story <b>' + W.hwDone(h) + ' / ' + W.hwTotal(h) + '</b></div>' +
+        '<div class="task-note">Найди в тексте <b>' + findN + '</b> слов темы. ' +
+        'Нажми на слово — оно подсветится и покажет перевод.</div>' +
         '<div class="story">' +
-        h.story.map(function (p, i) {
-          return '<p class="sp" data-p="' + i + '">' + esc(p.en) +
+        h.story.map(function (p) {
+          return '<p class="sp">' + markStory(p.en, h.find) +
             '<span class="sru' + (ruOn ? '' : ' hidden') + '">' + esc(p.ru) + '</span></p>';
         }).join('') + '</div>' +
+        '<div class="counter-line"><b>' + foundN + '</b> / ' + findN + ' words found</div>' +
         '<button class="btn btn-g" id="ruBtn">' +
         (ruOn ? 'Спрятать перевод' : 'Показать перевод') + '</button>' +
 
-        '<div class="h">Questions</div>' +
+        /* ---- пропуски ---- */
+        (gapsN ? '<div class="h">Fill the gaps <b>' + gapN + ' / ' + gapsN + '</b></div>' +
+          '<div class="card gapbox">' +
+          h.gaps.map(function (g, i) {
+            var ok = !!s.gaps['g' + i];
+            var parts = esc(g.s).split('___');
+            return '<div class="gline' + (ok ? ' ok' : '') + '">' +
+              '<span>' + parts[0] + '</span>' +
+              (ok ? '<b class="gword">' + esc(g.a) + '</b>'
+                  : '<input class="ginp" id="g' + i + '" data-g="' + i + '" ' +
+                    'autocomplete="off" autocorrect="off" autocapitalize="off">') +
+              '<span>' + (parts[1] || '') + '</span></div>';
+          }).join('') +
+          '<div class="inc" id="inc"></div>' +
+          (gapN < gapsN ? '<button class="btn btn-o" id="gCheck">Check</button>' : '') +
+          '</div>' : '') +
+
+        /* ---- связки ---- */
+        (h.linkers ? '<div class="h">Linkers · связки для рассказа</div>' +
+          '<div class="task-note">Без них получится список предложений, а не рассказ.</div>' +
+          '<div class="card linkbox">' +
+          h.linkers.map(function (l) {
+            return '<div class="lk"><b>' + esc(l.en) + '</b><span>' + esc(l.ru) + '</span></div>';
+          }).join('') +
+          '<button class="btn ' + (s.linkers ? 'btn-green' : 'btn-o') + '" id="lkBtn">' +
+          (s.linkers ? 'Learned ✓' : 'I know these') + '</button></div>' : '') +
+
+        /* ---- устное ---- */
+        (h.speaking ? '<div class="h">Speaking</div>' +
+          '<div class="card speakbox">' +
+          '<div class="spk-t">' + esc(h.speaking.title) + '</div>' +
+          '<div class="spk-x">' + esc(h.speaking.text) + '</div>' +
+          '<div class="chips">' +
+          (h.linkers || []).map(function (l, i) {
+            return '<button class="chip' + (s.used['u' + i] ? ' in' : '') +
+              '" data-u="' + i + '">' + esc(l.en) + '</button>';
+          }).join('') + '</div>' +
+          '<button class="btn ' + (s.speak ? 'btn-green' : 'btn-o') + '" id="spBtn">' +
+          (s.speak ? 'Done ✓' : 'I said it out loud') + '</button></div>' : '') +
+
+        /* ---- вопросы к уроку ---- */
+        '<div class="h">Questions for the lesson</div>' +
         '<div class="card qlist">' +
-        h.questions.map(function (q, i) {
+        (h.questions || []).map(function (q, i) {
           return '<div class="qq"><b>' + (i + 1) + '</b> ' + esc(q) + '</div>';
-        }).join('') + '</div>' +
+        }).join('') + '</div>';
 
-        h.days.map(function (d, di) {
-          var n = d.n || di + 1;
-          return '<div class="h">Day ' + n + ' · ' + esc(d.title) + '</div>' +
-            '<div class="card daycard">' +
-            d.tasks.map(function (t, ti) {
-              var k = key(n, ti), on = !!s[k];
-              return '<div class="tline">' +
-                '<button class="tick' + (on ? ' on' : '') + '" data-k="' + k + '">' +
-                (on ? '✓' : '') + '</button>' +
-                '<div class="ttext' + (on ? ' done' : '') + '">' + esc(t.t) + '</div>' +
-                (t.go ? '<button class="tgo" data-go="' + n + '-' + ti + '">›</button>' : '') +
-                '</div>';
-            }).join('') + '</div>';
-        }).join('');
-
+      /* --- обработчики --- */
       $('#ruBtn').onclick = function () { ruOn = !ruOn; draw(); };
 
-      Array.prototype.forEach.call(body.querySelectorAll('[data-k]'), function (b) {
+      Array.prototype.forEach.call(body.querySelectorAll('.tw'), function (b) {
+        if (s.found[b.dataset.w]) b.classList.add('on');
         b.onclick = function () {
-          var k = b.dataset.k;
-          if (s[k]) delete s[k]; else s[k] = 1;
-          W.saveNow();
-          draw();
+          var w = b.dataset.w;
+          if (!s.found[w]) {
+            s.found[w] = 1;
+            W.saveNow();
+            W.addXP(5);
+            W.toast(b.textContent + ' — ' + ruOf(h, w));
+            draw();
+          } else {
+            W.toast(b.textContent + ' — ' + ruOf(h, w));
+          }
         };
       });
 
-      Array.prototype.forEach.call(body.querySelectorAll('[data-go]'), function (b) {
+      if ($('#gCheck')) $('#gCheck').onclick = function () {
+        var wrong = 0, right = 0;
+        h.gaps.forEach(function (g, i) {
+          var el = $('#g' + i);
+          if (!el) return;
+          var v = W.norm(el.value);
+          if (!v) return;
+          if (v === W.norm(g.a)) { s.gaps['g' + i] = 1; right++; }
+          else { wrong++; W.wrongFx(el); }
+        });
+        if (right) { W.saveNow(); W.addXP(right * 10); draw(); }
+        else if (!wrong) W.toast('Впиши хотя бы одно слово');
+      };
+
+      if ($('#lkBtn')) $('#lkBtn').onclick = function () {
+        s.linkers = s.linkers ? 0 : 1;
+        if (!s.linkers) delete s.linkers;
+        W.saveNow(); draw();
+      };
+
+      Array.prototype.forEach.call(body.querySelectorAll('[data-u]'), function (b) {
         b.onclick = function () {
-          var p = b.dataset.go.split('-');
-          var day = null;
-          h.days.forEach(function (d, di) { if ((d.n || di + 1) === +p[0]) day = d; });
-          var task = day && day.tasks[+p[1]];
-          if (task && task.go) W.hwGo(h, task.go);
+          var k = 'u' + b.dataset.u;
+          if (s.used[k]) delete s.used[k]; else s.used[k] = 1;
+          W.saveNow(); draw();
         };
       });
+
+      if ($('#spBtn')) $('#spBtn').onclick = function () {
+        s.speak = s.speak ? 0 : 1;
+        if (!s.speak) delete s.speak;
+        W.saveNow(); draw();
+      };
     }
     draw();
-  };
-
-  /* Набор ищем по названию, а не по id: у тем, добавленных текстовым блоком,
-     id генерируется автоматически и жёстко прописать его нельзя. */
-  function findSet(set) {
-    if (!set) return null;
-    var want = String(set.title || set.id || '').toLowerCase();
-    if (set.type === 'batch') {
-      var b = null;
-      W.batches().forEach(function (x) {
-        if (!b && (x.id === set.id || String(x.title).toLowerCase() === want)) b = x;
-      });
-      return b ? { type: 'batch', id: b.id } : null;
-    }
-    var t = null;
-    W.topics().forEach(function (x) {
-      if (!t && (x.id === set.id || String(x.title).toLowerCase() === want)) t = x;
-    });
-    return t ? { type: 'topic', id: t.id } : null;
-  }
-
-  /* открыть активность, которую просит задание */
-  W.hwGo = function (h, go) {
-    var set = h.set || {};
-    var kind = go.kind || set.kind || 'words';
-    var found = findSet(set);
-    if (!found) { W.toast('Набор не найден'); return; }
-    if (found.type === 'topic') W.setSel('topic', found.id, kind);
-    else W.setSel('batch', found.id, '');
-
-    var list = W.activeList();
-    var map = {
-      flash: W.actFlash, match: W.actMatch, build: W.actBuild,
-      type: W.actType, sprint: W.actSprint
-    };
-    if (map[go.act]) { W.close(); map[go.act](list); return; }
-    var lesson = { warmup: W.actWarmup, wheel: W.actWheel, speed: W.actSpeed,
-                   revision: W.actRevision, duel: W.actDuel };
-    if (lesson[go.act]) { W.close(); lesson[go.act](); }
   };
 })();

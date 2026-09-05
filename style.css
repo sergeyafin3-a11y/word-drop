@@ -589,17 +589,37 @@ input,select{font-family:inherit;font-size:17px;color:inherit}
 .qq:last-child{border-bottom:0}
 .qq b{color:var(--accent);margin-right:6px}
 
-/* задания по дням */
-.daycard{padding:8px 14px}
-.tline{display:flex;align-items:flex-start;gap:12px;padding:11px 0;
-  border-bottom:1px solid var(--line)}
-.tline:last-child{border-bottom:0}
-.tick{flex:0 0 30px;width:30px;height:30px;border-radius:10px;border:2px solid var(--line);
-  background:var(--surface-2);font-weight:800;font-size:15px;margin-top:1px}
-.tick.on{background:var(--ok);border-color:var(--ok);color:var(--ok-ink)}
-.ttext{flex:1;font-size:16px;line-height:1.35}
-.ttext.done{color:var(--muted);text-decoration:line-through}
-.tgo{flex:0 0 34px;font-size:24px;color:var(--accent);line-height:1}
+/* найденные слова в тексте */
+.tw{color:var(--ink);border-bottom:2px dashed var(--muted);font-weight:600;cursor:pointer}
+.tw.on{color:var(--ok);border-bottom-color:var(--ok)}
+.counter-line{text-align:center;color:var(--muted);font-size:15px;margin:2px 0 12px}
+.counter-line b{color:var(--accent);font-size:18px}
+.task-note{color:var(--muted);font-size:15px;line-height:1.45;margin:0 2px 10px}
+.task-note b{color:var(--ink)}
+
+/* пропуски */
+.gapbox{padding:14px 16px}
+.gline{padding:11px 0;border-bottom:1px solid var(--line);font-size:16px;line-height:2}
+.gline:last-of-type{border-bottom:0}
+.ginp{width:130px;background:var(--surface-2);border:2px solid var(--line);border-radius:10px;
+  padding:6px 10px;font-size:16px;font-weight:700;text-align:center;outline:none}
+.ginp:focus{border-color:var(--accent)}
+.gword{color:var(--ok);font-weight:800;padding:0 4px}
+.gline.ok{color:var(--muted)}
+
+/* связки */
+.linkbox{padding:8px 16px 16px}
+.lk{display:flex;justify-content:space-between;gap:12px;padding:10px 0;
+  border-bottom:1px solid var(--line);font-size:16px}
+.lk:last-of-type{border-bottom:0}
+.lk b{font-weight:700}
+.lk span{color:var(--muted)}
+
+/* устное */
+.speakbox{padding:16px}
+.spk-t{font-weight:700;font-size:19px;margin-bottom:8px}
+.spk-x{color:var(--muted);font-size:15px;line-height:1.5;margin-bottom:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
 
 /* поиск */
 .sfield{text-align:left;font-size:19px;margin-bottom:14px}

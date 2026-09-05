@@ -108,11 +108,21 @@
     if (p.mig2) s.mig2 = p.mig2;
     if (p.mix && !s.mix) s.mix = p.mix;
 
-    /* домашка: галочки объединяем, сделанное не пропадает */
+    /* Домашка: сделанное объединяем, ничего не теряя.
+       Внутри могут быть и наборы галочек (found, gaps, used), и простые флаги. */
     Object.keys(p.hw || {}).forEach(function (id) {
       if (!s.hw) s.hw = {};
       if (!s.hw[id]) s.hw[id] = {};
-      Object.keys(p.hw[id] || {}).forEach(function (k) { s.hw[id][k] = 1; });
+      var from = p.hw[id] || {}, to = s.hw[id];
+      Object.keys(from).forEach(function (k) {
+        var v = from[k];
+        if (v && typeof v === 'object') {
+          if (!to[k] || typeof to[k] !== 'object') to[k] = {};
+          Object.keys(v).forEach(function (kk) { to[k][kk] = v[kk]; });
+        } else if (v) {
+          to[k] = v;
+        }
+      });
     });
     Object.keys(p.lessons || {}).forEach(function (id) {
       if (!s.lessons) s.lessons = {};
