@@ -111,9 +111,10 @@
         '<div class="q-label">' + esc(h.topic) + '</div>' +
 
         /* 1 — найти слова */
-        '<div class="h">1 · Find the words <b>' + W.hwDone(h) + ' / ' + W.hwTotal(h) + '</b></div>' +
-        '<div class="task-note">В тексте спрятаны <b>' + findN + '</b> слов темы. ' +
-        'Подсказок нет — читай и нажимай на те, которые считаешь нужными.</div>' +
+        '<div class="h">1 · Reading <b>' + W.hwDone(h) + ' / ' + W.hwTotal(h) + '</b></div>' +
+        '<div class="task-note">Прочитай текст целиком. Найди в нём <b>' + findN +
+        '</b> слов и выражений по теме «Сборы в поездку и аэропорт». ' +
+        'Нажми на каждое найденное слово один раз — оно подсветится и покажет перевод.</div>' +
         '<div class="story">' +
         h.story.map(function (p) {
           return '<p class="sp">' + markStory(p.en, h.find) +
@@ -124,7 +125,7 @@
         (ruOn ? 'Спрятать перевод' : 'Показать перевод') + '</button>' +
 
         /* 2 — фразы целиком */
-        (ch.length ? '<div class="h">2 · Say these phrases <b>' + n(s.said) + ' / ' + ch.length + '</b></div>' +
+        (ch.length ? '<div class="h">2 · Useful phrases <b>' + n(s.said) + ' / ' + ch.length + '</b></div>' +
           '<div class="task-note">' + esc(h.chunks.note) + '</div>' +
           '<div class="card">' +
           ch.map(function (c, i) {
@@ -134,12 +135,14 @@
               '<div style="flex:1;min-width:0"><div class="ch-en">' + esc(c.en) + '</div>' +
               '<div class="ch-ru">' + esc(c.ru) + '</div></div>' +
               '<button class="tick' + (on ? ' on' : '') + '" data-c="' + i + '">' +
-              (on ? '✓' : '3×') + '</button></div>';
+              (on ? '✓' : '') + '</button></div>';
           }).join('') + '</div>' : '') +
 
         /* 3 — пропуски */
-        (gapsN ? '<div class="h">3 · Fill and say <b>' + n(s.gaps) + ' / ' + gapsN + '</b></div>' +
-          '<div class="task-note">Впиши слово и сразу <b>скажи всё предложение вслух</b>.</div>' +
+        (gapsN ? '<div class="h">3 · Fill in the gaps <b>' + n(s.gaps) + ' / ' + gapsN + '</b></div>' +
+          '<div class="task-note">Вставь в пропуски слова из текста, которые ты нашёл ' +
+          'в первом задании. Подбирай по смыслу. Проверь себя кнопкой <b>Check</b> ' +
+          'и переведи каждое предложение на русский вслух.</div>' +
           '<div class="card gapbox">' +
           h.gaps.map(function (g, i) {
             var ok = !!s.gaps['g' + i];
@@ -156,7 +159,7 @@
           '</div>' : '') +
 
         /* 4 — про себя */
-        (mine.length ? '<div class="h">4 · Your turn <b>' + n(s.mine) + ' / ' + mine.length + '</b></div>' +
+        (mine.length ? '<div class="h">4 · Speaking · about you <b>' + n(s.mine) + ' / ' + mine.length + '</b></div>' +
           '<div class="task-note">' + esc(h.mine.note) + '</div>' +
           '<div class="card">' +
           mine.map(function (q, i) {
@@ -168,7 +171,7 @@
           }).join('') + '</div>' : '') +
 
         /* 5 — рассказать три раза */
-        (ret.length ? '<div class="h">5 · Tell it three times <b>' + n(s.told) + ' / ' + ret.length + '</b></div>' +
+        (ret.length ? '<div class="h">5 · Speaking · retell the story <b>' + n(s.told) + ' / ' + ret.length + '</b></div>' +
           '<div class="task-note">' + esc(h.retell.note) + '</div>' +
           '<div class="card">' +
           '<div class="chips">' +
