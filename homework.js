@@ -1,7 +1,11 @@
 /* homework.js — домашка: заметить → выучить фразой → сказать про себя → рассказать бегло.
    Домашка может состоять из частей: часть 1 — поля самой домашки (story, find…),
    следующие части — в массиве more. У каждой части свой ключ прогресса:
-   у части 1 это id домашки, у остальных — поле key. */
+   у части 1 это id домашки, у остальных — поле key.
+
+   Отметки привязаны к ТЕКСТУ задания, а не к его номеру, поэтому задания можно
+   сокращать и переставлять. Старые отметки по номерам один раз переносятся
+   на новые места по полю was. */
 (function () {
   var W = window.WD;
   var $ = function (s, r) { return (r || document).querySelector(s); };
@@ -22,23 +26,68 @@
     });
     return s;
   }
-  function n(o) { return Object.keys(o || {}).length; }
+
+  /* ---------- задания и ключи отметок ---------- */
+  function txt(item) {
+    if (typeof item === 'string') return item;
+    return item.en || item.t || ((item.s || '') + '|' + (item.a || ''));
+  }
+  function ik(pre, item) {
+    return pre + ':' + String(txt(item)).toLowerCase().replace(/\s+/g, ' ').trim();
+  }
+  function TK(p) { return p.tasks || []; }
+  function LT(p) { return (p.lessonTasks && p.lessonTasks.items) || []; }
+  function CH(p) { return (p.chunks && p.chunks.items) || []; }
+  function GP(p) { return p.gaps || []; }
+  function MN(p) { return (p.mine && p.mine.items) || []; }
+  function RT(p) { return (p.retell && p.retell.items) || []; }
+  function LK(p) { return p.linkers || []; }
+
+  /* однократный перенос отметок «по номеру» (c3, g7…) на отметки «по тексту» */
+  function migrate(p, s) {
+    if (s.keys2) return;
+    [
+      ['tasks', 'k', TK(p).concat(LT(p))],
+      ['said', 'c', CH(p)],
+      ['gaps', 'g', GP(p)],
+      ['mine', 'm', MN(p)],
+      ['told', 't', RT(p)],
+      ['used', 'u', LK(p)]
+    ].forEach(function (b) {
+      var bag = s[b[0]], old = {};
+      Object.keys(bag).forEach(function (k) {
+        if (/^[a-z]\d+$/.test(k)) { old[k] = 1; delete bag[k]; }
+      });
+      b[2].forEach(function (item) {
+        if (item && typeof item === 'object' && item.was != null && old[b[1] + item.was]) {
+          bag[ik(b[1], item)] = 1;
+        }
+      });
+    });
+    s.keys2 = 1;
+    W.saveNow();
+  }
+
+  function cnt(bag, pre, items) {
+    var c = 0;
+    items.forEach(function (it) { if (bag[ik(pre, it)]) c++; });
+    return c;
+  }
 
   /* ---------- части и прогресс ---------- */
   W.hwParts = function (h) { return [h].concat(h.more || []); };
   function keyOf(h, p) { return p === h ? h.id : (p.key || h.id); }
+  function stP(h, p) { var s = st(keyOf(h, p)); migrate(p, s); return s; }
 
   function partDone(h, p) {
-    var s = st(keyOf(h, p));
-    return n(s.tasks) + n(s.found) + n(s.gaps) + n(s.said) + n(s.mine) + n(s.told);
+    var s = stP(h, p), f = 0;
+    (p.find || []).forEach(function (w) { if (s.found[w.en.toLowerCase()]) f++; });
+    return f + cnt(s.tasks, 'k', TK(p).concat(LT(p))) + cnt(s.said, 'c', CH(p)) +
+      cnt(s.gaps, 'g', GP(p)) + cnt(s.mine, 'm', MN(p)) + cnt(s.told, 't', RT(p));
   }
   function partTotal(p) {
-    return (p.tasks || []).length +
-      ((p.lessonTasks && p.lessonTasks.items) || []).length +
-      (p.find || []).length + (p.gaps || []).length +
-      ((p.chunks && p.chunks.items) || []).length +
-      ((p.mine && p.mine.items) || []).length +
-      ((p.retell && p.retell.items) || []).length;
+    return TK(p).length + LT(p).length + (p.find || []).length + GP(p).length +
+      CH(p).length + MN(p).length + RT(p).length;
   }
   /* часть, заданная сейчас (среди частей после первой) */
   function currentPart(h) {
@@ -170,12 +219,12 @@
     body.style.justifyContent = 'flex-start';
 
     function draw() {
-      var s = st(h.id);
+      var s = stP(h, h);
       body.innerHTML =
         '<div class="q-label">' + esc(h.topic) + '</div>' +
         '<div class="as-banner">📌 Homework · ' + W.hwDone(h) + ' / ' + W.hwTotal(h) + ' done</div>' +
         h.tasks.map(function (t, i) {
-          var on = !!s.tasks['k' + i];
+          var on = !!s.tasks[ik('k', t)];
           return '<div class="as-task' + (on ? ' done' : '') + '">' +
             '<div class="as-top"><div class="as-n">' + (i + 1) + '</div>' +
             '<div class="as-title">' + esc(t.title) + '</div>' +
@@ -187,7 +236,7 @@
 
       Array.prototype.forEach.call(body.querySelectorAll('[data-k]'), function (b) {
         b.onclick = function () {
-          var k = 'k' + b.dataset.k;
+          var k = ik('k', h.tasks[+b.dataset.k]);
           if (s.tasks[k]) delete s.tasks[k]; else s.tasks[k] = 1;
           W.saveNow(); draw();
         };
@@ -238,13 +287,9 @@
     function draw() {
       var pi = Math.min(W.hwPartSel[id] || 0, parts.length - 1);
       var P = parts[pi], KEY = keyOf(h, P);
-      var s = st(KEY);
+      var s = stP(h, P);
       var findN = (P.find || []).length;
-      var gapsN = (P.gaps || []).length;
-      var lt = (P.lessonTasks && P.lessonTasks.items) || [];
-      var ch = (P.chunks && P.chunks.items) || [];
-      var mine = (P.mine && P.mine.items) || [];
-      var ret = (P.retell && P.retell.items) || [];
+      var gaps = GP(P), lt = LT(P), ch = CH(P), mine = MN(P), ret = RT(P), lk = LK(P);
       var checkObj = P.check ? { id: KEY, check: P.check } : null;
 
       body.innerHTML =
@@ -263,10 +308,10 @@
         (P.storyTitle ? '<div class="story-title">' + esc(P.storyTitle) + '</div>' : '') +
 
         /* задания в самом уроке — эти разделы выделены цветом внутри урока */
-        (lt.length ? '<div class="h">In the lesson <b>' + n(s.tasks) + ' / ' + lt.length + '</b></div>' +
+        (lt.length ? '<div class="h">In the lesson <b>' + cnt(s.tasks, 'k', lt) + ' / ' + lt.length + '</b></div>' +
           '<div class="task-note">' + esc(P.lessonTasks.note) + '</div>' +
           lt.map(function (t, i) {
-            var on = !!s.tasks['k' + i];
+            var on = !!s.tasks[ik('k', t)];
             return '<div class="as-task' + (on ? ' done' : '') + '">' +
               '<div class="as-top"><div class="as-n">' + (i + 1) + '</div>' +
               '<div class="as-text" style="flex:1;margin:0">' + esc(t.t) + '</div>' +
@@ -285,16 +330,18 @@
           return '<p class="sp">' + markStory(p.en, P.find) +
             '<span class="sru' + (ruOn ? '' : ' hidden') + '">' + esc(p.ru) + '</span></p>';
         }).join('') + '</div>' +
-        '<div class="counter-line"><b>' + n(s.found) + '</b> / ' + findN + ' found</div>' +
+        '<div class="counter-line"><b>' +
+        (P.find || []).filter(function (w) { return s.found[w.en.toLowerCase()]; }).length +
+        '</b> / ' + findN + ' found</div>' +
         '<button class="btn btn-g" id="ruBtn">' +
         (ruOn ? 'Спрятать перевод' : 'Показать перевод') + '</button>' +
 
         /* 2 — фразы целиком */
-        (ch.length ? '<div class="h">2 · Useful phrases <b>' + n(s.said) + ' / ' + ch.length + '</b></div>' +
+        (ch.length ? '<div class="h">2 · Useful phrases <b>' + cnt(s.said, 'c', ch) + ' / ' + ch.length + '</b></div>' +
           '<div class="task-note">' + esc(P.chunks.note) + '</div>' +
           '<div class="card">' +
           ch.map(function (c, i) {
-            var on = !!s.said['c' + i];
+            var on = !!s.said[ik('c', c)];
             return '<div class="ch-line' + (on ? ' done' : '') + '">' +
               '<button class="ch-say" data-say="' + i + '">🔊</button>' +
               '<div style="flex:1;min-width:0"><div class="ch-en">' + esc(c.en) + '</div>' +
@@ -304,13 +351,13 @@
           }).join('') + '</div>' : '') +
 
         /* 3 — пропуски */
-        (gapsN ? '<div class="h">3 · Fill in the gaps <b>' + n(s.gaps) + ' / ' + gapsN + '</b></div>' +
+        (gaps.length ? '<div class="h">3 · Fill in the gaps <b>' + cnt(s.gaps, 'g', gaps) + ' / ' + gaps.length + '</b></div>' +
           '<div class="task-note">Вставь в пропуски слова из текста, которые ты нашёл ' +
           'в первом задании. Подбирай по смыслу. Проверь себя кнопкой <b>Check</b> ' +
           'и переведи каждое предложение на русский вслух.</div>' +
           '<div class="card gapbox">' +
-          P.gaps.map(function (g, i) {
-            var ok = !!s.gaps['g' + i];
+          gaps.map(function (g, i) {
+            var ok = !!s.gaps[ik('g', g)];
             var bits = esc(g.s).split('___');
             return '<div class="gline' + (ok ? ' ok' : '') + '">' +
               '<span>' + bits[0] + '</span>' +
@@ -320,35 +367,35 @@
               '<span>' + (bits[1] || '') + '</span></div>';
           }).join('') +
           '<div class="inc" id="inc"></div>' +
-          (n(s.gaps) < gapsN ? '<button class="btn btn-o" id="gCheck">Check</button>' : '') +
+          (cnt(s.gaps, 'g', gaps) < gaps.length ? '<button class="btn btn-o" id="gCheck">Check</button>' : '') +
           '</div>' : '') +
 
         /* 4 — про себя */
-        (mine.length ? '<div class="h">4 · Speaking · about you <b>' + n(s.mine) + ' / ' + mine.length + '</b></div>' +
+        (mine.length ? '<div class="h">4 · Speaking · about you <b>' + cnt(s.mine, 'm', mine) + ' / ' + mine.length + '</b></div>' +
           '<div class="task-note">' + esc(P.mine.note) + '</div>' +
           '<div class="card">' +
           mine.map(function (q, i) {
-            var on = !!s.mine['m' + i];
+            var on = !!s.mine[ik('m', q)];
             return '<div class="ch-line' + (on ? ' done' : '') + '">' +
-              '<div style="flex:1">' + esc(q) + '</div>' +
+              '<div style="flex:1">' + esc(txt(q)) + '</div>' +
               '<button class="tick' + (on ? ' on' : '') + '" data-m="' + i + '">' +
               (on ? '✓' : '') + '</button></div>';
           }).join('') + '</div>' : '') +
 
         /* 5 — пересказ */
-        (ret.length ? '<div class="h">5 · Speaking · retell the story <b>' + n(s.told) + ' / ' + ret.length + '</b></div>' +
+        (ret.length ? '<div class="h">5 · Speaking · retell the story <b>' + cnt(s.told, 't', ret) + ' / ' + ret.length + '</b></div>' +
           '<div class="task-note">' + esc(P.retell.note) + '</div>' +
           '<div class="card">' +
           '<div class="chips">' +
-          (P.linkers || []).map(function (l, i) {
-            return '<button class="chip' + (s.used['u' + i] ? ' in' : '') +
+          lk.map(function (l, i) {
+            return '<button class="chip' + (s.used[ik('u', l)] ? ' in' : '') +
               '" data-u="' + i + '" title="' + esc(l.ru) + '">' + esc(l.en) + '</button>';
           }).join('') + '</div>' +
           '<div class="hintline" style="margin-bottom:12px">' + esc(P.retell.use) + '</div>' +
           ret.map(function (r, i) {
-            var on = !!s.told['t' + i];
+            var on = !!s.told[ik('t', r)];
             return '<div class="ch-line' + (on ? ' done' : '') + '">' +
-              '<div style="flex:1">' + esc(r) + '</div>' +
+              '<div style="flex:1">' + esc(txt(r)) + '</div>' +
               '<button class="tick' + (on ? ' on' : '') + '" data-r="' + i + '">' +
               (on ? '✓' : '') + '</button></div>';
           }).join('') + '</div>' : '') +
@@ -408,29 +455,30 @@
         b.onclick = function () { W.hwGoto(lt[+b.dataset.go].go); };
       });
 
-      function toggle(sel, bag, pre) {
+      function toggle(sel, bag, pre, items) {
+        var attr = sel.replace(/\[data-|\]/g, '');
         Array.prototype.forEach.call(body.querySelectorAll(sel), function (b) {
           b.onclick = function () {
-            var k = pre + b.dataset[sel.replace(/\[data-|\]/g, '')];
+            var k = ik(pre, items[+b.dataset[attr]]);
             if (bag[k]) delete bag[k]; else bag[k] = 1;
             W.saveNow(); draw();
           };
         });
       }
-      toggle('[data-k]', s.tasks, 'k');
-      toggle('[data-c]', s.said, 'c');
-      toggle('[data-m]', s.mine, 'm');
-      toggle('[data-r]', s.told, 't');
-      toggle('[data-u]', s.used, 'u');
+      toggle('[data-k]', s.tasks, 'k', lt);
+      toggle('[data-c]', s.said, 'c', ch);
+      toggle('[data-m]', s.mine, 'm', mine);
+      toggle('[data-r]', s.told, 't', ret);
+      toggle('[data-u]', s.used, 'u', lk);
 
       if ($('#gCheck')) $('#gCheck').onclick = function () {
         var right = 0, wrong = 0;
-        P.gaps.forEach(function (g, i) {
+        gaps.forEach(function (g, i) {
           var el = $('#g' + i);
           if (!el) return;
           var v = W.norm(el.value);
           if (!v) return;
-          if (v === W.norm(g.a)) { s.gaps['g' + i] = 1; right++; }
+          if (v === W.norm(g.a)) { s.gaps[ik('g', g)] = 1; right++; }
           else { wrong++; W.wrongFx(el); }
         });
         if (right) { W.saveNow(); W.addXP(right * 10); draw(); }
