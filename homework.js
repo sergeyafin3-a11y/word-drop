@@ -188,6 +188,14 @@
               (on ? '✓' : '') + '</button></div>';
           }).join('') + '</div>' : '') +
 
+        /* проверка на уроке */
+        (h.check ? '<div class="h">Lesson check</div>' +
+          '<div class="task-note">Это задание выполняется на уроке вместе с преподавателем: ' +
+          'проверим, как ты выучил слова и можешь ли использовать их в речи.</div>' +
+          '<button class="act wide accent" id="chkBtn" style="margin-bottom:6px">' +
+          '<div class="ico">🎯</div><div><div class="nm">Start the check</div>' +
+          '<div class="sub">' + esc(W.checkSub(h)) + '</div></div></button>' : '') +
+
         /* вопросы к уроку */
         '<div class="h">Questions for the lesson</div>' +
         '<div class="card qlist">' +
@@ -197,6 +205,7 @@
 
       /* --- обработчики --- */
       $('#ruBtn').onclick = function () { ruOn = !ruOn; draw(); };
+      if ($('#chkBtn')) $('#chkBtn').onclick = function () { W.hwCheck(h); };
 
       Array.prototype.forEach.call(body.querySelectorAll('.w'), function (b) {
         var t = b.dataset.t;

@@ -625,3 +625,17 @@ input,select{font-family:inherit;font-size:17px;color:inherit}
 /* поиск */
 .sfield{text-align:left;font-size:19px;margin-bottom:14px}
 .mrow.flat{background:transparent;box-shadow:none;border:0}
+
+/* ---------- Lesson check ---------- */
+.ck-round{font-size:13px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;
+  color:var(--accent);margin:4px 2px 8px}
+.ck-card{padding:20px 18px}
+.ck-q{font-size:21px;font-weight:700;line-height:1.35}
+.ck-use{margin:14px 0 0}
+.ck-use .chip{cursor:default}
+.ck-a{margin-top:16px;padding-top:14px;border-top:2px dashed var(--line);position:relative;padding-right:52px}
+.ck-a-l{font-size:12px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted)}
+.ck-a-t{font-size:18px;font-weight:600;line-height:1.4;margin-top:4px;color:var(--ok)}
+.ck-a .ch-say{position:absolute;right:0;top:14px}
+.ck-timer{font-size:56px;font-weight:800;text-align:center;margin:18px 0 10px;color:var(--accent)}
+.ck-timer.done{color:var(--ok)}

@@ -143,6 +143,76 @@ window.HOMEWORK = [
       'Who wants a window seat?',
       'How many suitcases arrive in Rome?',
       'What do you think happened to the fifth suitcase?'
-    ]
+    ],
+
+    /* ============================================================
+       LESSON CHECK — разминка в начале урока на проверку домашки.
+       Задания новые, не повтор домашки. w — какое слово проверяет карточка:
+       если ученик не вспомнил, слово вернётся в повторение (Learn).
+       ============================================================ */
+    check: {
+      rounds: [
+        {
+          title: 'What’s the word?',
+          note: 'Прочитай описание и назови слово по-английски. Подсказок нет.',
+          items: [
+            { q: 'You show your passport here and get your boarding pass.', a: 'check-in desk', w: 'a check-in desk' },
+            { q: 'A small bag you take with you into the plane.', a: 'carry-on bag', w: 'a carry-on bag' },
+            { q: 'They check your bag, and you walk through a scanner.', a: 'security', w: 'security' },
+            { q: 'You wait here before you get on the plane.', a: 'gate', w: 'a gate' },
+            { q: 'The flight leaves later than the plan.', a: 'delayed', w: 'delayed' },
+            { q: 'After landing, you collect your suitcase here.', a: 'baggage claim', w: 'baggage claim' },
+            { q: 'It has your name, your seat and your gate on it.', a: 'boarding pass', w: 'a boarding pass' },
+            { q: 'A seat where you can stand up easily.', a: 'aisle seat', w: 'an aisle seat' }
+          ]
+        },
+        {
+          title: 'Say it in English',
+          note: 'Скажи предложение по-английски. Этих предложений не было в тексте — собери их из выученных слов.',
+          items: [
+            { q: 'Мой рейс задержан.', a: 'My flight is delayed.', w: 'delayed' },
+            { q: 'Где выход на посадку номер пять?', a: 'Where is gate five?', w: 'a gate' },
+            { q: 'У меня только ручная кладь.', a: 'I only have a carry-on bag.', w: 'a carry-on bag' },
+            { q: 'Можно мне место у прохода?', a: 'Can I have an aisle seat, please?', w: 'an aisle seat' },
+            { q: 'Я не могу найти свой посадочный талон.', a: 'I can’t find my boarding pass.', w: 'a boarding pass' },
+            { q: 'Мой чемодан не приехал.', a: 'My suitcase is missing.', w: 'a suitcase' }
+          ]
+        },
+        {
+          title: 'What do you say?',
+          open: true,
+          note: 'Представь, что ты в аэропорту. Что ты скажешь? Правильных вариантов может быть несколько.',
+          items: [
+            { q: 'You are at the check-in desk. You want to look out of the window during the flight.', a: 'Can I have a window seat, please?' },
+            { q: 'The screen says DELAYED. You want to know how long you have to wait.', a: 'Excuse me, how long is the delay?' },
+            { q: 'You are lost in the airport. You need gate 7.', a: 'Excuse me, could you help me, please? Where is gate 7?' },
+            { q: 'Your suitcase is not at baggage claim.', a: 'My suitcase is missing. Could you help me, please?' },
+            { q: 'The worker at security looks at your bag. You have a laptop inside.', a: 'I have a laptop in my bag. Do I need to take it out?' }
+          ]
+        },
+        {
+          title: 'Tell the story',
+          open: true,
+          note: 'Это новая история про Сватов. Расскажи, что было дальше. Используй слова на карточке — минимум 5 предложений.',
+          items: [
+            { q: 'Valentina is at security. Her carry-on bag is very heavy: there are three jars of jam inside. What happens next?',
+              use: ['security', 'carry-on bag', 'delay', 'gate'],
+              a: 'Valentina is at security. Her carry-on bag is very heavy. The worker opens the bag and finds three jars of jam. Valentina is not happy. There is a delay, and the family runs to the gate.' },
+            { q: 'Zhenya is sleeping at gate 12. Everybody is on the plane — but not Zhenya. What happens?',
+              use: ['gate', 'boarding pass', 'flight', 'finally'],
+              a: 'Zhenya is sleeping at gate 12. Olga cannot find him. Ivan goes back to the gate. Zhenya has his boarding pass in his hand. Finally they get on the flight.' }
+          ]
+        },
+        {
+          title: 'One minute about you',
+          open: true,
+          timer: 60,
+          note: 'Нажми Start и говори одну минуту без остановки. Используй не меньше пяти слов из темы.',
+          items: [
+            { q: 'Your last trip or your dream trip: where, how, with whom, what happened at the airport?' }
+          ]
+        }
+      ]
+    }
   }
 ];
