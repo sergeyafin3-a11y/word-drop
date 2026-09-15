@@ -803,7 +803,7 @@ creative - творческий - ✨
 Imagine you are on a road trip - представь, что ты в поездке на машине - 🚗
 You have a great imagination - у тебя отличное воображение - 🌈
 
-# TOPIC | Travel · Hotel | 🏨 | 🏨🔑🛎️
+# TOPIC | Travel · Hotel & City | 🏨 | 🏨🗺️🚏
 = frames
 At the hotel I
 I would like
@@ -839,6 +839,38 @@ quiet - тихий - 🤫
 broken - сломанный - 🔧
 it doesn't work - это не работает - ⚙️
 a problem with the room - проблема с номером - ⚠️
+a floor - этаж - 🏢
+a city - город - 🏙️
+a street - улица - 🛣️
+a square - площадь - ⛲
+a map - карта - 🗺️
+a bus stop - автобусная остановка - 🚏
+a station - вокзал, станция - 🚉
+a ticket - билет - 🎫
+to take a bus - поехать на автобусе - 🚌
+to take a taxi - взять такси - 🚕
+on foot - пешком - 🚶
+a bank - банк - 🏦
+a pharmacy - аптека - 💊
+a supermarket - супермаркет - 🛒
+a museum - музей - 🏛️
+a beach - пляж - 🏖️
+a café - кафе - ☕
+to go straight - идти прямо - ⬆️
+to turn left - повернуть налево - ⬅️
+to turn right - повернуть направо - ➡️
+to cross the street - перейти улицу - 🚸
+crossroads - перекрёсток - 🚦
+next to - рядом с - 📍
+opposite - напротив - 🔄
+between - между - 🔀
+behind - за, позади - 🔙
+in front of - перед - 👉
+near - рядом, недалеко - 📌
+far from here - далеко отсюда - 🧭
+at the corner - на углу - 📐
+to get lost - заблудиться - 😵
+
 = phrases
 I have a reservation under Kovalev - у меня бронь на фамилию Ковалёв
 I would like to check in, please - я бы хотел заселиться
@@ -863,6 +895,21 @@ Olga asked the receptionist for help - Ольга попросила админ�
 Zhenya lost her room number - Женя забыла номер своей комнаты
 Yuri found the correct room - Юрий нашёл нужный номер
 They ordered dinner at 9 p.m. - они заказали ужин в 9 вечера
+Excuse me, how do I get to the beach? - извините, как пройти к пляжу?
+Is it far from here? - это далеко отсюда?
+Can I walk there? - туда можно дойти пешком?
+Go straight and turn left at the corner - идите прямо и на углу поверните налево
+Cross the street and turn right - перейдите улицу и поверните направо
+It's opposite the museum - это напротив музея
+The pharmacy is next to the bank - аптека рядом с банком
+The café is between the bank and the pharmacy - кафе между банком и аптекой
+Which bus goes to the station? - какой автобус идёт до вокзала?
+Where can I buy a ticket? - где можно купить билет?
+We took a taxi from the station - мы взяли такси от вокзала
+We got lost - мы заблудились
+What do you recommend? - что вы посоветуете?
+Could we have the bill, please? - можно счёт?
+
 = questions
 Hotel or apartment? Why?
 What is important in a good hotel?
@@ -876,5 +923,12 @@ When did you last stay in a hotel?
 What did you do on your first day of the trip?
 What was the best hotel you stayed in?
 What happened at the hotel in the lesson story?
+How do you get to school?
+Is there a pharmacy near your home?
+What is opposite your school?
+In a new city, do you prefer to walk or take a bus?
+Have you ever got lost in a city? What happened?
+Explain how to get from your home to the nearest shop.
+
 
 `;

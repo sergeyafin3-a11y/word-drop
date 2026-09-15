@@ -673,3 +673,13 @@ input,select{font-family:inherit;font-size:17px;color:inherit}
 .hg-body .hcard{margin-bottom:10px;box-shadow:none;background:var(--surface-2)}
 .hg-body .hcard:last-child{margin-bottom:0}
 .hg-body .hcard.now{background:var(--accent-grad);box-shadow:0 8px 22px rgba(0,0,0,.22)}
+
+/* ---------- части одной домашки: Part 1 · Airport / Part 2 · Hotel & City ---------- */
+.hw-parts{display:flex;gap:8px;margin:4px 0 16px}
+.hw-part{flex:1;min-width:0;background:var(--surface);border:3px solid var(--line);border-radius:16px;
+  padding:10px 8px;font-weight:700;font-size:14px;line-height:1.2;color:var(--muted);text-align:center}
+.hw-part small{display:block;font-size:11px;font-weight:800;letter-spacing:.4px;margin-bottom:3px}
+.hw-part.on{border-color:var(--ink);color:var(--ink)}
+.hw-part.now{background:var(--accent-grad);color:var(--accent-ink);border-color:transparent}
+.hw-part.now.on{border-color:var(--ink)}
+.story-title{font-size:23px;font-weight:800;line-height:1.2;margin:4px 2px 2px}

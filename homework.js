@@ -1,4 +1,7 @@
-/* homework.js — домашка: заметить → выучить фразой → сказать про себя → рассказать бегло */
+/* homework.js — домашка: заметить → выучить фразой → сказать про себя → рассказать бегло.
+   Домашка может состоять из частей: часть 1 — поля самой домашки (story, find…),
+   следующие части — в массиве more. У каждой части свой ключ прогресса:
+   у части 1 это id домашки, у остальных — поле key. */
 (function () {
   var W = window.WD;
   var $ = function (s, r) { return (r || document).querySelector(s); };
@@ -21,15 +24,38 @@
   }
   function n(o) { return Object.keys(o || {}).length; }
 
-  W.hwDone = function (h) {
-    var s = st(h.id);
+  /* ---------- части и прогресс ---------- */
+  W.hwParts = function (h) { return [h].concat(h.more || []); };
+  function keyOf(h, p) { return p === h ? h.id : (p.key || h.id); }
+
+  function partDone(h, p) {
+    var s = st(keyOf(h, p));
     return n(s.tasks) + n(s.found) + n(s.gaps) + n(s.said) + n(s.mine) + n(s.told);
+  }
+  function partTotal(p) {
+    return (p.tasks || []).length +
+      ((p.lessonTasks && p.lessonTasks.items) || []).length +
+      (p.find || []).length + (p.gaps || []).length +
+      ((p.chunks && p.chunks.items) || []).length +
+      ((p.mine && p.mine.items) || []).length +
+      ((p.retell && p.retell.items) || []).length;
+  }
+  /* часть, заданная сейчас (среди частей после первой) */
+  function currentPart(h) {
+    var cur = -1;
+    W.hwParts(h).forEach(function (p, i) { if (i > 0 && p.current) cur = i; });
+    return cur;
+  }
+
+  W.hwDone = function (h) {
+    var d = 0;
+    W.hwParts(h).forEach(function (p) { d += partDone(h, p); });
+    return d;
   };
   W.hwTotal = function (h) {
-    return (h.tasks || []).length + (h.find || []).length + (h.gaps || []).length +
-      ((h.chunks && h.chunks.items) || []).length +
-      ((h.mine && h.mine.items) || []).length +
-      ((h.retell && h.retell.items) || []).length;
+    var t = 0;
+    W.hwParts(h).forEach(function (p) { t += partTotal(p); });
+    return t;
   };
   W.hwProgress = function (h) {
     var t = W.hwTotal(h);
@@ -43,12 +69,15 @@
   /* карточка одной домашки внутри темы */
   function hwCard(h) {
     var p = W.hwProgress(h);
-    var sub = String(h.topic || '').split(' · ').slice(1).join(' · ') || h.topic;
+    var ci = currentPart(h);
+    var label = ci > 0
+      ? 'Now: ' + (W.hwParts(h)[ci].partTitle || ('Part ' + (ci + 1)))
+      : (String(h.topic || '').split(' · ').slice(1).join(' · ') || h.topic);
     return '<button class="hcard' + (h.current ? ' now' : '') + '" data-hw="' + h.id + '">' +
       '<div class="hrow"><div class="he">' + (h.emoji || '📝') + '</div>' +
       '<div style="flex:1;min-width:0">' +
       (h.current ? '<div class="hnow">📌 Homework now</div>' : '') +
-      '<div class="htopic">' + esc(sub) + '</div>' +
+      '<div class="htopic">' + esc(label) + '</div>' +
       '<div class="htitle">' + esc(h.title) + '</div>' +
       '<div class="hsub">' + esc(h.sub || '') + '</div></div>' +
       '<div class="hp">' + p + '%</div></div>' +
@@ -62,8 +91,8 @@
         '<p>Домашка появится здесь после урока.</p></div>';
     }
 
-    /* Домашки разложены по темам: Travel → Hotel, Airport.
-       Тема, в которой есть заданная сейчас домашка, открыта сразу и обведена. */
+    /* Домашки разложены по темам. Тема, в которой есть заданная сейчас домашка,
+       открыта сразу и обведена. */
     var groups = [], by = {};
     list.forEach(function (h) {
       var g = hwGroup(h);
@@ -127,15 +156,14 @@
     return out + wrapPlain(text.slice(last));
   }
 
-  function ruOf(h, w) {
+  function ruOf(p, w) {
     var r = '';
-    (h.find || []).forEach(function (t) {
+    (p.find || []).forEach(function (t) {
       if (!r && t.en.toLowerCase() === String(w).toLowerCase()) r = t.ru;
     });
     return r;
   }
 
-  /* ---------- экран домашки ---------- */
   /* ---------- домашка-задание по уроку: список заданий с кнопками перехода ---------- */
   function openAssign(h) {
     var body = W.open(h.title);
@@ -188,33 +216,73 @@
     }
   };
 
-  W.openHomework = function (id) {
+  /* ---------- экран домашки ---------- */
+  W.hwPartSel = W.hwPartSel || {};
+
+  W.openHomework = function (id, partIdx) {
     var h = W.homework(id);
     if (!h) return;
     if (h.tasks) return openAssign(h);
+
+    var parts = W.hwParts(h);
+    if (typeof partIdx === 'number') W.hwPartSel[id] = partIdx;
+    if (W.hwPartSel[id] == null) {
+      var ci = currentPart(h);
+      W.hwPartSel[id] = ci > 0 ? ci : 0;
+    }
+
     var body = W.open(h.title);
     body.style.justifyContent = 'flex-start';
     var ruOn = false;
 
     function draw() {
-      var s = st(h.id);
-      var findN = (h.find || []).length;
-      var gapsN = (h.gaps || []).length;
-      var ch = (h.chunks && h.chunks.items) || [];
-      var mine = (h.mine && h.mine.items) || [];
-      var ret = (h.retell && h.retell.items) || [];
+      var pi = Math.min(W.hwPartSel[id] || 0, parts.length - 1);
+      var P = parts[pi], KEY = keyOf(h, P);
+      var s = st(KEY);
+      var findN = (P.find || []).length;
+      var gapsN = (P.gaps || []).length;
+      var lt = (P.lessonTasks && P.lessonTasks.items) || [];
+      var ch = (P.chunks && P.chunks.items) || [];
+      var mine = (P.mine && P.mine.items) || [];
+      var ret = (P.retell && P.retell.items) || [];
+      var checkObj = P.check ? { id: KEY, check: P.check } : null;
 
       body.innerHTML =
         '<div class="q-label">' + esc(h.topic) + '</div>' +
 
+        /* переключатель частей: заданная сейчас часть яркая */
+        (parts.length > 1 ? '<div class="hw-parts">' +
+          parts.map(function (p, i) {
+            var now = i > 0 && !!p.current;
+            return '<button class="hw-part' + (i === pi ? ' on' : '') + (now ? ' now' : '') +
+              '" data-part="' + i + '">' +
+              '<small>' + (now ? '📌 HOMEWORK NOW' : partDone(h, p) + ' / ' + partTotal(p)) + '</small>' +
+              esc(p.partTitle || ('Part ' + (i + 1))) + '</button>';
+          }).join('') + '</div>' : '') +
+
+        (P.storyTitle ? '<div class="story-title">' + esc(P.storyTitle) + '</div>' : '') +
+
+        /* задания в самом уроке — эти разделы выделены цветом внутри урока */
+        (lt.length ? '<div class="h">In the lesson <b>' + n(s.tasks) + ' / ' + lt.length + '</b></div>' +
+          '<div class="task-note">' + esc(P.lessonTasks.note) + '</div>' +
+          lt.map(function (t, i) {
+            var on = !!s.tasks['k' + i];
+            return '<div class="as-task' + (on ? ' done' : '') + '">' +
+              '<div class="as-top"><div class="as-n">' + (i + 1) + '</div>' +
+              '<div class="as-text" style="flex:1;margin:0">' + esc(t.t) + '</div>' +
+              '<button class="tick' + (on ? ' on' : '') + '" data-k="' + i + '">' + (on ? '✓' : '') + '</button></div>' +
+              (t.go ? '<button class="btn btn-o" data-go="' + i + '">' + esc(t.btn || 'Open') + '</button>' : '') +
+              '</div>';
+          }).join('') : '') +
+
         /* 1 — найти слова */
-        '<div class="h">1 · Reading <b>' + W.hwDone(h) + ' / ' + W.hwTotal(h) + '</b></div>' +
+        '<div class="h">1 · Reading <b>' + partDone(h, P) + ' / ' + partTotal(P) + '</b></div>' +
         '<div class="task-note">Прочитай текст целиком. Найди в нём <b>' + findN +
-        '</b> слов и выражений по теме «Сборы в поездку и аэропорт». ' +
+        '</b> слов и выражений по теме «' + esc(P.findTopic || 'Сборы в поездку и аэропорт') + '». ' +
         'Нажми на каждое найденное слово один раз — оно подсветится и покажет перевод.</div>' +
         '<div class="story">' +
-        h.story.map(function (p) {
-          return '<p class="sp">' + markStory(p.en, h.find) +
+        (P.story || []).map(function (p) {
+          return '<p class="sp">' + markStory(p.en, P.find) +
             '<span class="sru' + (ruOn ? '' : ' hidden') + '">' + esc(p.ru) + '</span></p>';
         }).join('') + '</div>' +
         '<div class="counter-line"><b>' + n(s.found) + '</b> / ' + findN + ' found</div>' +
@@ -223,7 +291,7 @@
 
         /* 2 — фразы целиком */
         (ch.length ? '<div class="h">2 · Useful phrases <b>' + n(s.said) + ' / ' + ch.length + '</b></div>' +
-          '<div class="task-note">' + esc(h.chunks.note) + '</div>' +
+          '<div class="task-note">' + esc(P.chunks.note) + '</div>' +
           '<div class="card">' +
           ch.map(function (c, i) {
             var on = !!s.said['c' + i];
@@ -241,15 +309,15 @@
           'в первом задании. Подбирай по смыслу. Проверь себя кнопкой <b>Check</b> ' +
           'и переведи каждое предложение на русский вслух.</div>' +
           '<div class="card gapbox">' +
-          h.gaps.map(function (g, i) {
+          P.gaps.map(function (g, i) {
             var ok = !!s.gaps['g' + i];
-            var parts = esc(g.s).split('___');
+            var bits = esc(g.s).split('___');
             return '<div class="gline' + (ok ? ' ok' : '') + '">' +
-              '<span>' + parts[0] + '</span>' +
+              '<span>' + bits[0] + '</span>' +
               (ok ? '<b class="gword">' + esc(g.a) + '</b>'
                   : '<input class="ginp" id="g' + i + '" autocomplete="off" ' +
                     'autocorrect="off" autocapitalize="off">') +
-              '<span>' + (parts[1] || '') + '</span></div>';
+              '<span>' + (bits[1] || '') + '</span></div>';
           }).join('') +
           '<div class="inc" id="inc"></div>' +
           (n(s.gaps) < gapsN ? '<button class="btn btn-o" id="gCheck">Check</button>' : '') +
@@ -257,7 +325,7 @@
 
         /* 4 — про себя */
         (mine.length ? '<div class="h">4 · Speaking · about you <b>' + n(s.mine) + ' / ' + mine.length + '</b></div>' +
-          '<div class="task-note">' + esc(h.mine.note) + '</div>' +
+          '<div class="task-note">' + esc(P.mine.note) + '</div>' +
           '<div class="card">' +
           mine.map(function (q, i) {
             var on = !!s.mine['m' + i];
@@ -267,16 +335,16 @@
               (on ? '✓' : '') + '</button></div>';
           }).join('') + '</div>' : '') +
 
-        /* 5 — рассказать три раза */
+        /* 5 — пересказ */
         (ret.length ? '<div class="h">5 · Speaking · retell the story <b>' + n(s.told) + ' / ' + ret.length + '</b></div>' +
-          '<div class="task-note">' + esc(h.retell.note) + '</div>' +
+          '<div class="task-note">' + esc(P.retell.note) + '</div>' +
           '<div class="card">' +
           '<div class="chips">' +
-          (h.linkers || []).map(function (l, i) {
+          (P.linkers || []).map(function (l, i) {
             return '<button class="chip' + (s.used['u' + i] ? ' in' : '') +
               '" data-u="' + i + '" title="' + esc(l.ru) + '">' + esc(l.en) + '</button>';
           }).join('') + '</div>' +
-          '<div class="hintline" style="margin-bottom:12px">' + esc(h.retell.use) + '</div>' +
+          '<div class="hintline" style="margin-bottom:12px">' + esc(P.retell.use) + '</div>' +
           ret.map(function (r, i) {
             var on = !!s.told['t' + i];
             return '<div class="ch-line' + (on ? ' done' : '') + '">' +
@@ -286,23 +354,34 @@
           }).join('') + '</div>' : '') +
 
         /* проверка на уроке */
-        (h.check ? '<div class="h">Lesson check</div>' +
+        (checkObj ? '<div class="h">Lesson check</div>' +
           '<div class="task-note">Это задание выполняется на уроке вместе с преподавателем: ' +
           'проверим, как ты выучил слова и можешь ли использовать их в речи.</div>' +
           '<button class="act wide accent" id="chkBtn" style="margin-bottom:6px">' +
           '<div class="ico">🎯</div><div><div class="nm">Start the check</div>' +
-          '<div class="sub">' + esc(W.checkSub(h)) + '</div></div></button>' : '') +
+          '<div class="sub">' + esc(W.checkSub(checkObj)) + '</div></div></button>' : '') +
 
         /* вопросы к уроку */
-        '<div class="h">Questions for the lesson</div>' +
-        '<div class="card qlist">' +
-        (h.questions || []).map(function (q, i) {
-          return '<div class="qq"><b>' + (i + 1) + '</b> ' + esc(q) + '</div>';
-        }).join('') + '</div>';
+        ((P.questions || []).length ? '<div class="h">Questions for the lesson</div>' +
+          '<div class="card qlist">' +
+          P.questions.map(function (q, i) {
+            return '<div class="qq"><b>' + (i + 1) + '</b> ' + esc(q) + '</div>';
+          }).join('') + '</div>' : '');
 
       /* --- обработчики --- */
-      $('#ruBtn').onclick = function () { ruOn = !ruOn; draw(); };
-      if ($('#chkBtn')) $('#chkBtn').onclick = function () { W.hwCheck(h); };
+      Array.prototype.forEach.call(body.querySelectorAll('[data-part]'), function (b) {
+        b.onclick = function () {
+          W.hwPartSel[id] = +b.dataset.part;
+          ruOn = false;
+          draw();
+          var sc = body.closest('.screen');
+          if (sc) sc.scrollTop = 0;
+          body.scrollTop = 0;
+        };
+      });
+
+      if ($('#ruBtn')) $('#ruBtn').onclick = function () { ruOn = !ruOn; draw(); };
+      if ($('#chkBtn')) $('#chkBtn').onclick = function () { W.hwCheck(checkObj); };
 
       Array.prototype.forEach.call(body.querySelectorAll('.w'), function (b) {
         var t = b.dataset.t;
@@ -313,16 +392,20 @@
             s.found[t] = 1;
             W.saveNow();
             W.addXP(5);
-            W.toast(b.textContent + ' — ' + ruOf(h, t));
+            W.toast(b.textContent + ' — ' + ruOf(P, t));
             draw();
           } else {
-            W.toast(b.textContent + ' — ' + ruOf(h, t));
+            W.toast(b.textContent + ' — ' + ruOf(P, t));
           }
         };
       });
 
       Array.prototype.forEach.call(body.querySelectorAll('[data-say]'), function (b) {
         b.onclick = function () { W.speak(ch[+b.dataset.say].en); };
+      });
+
+      Array.prototype.forEach.call(body.querySelectorAll('[data-go]'), function (b) {
+        b.onclick = function () { W.hwGoto(lt[+b.dataset.go].go); };
       });
 
       function toggle(sel, bag, pre) {
@@ -334,6 +417,7 @@
           };
         });
       }
+      toggle('[data-k]', s.tasks, 'k');
       toggle('[data-c]', s.said, 'c');
       toggle('[data-m]', s.mine, 'm');
       toggle('[data-r]', s.told, 't');
@@ -341,7 +425,7 @@
 
       if ($('#gCheck')) $('#gCheck').onclick = function () {
         var right = 0, wrong = 0;
-        h.gaps.forEach(function (g, i) {
+        P.gaps.forEach(function (g, i) {
           var el = $('#g' + i);
           if (!el) return;
           var v = W.norm(el.value);

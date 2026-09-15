@@ -16,49 +16,20 @@
    ============================================================ */
 
 window.HOMEWORK = [
-  /* ============================================================
-     Домашка-задание по уроку: current: true — яркая карточка «задано сейчас».
-     tasks — список заданий; go открывает нужное место:
-       { lesson: 'travel', part: 'заголовок раздела' } — раздел урока во вкладке Topics
-       { topic: 'название темы', act: 'flash' }       — активность в Learn
-       { rule: 'g-past' }                             — правило в Grammar
-     ============================================================ */
   {
-    id: 'hw-travel-hotel',
-    topic: 'Travel · Hotel',
+    id: 'hw-travel-airport',          // id не менять: к нему привязан прогресс части 1
+    topic: 'Travel',
     group: 'Travel',
-    title: 'Hotel English and Past Simple',
-    sub: 'Урок Travel · глава 2 · Hotel & City',
-    emoji: '🏨',
-    current: true,
-    tasks: [
-      { title: 'Vocabulary · Hotel English',
-        t: 'Открой урок Travel, главу 2 «Hotel & City», раздел Hotel English. ' +
-           'Выучи 6 слов и выражений: reservation, check in / check out, key card, included, ' +
-           'air conditioning, available. Нажми 🔊 у каждой фразы и повтори её вслух.',
-        btn: 'Open the lesson', go: { lesson: 'travel', part: 'Hotel English' } },
-      { title: 'Vocabulary · practice',
-        t: 'Открой в разделе Learn тему Travel · Hotel. Пройди Cards, затем Match. ' +
-           'Слова, которые ты не вспомнил, приложение покажет ещё раз.',
-        btn: 'Open Cards', go: { topic: 'Travel · Hotel', act: 'flash' } },
-      { title: 'Grammar · What happened yesterday?',
-        t: 'Открой урок Travel, главу 2, раздел Grammar: What happened yesterday? ' +
-           'Вставь в шесть предложений глаголы в Past Simple и нажми Check. ' +
-           'Затем перескажи эти предложения вслух как одну короткую историю и добавь две свои детали.',
-        btn: 'Open the lesson', go: { lesson: 'travel', part: 'Grammar: What happened yesterday' } },
-      { title: 'Grammar · Past Simple rule',
-        t: 'Открой в разделе Grammar правило Past Simple. Посмотри таблицу и реши тест из 10 вопросов.',
-        btn: 'Open the rule', go: { rule: 'g-past' } }
-    ]
-  },
-
-  {
-    id: 'hw-travel-airport',
-    topic: 'Travel · Airport',
-    group: 'Travel',
-    title: 'Five Suitcases and One Gate',
-    sub: 'Matchmakers at the airport · A1–A2',
+    title: 'Travel: Airport, Hotel & City',
+    sub: 'Part 1 · Airport · Part 2 · Hotel & City',
     emoji: '✈️',
+    current: true,
+
+    /* Домашка из нескольких частей. Часть 1 — поля прямо здесь (story, find и т.д.),
+       следующие части — в массиве more, у каждой свой key для прогресса. */
+    partTitle: 'Part 1 · Airport',
+    storyTitle: 'Five Suitcases and One Gate',
+    findTopic: 'Сборы в поездку и аэропорт',
     due: '4 days',
     set: { type: 'topic', title: 'Travel', kind: 'words' },
 
@@ -250,6 +221,225 @@ window.HOMEWORK = [
           ]
         }
       ]
-    }
+    },
+
+    more: [
+      /* ======================= PART 2 · HOTEL & CITY =======================
+         key — отдельный ключ прогресса части 2, прогресс части 1 не трогается. */
+      {
+        key: 'hw-travel-city',
+        partTitle: 'Part 2 · Hotel & City',
+        storyTitle: 'The Key Card Mystery',
+        findTopic: 'Отель и город',
+        current: true,
+
+        /* разделы урока, которые выделены цветом внутри урока */
+        lessonTasks: {
+          note: 'Открой урок Travel, главу 2 «Hotel & City». Разделы Hotel English и ' +
+                'Grammar: What happened yesterday? выделены цветом. Выполни их первыми.',
+          items: [
+            { t: 'Hotel English: выучи 6 слов и выражений, у каждой фразы нажми 🔊 и повтори вслух.',
+              btn: 'Open Hotel English', go: { lesson: 'travel', part: 'Hotel English' } },
+            { t: 'Grammar: What happened yesterday? Вставь глаголы в Past Simple и нажми Check.',
+              btn: 'Open Grammar', go: { lesson: 'travel', part: 'Grammar: What happened yesterday' } }
+          ]
+        },
+
+        story: [
+          { en: 'Yesterday the Kovalev family arrived at Hotel Lemon in Sunny Bay at 8 p.m. They took a taxi from the station.',
+            ru: 'Вчера семья Ковалёвых приехала в отель «Лимон» в Санни-Бэй в 8 вечера. От вокзала они взяли такси.' },
+          { en: 'Olga went to reception. “Good evening. I have a reservation under Kovalev,” she said.',
+            ru: 'Ольга подошла к стойке администратора. «Добрый вечер. У меня бронь на фамилию Ковалёв», — сказала она.' },
+          { en: 'The receptionist gave her two key cards. “Your rooms are on the third floor. The lift is on the left.”',
+            ru: 'Администратор дал ей две ключ-карты. «Ваши номера на третьем этаже. Лифт слева».' },
+          { en: '“Is breakfast included?” Ivan asked. “Yes, breakfast is from 7 to 10,” the receptionist answered.',
+            ru: '«Завтрак включён?» — спросил Иван. «Да, завтрак с 7 до 10», — ответил администратор.' },
+          { en: 'But Ivan’s key card didn’t work. He tried three times. Nothing happened.',
+            ru: 'Но ключ-карта Ивана не сработала. Он попробовал три раза. Ничего не произошло.' },
+          { en: 'Zhenya lost her room number, so she asked the receptionist again.',
+            ru: 'Женя забыла номер своей комнаты, поэтому снова спросила администратора.' },
+          { en: 'In the room the air conditioning didn’t work, and there was only one towel. Valentina was not happy.',
+            ru: 'В номере не работал кондиционер, и было только одно полотенце. Валентина была недовольна.' },
+          { en: 'Yuri found the Wi-Fi password on the table and started a video call.',
+            ru: 'Юрий нашёл на столе пароль от вайфая и начал видеозвонок.' },
+          { en: 'The next morning the family went into the city. Olga had a map, but she couldn’t find the beach.',
+            ru: 'На следующее утро семья пошла в город. У Ольги была карта, но она не могла найти пляж.' },
+          { en: 'She asked a man at the bus stop: “Excuse me, how do I get to the beach? Is it far from here?”',
+            ru: 'Она спросила мужчину на автобусной остановке: «Извините, как пройти к пляжу? Это далеко отсюда?»' },
+          { en: '“It’s not far. Go straight, cross the street and turn left at the corner. The beach is opposite the museum,” he said.',
+            ru: '«Недалеко. Идите прямо, перейдите улицу и на углу поверните налево. Пляж напротив музея», — сказал он.' },
+          { en: 'Ivan wanted to take the bus. Valentina wanted to walk. They walked — and they got lost, of course.',
+            ru: 'Иван хотел поехать на автобусе. Валентина хотела пешком. Они пошли пешком — и, конечно, заблудились.' },
+          { en: 'They found a small café between the bank and the pharmacy. Yuri bought water at the supermarket next to it.',
+            ru: 'Они нашли маленькое кафе между банком и аптекой. Юрий купил воду в супермаркете рядом.' },
+          { en: '“What do you recommend?” Ivan asked the waiter. “The fish,” said the waiter. Ivan ordered pancakes again.',
+            ru: '«Что вы посоветуете?» — спросил Иван официанта. «Рыбу», — сказал официант. Иван снова заказал блинчики.' }
+        ],
+
+        find: [
+          { en: 'reception', ru: 'стойка администратора' },
+          { en: 'receptionist', ru: 'администратор' },
+          { en: 'reservation', ru: 'бронь' },
+          { en: 'key card', ru: 'ключ-карта' },
+          { en: 'floor', ru: 'этаж' },
+          { en: 'lift', ru: 'лифт' },
+          { en: 'included', ru: 'включено в стоимость' },
+          { en: 'air conditioning', ru: 'кондиционер' },
+          { en: 'towel', ru: 'полотенце' },
+          { en: 'map', ru: 'карта' },
+          { en: 'bus stop', ru: 'автобусная остановка' },
+          { en: 'go straight', ru: 'идти прямо' },
+          { en: 'turn left', ru: 'повернуть налево' },
+          { en: 'opposite', ru: 'напротив' },
+          { en: 'between', ru: 'между' },
+          { en: 'next to', ru: 'рядом с' }
+        ],
+
+        chunks: {
+          note: 'Это готовые фразы для отеля и города. Нажми 🔊, послушай и повтори вслух три раза. ' +
+                'Отметь фразу галочкой, когда сможешь сказать её не подглядывая.',
+          items: [
+            { en: 'I have a reservation under Kovalev.', ru: 'у меня бронь на фамилию Ковалёв' },
+            { en: 'Is breakfast included?', ru: 'завтрак включён?' },
+            { en: 'What floor is my room on?', ru: 'на каком этаже мой номер?' },
+            { en: 'My key card doesn’t work.', ru: 'моя ключ-карта не работает' },
+            { en: 'Could I have another towel, please?', ru: 'можно ещё одно полотенце?' },
+            { en: 'What is the Wi-Fi password?', ru: 'какой пароль от вайфая?' },
+            { en: 'Excuse me, how do I get to the beach?', ru: 'извините, как пройти к пляжу?' },
+            { en: 'Is it far from here?', ru: 'это далеко отсюда?' },
+            { en: 'Go straight and turn left at the corner.', ru: 'идите прямо и на углу поверните налево' },
+            { en: 'Which bus goes to the station?', ru: 'какой автобус идёт до вокзала?' },
+            { en: 'Where can I buy a ticket?', ru: 'где можно купить билет?' },
+            { en: 'What do you recommend?', ru: 'что вы посоветуете?' }
+          ]
+        },
+
+        gaps: [
+          { s: 'The family ___ at Hotel Lemon at 8 p.m.', a: 'arrived' },
+          { s: 'They took a ___ from the station.', a: 'taxi' },
+          { s: 'Olga went to ___ and said her name.', a: 'reception' },
+          { s: 'Their rooms were on the third ___.', a: 'floor' },
+          { s: 'Ivan’s key card ___ work.', a: 'didn’t' },
+          { s: 'Zhenya ___ her room number.', a: 'lost' },
+          { s: 'Olga had a ___, but she couldn’t find the beach.', a: 'map' },
+          { s: 'She asked a man at the bus ___.', a: 'stop' },
+          { s: 'The beach is ___ the museum.', a: 'opposite' },
+          { s: 'The café was ___ the bank and the pharmacy.', a: 'between' }
+        ],
+
+        mine: {
+          note: 'Ответь на вопросы о себе вслух, полными предложениями. ' +
+                'Отвечай так, как получается: сейчас важнее сказать, чем сказать без ошибок.',
+          items: [
+            'Hotel or apartment? I prefer … because …',
+            'What is important for you in a hotel room? Name three things.',
+            'Something doesn’t work in your hotel room. What do you say at reception?',
+            'Explain how to get from your home to the nearest shop. Use go straight, turn left / right, next to, opposite.',
+            'How do you get to school: by bus, by metro, by taxi or on foot? Say three sentences.',
+            'What did you do on the first day of your last trip? Say four sentences in Past Simple.'
+          ]
+        },
+
+        linkers: [
+          { en: 'First', ru: 'сначала' },
+          { en: 'Then', ru: 'потом' },
+          { en: 'After that', ru: 'после этого' },
+          { en: 'The next morning', ru: 'на следующее утро' },
+          { en: 'Finally', ru: 'наконец' },
+          { en: 'but', ru: 'но' },
+          { en: 'so', ru: 'поэтому' },
+          { en: 'because', ru: 'потому что' }
+        ],
+
+        retell: {
+          note: 'Перескажи историю три раза так, как указано ниже.',
+          items: [
+            'Первый раз: перескажи историю в 8 предложениях. Можно подглядывать.',
+            'Второй раз: перескажи то же самое, не глядя в текст.',
+            'Третий раз: расскажи историю от лица Ивана. Начни так: Yesterday we arrived at Hotel Lemon…'
+          ],
+          use: 'Используй связки из списка выше. Нажимай на связку, когда употребишь её в рассказе.'
+        },
+
+        questions: [
+          'Where did the Kovalev family stay?',
+          'How did they get from the station to the hotel?',
+          'What floor were their rooms on?',
+          'What problems did they have in the hotel?',
+          'What did Yuri find on the table?',
+          'Who did Olga ask for directions?',
+          'Where is the beach?',
+          'Why did they get lost?',
+          'Where was the café?',
+          'What did Ivan order? Why do you think so?'
+        ],
+
+        check: {
+          rounds: [
+            {
+              title: 'What’s the word?',
+              note: 'Прочитай описание и назови слово по-английски. Подсказок нет.',
+              items: [
+                { q: 'You go here when you arrive at a hotel and say your name.', a: 'reception', w: 'reception' },
+                { q: 'The person who works at reception.', a: 'receptionist', w: 'a receptionist' },
+                { q: 'You booked the room before you arrived.', a: 'reservation', w: 'a reservation' },
+                { q: 'A plastic card that opens your hotel room.', a: 'key card', w: 'a key card' },
+                { q: 'You take it when you do not want to use the stairs.', a: 'lift', w: 'a lift' },
+                { q: 'You do not pay extra for it.', a: 'included', w: 'included' },
+                { q: 'It shows the streets of a city.', a: 'map', w: 'a map' },
+                { q: 'You wait here for the bus.', a: 'bus stop', w: 'a bus stop' }
+              ]
+            },
+            {
+              title: 'Say it in English',
+              note: 'Скажи предложение по-английски. Этих предложений не было в тексте — собери их из выученных слов.',
+              items: [
+                { q: 'Мой номер на втором этаже.', a: 'My room is on the second floor.', w: 'a floor' },
+                { q: 'Кондиционер не работает.', a: 'The air conditioning doesn’t work.', w: 'air conditioning' },
+                { q: 'Как пройти к вокзалу?', a: 'How do I get to the station?', w: 'a station' },
+                { q: 'Аптека рядом с банком.', a: 'The pharmacy is next to the bank.', w: 'next to' },
+                { q: 'Идите прямо и поверните направо.', a: 'Go straight and turn right.', w: 'to go straight' },
+                { q: 'Где можно купить билет на автобус?', a: 'Where can I buy a bus ticket?', w: 'a ticket' }
+              ]
+            },
+            {
+              title: 'What do you say?',
+              open: true,
+              note: 'Представь, что ты в отеле или на улице незнакомого города. Что ты скажешь? Правильных вариантов может быть несколько.',
+              items: [
+                { q: 'You arrive at the hotel. Your room is booked.', a: 'Good evening. I have a reservation under …' },
+                { q: 'There is only one towel in your room.', a: 'Could I have another towel, please?' },
+                { q: 'You need the beach, but you do not know the way.', a: 'Excuse me, how do I get to the beach? Is it far from here?' },
+                { q: 'A tourist asks you where the pharmacy is. It is next to the bank.', a: 'Go straight and turn left. The pharmacy is next to the bank.' },
+                { q: 'You are in a café and you do not know what to order.', a: 'What do you recommend?' }
+              ]
+            },
+            {
+              title: 'Tell the story',
+              open: true,
+              note: 'Это новая история про Сватов. Расскажи, что было дальше. Используй слова на карточке — минимум 5 предложений в Past Simple.',
+              items: [
+                { q: 'Valentina went to the supermarket alone and got lost. What happened next?',
+                  use: ['map', 'bus stop', 'turn left', 'opposite'],
+                  a: 'Valentina went to the supermarket alone. She didn’t have a map, so she got lost. She asked a man at the bus stop. He said: turn left, the hotel is opposite the museum. Finally she found the hotel.' },
+                { q: 'At night Ivan’s key card didn’t work again. What did he do?',
+                  use: ['reception', 'receptionist', 'lift', 'floor'],
+                  a: 'At night Ivan’s key card didn’t work again. He took the lift to reception. The receptionist was asleep. Ivan waited ten minutes. Then the receptionist gave him a new key card, and Ivan went back to the third floor.' }
+              ]
+            },
+            {
+              title: 'One minute about you',
+              open: true,
+              timer: 60,
+              note: 'Нажми Start и говори одну минуту без остановки. Используй не меньше пяти слов из темы.',
+              items: [
+                { q: 'Your perfect hotel and the city around it: what is in the room, and what is near the hotel?' }
+              ]
+            }
+          ]
+        }
+      }
+
+    ]
   }
 ];
