@@ -88,7 +88,7 @@
        положение заголовка внутри урока и есть нужный scrollTop обёртки. */
     function align() {
       if (!pending || !pending.getClientRects().length) return;
-      var y = pending.getBoundingClientRect().top + frame.offsetTop - 8;
+      var y = pending.getBoundingClientRect().top + frame.offsetTop - 64;   /* запас сверху, чтобы цель не пряталась у края */
       wrap.scrollTop = Math.max(0, y);
       if (Date.now() > pendingUntil) pending = null;
     }
