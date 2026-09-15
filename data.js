@@ -724,4 +724,83 @@ to take a shortcut - срезать путь - 🚶
 I'll book a table on Friday - я забронирую столик в пятницу - 📅
 Let's take a shortcut - давай срежем - 🚶
 
+# NEW WORDS | Lesson 15 Sep | 15 Sep
+
+// --- 1. Угадай сериал ---
+a series - сериал - 📺
+to guess - угадывать - 🤔
+to describe - описывать - 🗣️
+a hint - подсказка - 💡
+the main characters - главные герои - 🎭
+classmates - одноклассники - 🧑‍🎓
+rumours - слухи - 🗯️
+chemistry - химия (школьный предмет) - 🧪
+they have chemistry - между ними есть химия - 💞
+final tests - итоговые контрольные - 📝
+too old - слишком старый - 👴
+there are - есть (о нескольких) - 👉
+Guess the series! - угадай сериал! - 🎬
+Can you give me a hint? - дашь подсказку? - 💡
+Can you describe the main characters? - можешь описать главных героев? - 🎭
+There are five main characters in the series - в сериале пять главных героев - 🎭
+
+// --- 2. Когда это было ---
+the 2000s - двухтысячные - 📅
+in the mid-2000s - в середине двухтысячных - 📅
+autumn - осень - 🍂
+fall - осень (в американском) - 🍁
+before - до, раньше - ⏪
+during - во время - ⏳
+for the first time - в первый раз - 1️⃣
+The series is set in the mid-2000s - действие сериала происходит в середине двухтысячных - 📺
+I watched it for the first time in autumn - я впервые посмотрел его осенью - 🍂
+There are rumours about the final tests - про итоговые контрольные ходят слухи - 📝
+
+// --- 3. Цель и причина ---
+a purpose - цель - 🎯
+a reason - причина - ❓
+to prepare - готовиться - 📚
+to share - делиться - 🤝
+What is the reason? - в чём причина? - ❓
+I need to prepare for the final tests - мне надо готовиться к итоговым контрольным - 📚
+Can you share your ideas? - поделишься идеями? - 💬
+
+// --- 4. Одежда и шопинг ---
+to go shopping - ходить по магазинам - 🛍️
+a jacket - куртка - 🧥
+a leather jacket - кожаная куртка - 🧥
+boots - ботинки - 🥾
+I want to go shopping on Friday - я хочу пойти по магазинам в пятницу - 🛍️
+I need new boots and a leather jacket - мне нужны новые ботинки и кожаная куртка - 🥾
+
+// --- 5. Отпуск и поездки ---
+twins - близнецы - 👯
+to spend the vacation - провести отпуск - 🏖️
+a road trip - путешествие на машине - 🚗
+pen pals - друзья по переписке - ✉️
+a honeymoon - медовый месяц - 💍
+Moose Island - остров Мус (название) - 🏝️
+because of insects - из-за насекомых - 🦟
+a good location - удобное расположение - 📍
+clean - чистый - 🧼
+a kitchen - кухня - 🍳
+to get lost - заблудиться - 🧭
+The twins spend the vacation on Moose Island - близнецы проводят отпуск на острове Мус - 🏝️
+We didn't go camping because of insects - мы не поехали в поход из-за насекомых - 🦟
+The house has a good location and a clean kitchen - у дома удобное расположение и чистая кухня - 🏡
+We got lost on our road trip - мы заблудились во время поездки на машине - 🗺️
+
+// --- 6. В интернете и в жизни ---
+IRL - в реальной жизни (сокращение в переписке) - 💬
+in real life - в реальной жизни - 🌍
+We are pen pals, but we never met in real life - мы переписываемся, но в жизни не встречались - ✉️
+
+// --- 7. Воображение ---
+imagination - воображение - 🌈
+to imagine - представлять - 💭
+creativity - креативность - 🎨
+creative - творческий - ✨
+Imagine you are on a road trip - представь, что ты в поездке на машине - 🚗
+You have a great imagination - у тебя отличное воображение - 🌈
+
 `;
