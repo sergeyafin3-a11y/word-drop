@@ -24,6 +24,9 @@ window.LESSONS = [
     sub: 'Matchmakers · A1–A2 · 5 chapters',
     emoji: '✈️',
     file: 'lesson-travel.html',
-    date: '11 Aug'
+    date: '11 Aug',
+    /* разделы урока, заданные на дом: внутри урока они ярко обводятся,
+       получают плашку HOMEWORK, а кнопка их главы — отметку HW */
+    highlight: ['Hotel English', 'Grammar: What happened yesterday']
   }
 ];

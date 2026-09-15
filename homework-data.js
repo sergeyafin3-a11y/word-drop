@@ -16,6 +16,41 @@
    ============================================================ */
 
 window.HOMEWORK = [
+  /* ============================================================
+     Домашка-задание по уроку: current: true — яркая карточка «задано сейчас».
+     tasks — список заданий; go открывает нужное место:
+       { lesson: 'travel', part: 'заголовок раздела' } — раздел урока во вкладке Topics
+       { topic: 'название темы', act: 'flash' }       — активность в Learn
+       { rule: 'g-past' }                             — правило в Grammar
+     ============================================================ */
+  {
+    id: 'hw-travel-hotel',
+    topic: 'Travel · Hotel',
+    title: 'Hotel English and Past Simple',
+    sub: 'Урок Travel · глава 2 · Hotel & City',
+    emoji: '🏨',
+    current: true,
+    tasks: [
+      { title: 'Vocabulary · Hotel English',
+        t: 'Открой урок Travel, главу 2 «Hotel & City», раздел Hotel English. ' +
+           'Выучи 6 слов и выражений: reservation, check in / check out, key card, included, ' +
+           'air conditioning, available. Нажми 🔊 у каждой фразы и повтори её вслух.',
+        btn: 'Open the lesson', go: { lesson: 'travel', part: 'Hotel English' } },
+      { title: 'Vocabulary · practice',
+        t: 'Открой в разделе Learn тему Travel · Hotel. Пройди Cards, затем Match. ' +
+           'Слова, которые ты не вспомнил, приложение покажет ещё раз.',
+        btn: 'Open Cards', go: { topic: 'Travel · Hotel', act: 'flash' } },
+      { title: 'Grammar · What happened yesterday?',
+        t: 'Открой урок Travel, главу 2, раздел Grammar: What happened yesterday? ' +
+           'Вставь в шесть предложений глаголы в Past Simple и нажми Check. ' +
+           'Затем перескажи эти предложения вслух как одну короткую историю и добавь две свои детали.',
+        btn: 'Open the lesson', go: { lesson: 'travel', part: 'Grammar: What happened yesterday' } },
+      { title: 'Grammar · Past Simple rule',
+        t: 'Открой в разделе Grammar правило Past Simple. Посмотри таблицу и реши тест из 10 вопросов.',
+        btn: 'Open the rule', go: { rule: 'g-past' } }
+    ]
+  },
+
   {
     id: 'hw-travel-airport',
     topic: 'Travel · Airport',
@@ -38,7 +73,7 @@ window.HOMEWORK = [
         ru: 'На досмотре Юрий достаёт ноутбук. Валентина достаёт телефон, ключи и большую коробку печенья.' },
       { en: '“It is for the plane,” she says. Everybody is waiting.',
         ru: '«Это в самолёт», — говорит она. Все ждут.' },
-      { en: 'Now they are at gate 12. Zhenya is texting his friends and he is not listening.',
+      { en: 'Now they are at gate 12. Zhenya is texting her friends and she is not listening.',
         ru: 'Теперь они у выхода 12. Женя пишет друзьям и никого не слушает.' },
       { en: 'The screen says: DELAYED. “How long is the delay?” Ivan asks. “Two hours,” Olga says.',
         ru: 'На табло написано: ЗАДЕРЖАН. «Надолго задержка?» — спрашивает Иван. «На два часа», — говорит Ольга.' },
@@ -200,7 +235,7 @@ window.HOMEWORK = [
               a: 'Valentina is at security. Her carry-on bag is very heavy. The worker opens the bag and finds three jars of jam. Valentina is not happy. There is a delay, and the family runs to the gate.' },
             { q: 'Zhenya is sleeping at gate 12. Everybody is on the plane — but not Zhenya. What happens?',
               use: ['gate', 'boarding pass', 'flight', 'finally'],
-              a: 'Zhenya is sleeping at gate 12. Olga cannot find him. Ivan goes back to the gate. Zhenya has his boarding pass in his hand. Finally they get on the flight.' }
+              a: 'Zhenya is sleeping at gate 12. Olga cannot find her. Ivan goes back to the gate. Zhenya has her boarding pass in her hand. Finally they get on the flight.' }
           ]
         },
         {

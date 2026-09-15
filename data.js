@@ -803,4 +803,78 @@ creative - творческий - ✨
 Imagine you are on a road trip - представь, что ты в поездке на машине - 🚗
 You have a great imagination - у тебя отличное воображение - 🌈
 
+# TOPIC | Travel · Hotel | 🏨 | 🏨🔑🛎️
+= frames
+At the hotel I
+I would like
+My room
+= words
+a hotel - отель - 🏨
+to stay at a hotel - останавливаться в отеле - 🏨
+a reservation - бронь - 📖
+to book a room - забронировать номер - 📝
+reception - стойка администратора - 🛎️
+a receptionist - администратор - 🧑‍💼
+to check in - заселиться - 🔑
+to check out - выселиться - 🚪
+check-out time - время выселения - ⏰
+a key card - ключ-карта - 💳
+a room number - номер комнаты - 🔢
+a single room - одноместный номер - 🛏️
+a double room - двухместный номер - 🛌
+a family room - семейный номер - 👨‍👩‍👧
+for two nights - на две ночи - 🌙
+included - включено в стоимость - ✅
+breakfast - завтрак - 🥐
+available - свободен - 🆓
+air conditioning - кондиционер - ❄️
+a towel - полотенце - 🧻
+the Wi-Fi password - пароль от вайфая - 📶
+a lift - лифт - 🛗
+on the third floor - на третьем этаже - 🏢
+a view - вид из окна - 🌅
+a balcony - балкон - 🌇
+noisy - шумный - 📢
+quiet - тихий - 🤫
+broken - сломанный - 🔧
+it doesn't work - это не работает - ⚙️
+a problem with the room - проблема с номером - ⚠️
+= phrases
+I have a reservation under Kovalev - у меня бронь на фамилию Ковалёв
+I would like to check in, please - я бы хотел заселиться
+What time is check-out? - во сколько выселение?
+Is breakfast included? - завтрак включён?
+Is a family room available tonight? - есть свободный семейный номер на сегодня?
+We are staying for two nights - мы остаёмся на две ночи
+My key card isn't working - моя ключ-карта не работает
+The air conditioning doesn't work - кондиционер не работает
+Could I have another towel, please? - можно ещё одно полотенце?
+What is the Wi-Fi password? - какой пароль от вайфая?
+What is my room number? - какой у меня номер комнаты?
+Where is the lift? - где лифт?
+My room is on the third floor - мой номер на третьем этаже
+Can I have a room with a view? - можно номер с видом?
+My room is too noisy - в моём номере слишком шумно
+There is a problem with my room - с моим номером проблема
+Can I leave my suitcase at reception? - можно оставить чемодан у администратора?
+They arrived at the hotel at 8 p.m. - они приехали в отель в 8 вечера
+Ivan's key card didn't work - ключ-карта Ивана не сработала
+Olga asked the receptionist for help - Ольга попросила администратора о помощи
+Zhenya lost her room number - Женя забыла номер своей комнаты
+Yuri found the correct room - Юрий нашёл нужный номер
+They ordered dinner at 9 p.m. - они заказали ужин в 9 вечера
+= questions
+Hotel or apartment? Why?
+What is important in a good hotel?
+Do you like breakfast in a hotel?
+What do you say at reception?
+What can go wrong in a hotel?
+What do you do if your key card doesn't work?
+A room with a view or a quiet room?
+Do you prefer a high floor or a low floor?
+When did you last stay in a hotel?
+What did you do on your first day of the trip?
+What was the best hotel you stayed in?
+What happened at the hotel in the lesson story?
+
 `;

@@ -167,15 +167,57 @@
       return true;
     }
 
+    /* Домашка внутри урока: разделы из highlight ярко обводятся, над ними плашка
+       HOMEWORK, заголовок подчёркнут маркером, а кнопка главы получает отметку HW.
+       Файл урока не меняется — всё добавляется при открытии. */
+    function markHomework(hs) {
+      var want = (l.highlight || []).map(function (x) { return String(x).toLowerCase(); });
+      var d = frame.contentDocument;
+      if (!want.length || !d || d.getElementById('wd-hw-style')) return;
+
+      var css = d.createElement('style');
+      css.id = 'wd-hw-style';
+      css.textContent =
+        '.wd-hw{outline:4px solid #FF3D7F!important;outline-offset:6px;border-radius:18px;' +
+        'background-color:rgba(255,225,77,.18)!important}' +
+        '.wd-hw-badge{display:inline-block;background:#FF3D7F;color:#fff;font:800 13px/1 system-ui,sans-serif;' +
+        'letter-spacing:.06em;padding:8px 12px;border-radius:999px;margin:0 0 12px}' +
+        '.wd-hw h2{background:linear-gradient(transparent 58%,#FFE14D 58%)}' +
+        '.wd-hw-nav{position:relative;box-shadow:0 0 0 3px #FF3D7F!important}' +
+        '.wd-hw-nav::after{content:"HW";position:absolute;top:-9px;right:-8px;background:#FF3D7F;color:#fff;' +
+        'font:800 10px/1 system-ui,sans-serif;padding:4px 6px;border-radius:999px}';
+      d.head.appendChild(css);
+
+      hs.forEach(function (h) {
+        var txt = h.textContent.toLowerCase();
+        if (!want.some(function (w) { return txt.indexOf(w) !== -1; })) return;
+        var sec = h.closest('section') || h.parentElement;
+        if (sec.classList.contains('wd-hw')) return;
+        sec.classList.add('wd-hw');
+        var badge = d.createElement('div');
+        badge.className = 'wd-hw-badge';
+        badge.textContent = '📌 HOMEWORK';
+        sec.insertBefore(badge, sec.firstChild);
+
+        var main = h.closest('main[id]');
+        var num = main && (main.id.match(/(\d+)/) || [])[1];
+        if (num) Array.prototype.forEach.call(d.querySelectorAll('button, a'), function (b) {
+          var on = b.getAttribute('onclick') || '';
+          if (on.indexOf('(' + num) !== -1 && /lesson|chapter|show/i.test(on)) b.classList.add('wd-hw-nav');
+        });
+      });
+    }
+
     frame.onload = function () {
       var hs = headings();
+      markHomework(hs);
       if (!hs.length) { $('#ljump').style.display = 'none'; return; }
 
       var box = $('#ljlist');
       box.innerHTML = '<div class="dd-h">Jump to</div>' +
         hs.map(function (h, i) {
           return '<button class="jrow" data-i="' + i + '">' +
-            esc(h.textContent.trim()) + '</button>';
+            (h.closest('.wd-hw') ? '📌 ' : '') + esc(h.textContent.trim()) + '</button>';
         }).join('');
 
       Array.prototype.forEach.call(box.querySelectorAll('[data-i]'), function (b) {

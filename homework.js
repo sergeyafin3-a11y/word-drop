@@ -14,7 +14,7 @@
   function st(id) {
     if (!W.s.hw) W.s.hw = {};
     var s = W.s.hw[id] || (W.s.hw[id] = {});
-    ['found', 'gaps', 'said', 'mine', 'told', 'used'].forEach(function (k) {
+    ['found', 'gaps', 'said', 'mine', 'told', 'used', 'tasks'].forEach(function (k) {
       if (!s[k] || typeof s[k] !== 'object') s[k] = {};
     });
     return s;
@@ -23,10 +23,10 @@
 
   W.hwDone = function (h) {
     var s = st(h.id);
-    return n(s.found) + n(s.gaps) + n(s.said) + n(s.mine) + n(s.told);
+    return n(s.tasks) + n(s.found) + n(s.gaps) + n(s.said) + n(s.mine) + n(s.told);
   };
   W.hwTotal = function (h) {
-    return (h.find || []).length + (h.gaps || []).length +
+    return (h.tasks || []).length + (h.find || []).length + (h.gaps || []).length +
       ((h.chunks && h.chunks.items) || []).length +
       ((h.mine && h.mine.items) || []).length +
       ((h.retell && h.retell.items) || []).length;
@@ -46,9 +46,10 @@
     return '<div class="h">Homework</div>' +
       list.map(function (h) {
         var p = W.hwProgress(h);
-        return '<button class="hcard" data-hw="' + h.id + '">' +
+        return '<button class="hcard' + (h.current ? ' now' : '') + '" data-hw="' + h.id + '">' +
           '<div class="hrow"><div class="he">' + (h.emoji || '📝') + '</div>' +
           '<div style="flex:1;min-width:0">' +
+          (h.current ? '<div class="hnow">📌 Homework now</div>' : '') +
           '<div class="htopic">' + esc(h.topic) + '</div>' +
           '<div class="htitle">' + esc(h.title) + '</div>' +
           '<div class="hsub">' + esc(h.sub || '') + '</div></div>' +
@@ -92,9 +93,62 @@
   }
 
   /* ---------- экран домашки ---------- */
+  /* ---------- домашка-задание по уроку: список заданий с кнопками перехода ---------- */
+  function openAssign(h) {
+    var body = W.open(h.title);
+    body.style.justifyContent = 'flex-start';
+
+    function draw() {
+      var s = st(h.id);
+      body.innerHTML =
+        '<div class="q-label">' + esc(h.topic) + '</div>' +
+        '<div class="as-banner">📌 Homework · ' + W.hwDone(h) + ' / ' + W.hwTotal(h) + ' done</div>' +
+        h.tasks.map(function (t, i) {
+          var on = !!s.tasks['k' + i];
+          return '<div class="as-task' + (on ? ' done' : '') + '">' +
+            '<div class="as-top"><div class="as-n">' + (i + 1) + '</div>' +
+            '<div class="as-title">' + esc(t.title) + '</div>' +
+            '<button class="tick' + (on ? ' on' : '') + '" data-k="' + i + '">' + (on ? '✓' : '') + '</button></div>' +
+            '<div class="as-text">' + esc(t.t) + '</div>' +
+            (t.go ? '<button class="btn btn-o" data-go="' + i + '">' + esc(t.btn || 'Open') + '</button>' : '') +
+            '</div>';
+        }).join('');
+
+      Array.prototype.forEach.call(body.querySelectorAll('[data-k]'), function (b) {
+        b.onclick = function () {
+          var k = 'k' + b.dataset.k;
+          if (s.tasks[k]) delete s.tasks[k]; else s.tasks[k] = 1;
+          W.saveNow(); draw();
+        };
+      });
+      Array.prototype.forEach.call(body.querySelectorAll('[data-go]'), function (b) {
+        b.onclick = function () { W.hwGoto(h.tasks[+b.dataset.go].go); };
+      });
+    }
+    draw();
+  }
+
+  /* переход из задания: раздел урока, активность в Learn или правило в Grammar */
+  W.hwGoto = function (go) {
+    if (!go) return;
+    if (go.lesson) { W.go('topics'); W.openLesson(go.lesson, go.part || ''); return; }
+    if (go.rule) { W.close(); W.go('gram'); W.openRule(go.rule); return; }
+    if (go.topic) {
+      var want = String(go.topic).toLowerCase(), t = null;
+      W.topics().forEach(function (x) { if (!t && String(x.title).toLowerCase() === want) t = x; });
+      if (!t) { W.toast('Topic not found'); return; }
+      W.close();
+      W.setSel('topic', t.id, go.kind || 'words');
+      W.go('learn');
+      var map = { flash: W.actFlash, match: W.actMatch, build: W.actBuild, type: W.actType, sprint: W.actSprint };
+      if (map[go.act]) map[go.act](W.activeList());
+    }
+  };
+
   W.openHomework = function (id) {
     var h = W.homework(id);
     if (!h) return;
+    if (h.tasks) return openAssign(h);
     var body = W.open(h.title);
     body.style.justifyContent = 'flex-start';
     var ruOn = false;
