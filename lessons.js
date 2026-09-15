@@ -146,6 +146,10 @@
     /* Внутри урока крупные картинки догружаются и всё съезжает —
        поэтому доводим прокрутку несколько раз. */
     function goTo(el) {
+      /* домашний раздел: останавливаемся на плашке HOMEWORK, чтобы её было видно */
+      var hwSec = el.closest && el.closest('.wd-hw');
+      var badge = hwSec && hwSec.querySelector('.wd-hw-badge');
+      if (badge) el = badge;
       reveal(el);
       pending = el;
       pendingUntil = Date.now() + 4000;
