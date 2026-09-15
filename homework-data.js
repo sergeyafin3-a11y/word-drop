@@ -26,6 +26,7 @@ window.HOMEWORK = [
   {
     id: 'hw-travel-hotel',
     topic: 'Travel · Hotel',
+    group: 'Travel',
     title: 'Hotel English and Past Simple',
     sub: 'Урок Travel · глава 2 · Hotel & City',
     emoji: '🏨',
@@ -54,6 +55,7 @@ window.HOMEWORK = [
   {
     id: 'hw-travel-airport',
     topic: 'Travel · Airport',
+    group: 'Travel',
     title: 'Five Suitcases and One Gate',
     sub: 'Matchmakers at the airport · A1–A2',
     emoji: '✈️',

@@ -37,24 +37,67 @@
   };
 
   /* ---------- список ---------- */
+  /* тема домашки: поле group, иначе то, что стоит до « · » в topic */
+  function hwGroup(h) { return h.group || String(h.topic || 'Other').split(' · ')[0]; }
+
+  /* карточка одной домашки внутри темы */
+  function hwCard(h) {
+    var p = W.hwProgress(h);
+    var sub = String(h.topic || '').split(' · ').slice(1).join(' · ') || h.topic;
+    return '<button class="hcard' + (h.current ? ' now' : '') + '" data-hw="' + h.id + '">' +
+      '<div class="hrow"><div class="he">' + (h.emoji || '📝') + '</div>' +
+      '<div style="flex:1;min-width:0">' +
+      (h.current ? '<div class="hnow">📌 Homework now</div>' : '') +
+      '<div class="htopic">' + esc(sub) + '</div>' +
+      '<div class="htitle">' + esc(h.title) + '</div>' +
+      '<div class="hsub">' + esc(h.sub || '') + '</div></div>' +
+      '<div class="hp">' + p + '%</div></div>' +
+      '<div class="bar"><i style="width:' + p + '%"></i></div></button>';
+  }
+
   W.viewHomework = function () {
     var list = W.homeworks();
     if (!list.length) {
       return '<div class="empty"><b>No homework yet</b>' +
         '<p>Домашка появится здесь после урока.</p></div>';
     }
-    return '<div class="h">Homework</div>' +
-      list.map(function (h) {
-        var p = W.hwProgress(h);
-        return '<button class="hcard' + (h.current ? ' now' : '') + '" data-hw="' + h.id + '">' +
-          '<div class="hrow"><div class="he">' + (h.emoji || '📝') + '</div>' +
-          '<div style="flex:1;min-width:0">' +
-          (h.current ? '<div class="hnow">📌 Homework now</div>' : '') +
-          '<div class="htopic">' + esc(h.topic) + '</div>' +
-          '<div class="htitle">' + esc(h.title) + '</div>' +
-          '<div class="hsub">' + esc(h.sub || '') + '</div></div>' +
-          '<div class="hp">' + p + '%</div></div>' +
-          '<div class="bar"><i style="width:' + p + '%"></i></div></button>';
+
+    /* Домашки разложены по темам: Travel → Hotel, Airport.
+       Тема, в которой есть заданная сейчас домашка, открыта сразу и обведена. */
+    var groups = [], by = {};
+    list.forEach(function (h) {
+      var g = hwGroup(h);
+      if (!by[g]) { by[g] = []; groups.push(g); }
+      by[g].push(h);
+    });
+    if (!W.hwOpenGroups) {
+      W.hwOpenGroups = {};
+      groups.forEach(function (g) {
+        if (by[g].some(function (h) { return h.current; })) W.hwOpenGroups[g] = 1;
+      });
+    }
+
+    return '<div class="h">Homework by topic</div>' +
+      groups.map(function (g) {
+        var hs = by[g].slice().sort(function (a, b) { return (b.current ? 1 : 0) - (a.current ? 1 : 0); });
+        var open = !!W.hwOpenGroups[g];
+        var nowN = hs.filter(function (h) { return h.current; }).length;
+        var done = 0, total = 0;
+        hs.forEach(function (h) { done += W.hwDone(h); total += W.hwTotal(h); });
+        var p = total ? Math.round(done * 100 / total) : 0;
+        var t = null;
+        W.topics().forEach(function (x) { if (!t && x.title === g) t = x; });
+
+        return '<div class="hgroup' + (nowN ? ' has-now' : '') + (open ? ' open' : '') + '">' +
+          '<button class="hg-head" data-hg="' + esc(g) + '">' +
+          '<div class="he">' + ((t && t.emoji) || hs[0].emoji || '📚') + '</div>' +
+          '<div style="flex:1;min-width:0"><div class="hg-title">' + esc(g) + '</div>' +
+          '<div class="hsub">' + hs.length + (hs.length === 1 ? ' homework' : ' homeworks') +
+          (nowN ? ' · 📌 ' + nowN + ' now' : '') + '</div></div>' +
+          '<div class="hp">' + p + '%</div>' +
+          '<div class="hg-arrow">' + (open ? '▴' : '▾') + '</div></button>' +
+          (open ? '<div class="hg-body">' + hs.map(hwCard).join('') + '</div>' : '') +
+          '</div>';
       }).join('');
   };
 

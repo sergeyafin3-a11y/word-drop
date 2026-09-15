@@ -661,3 +661,15 @@ input,select{font-family:inherit;font-size:17px;color:inherit}
 .as-title{flex:1;font-weight:800;font-size:17px;line-height:1.2}
 .as-text{font-size:15px;line-height:1.5;margin-bottom:12px}
 .as-task .btn{margin:0}
+
+/* ---------- Homework по темам: тема-папка, внутри домашки ---------- */
+.hgroup{background:var(--surface);border-radius:var(--r);margin-bottom:14px;box-shadow:var(--shadow);
+  overflow:hidden;border:3px solid transparent}
+.hgroup.has-now{border-color:var(--accent)}
+.hg-head{display:flex;align-items:center;gap:12px;width:100%;padding:16px;text-align:left}
+.hg-title{font-weight:800;font-size:22px;line-height:1.15}
+.hg-arrow{font-size:18px;color:var(--muted);margin-left:2px}
+.hg-body{padding:0 12px 12px}
+.hg-body .hcard{margin-bottom:10px;box-shadow:none;background:var(--surface-2)}
+.hg-body .hcard:last-child{margin-bottom:0}
+.hg-body .hcard.now{background:var(--accent-grad);box-shadow:0 8px 22px rgba(0,0,0,.22)}

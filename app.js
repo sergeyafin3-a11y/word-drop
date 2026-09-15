@@ -239,6 +239,16 @@
 
     if ($('#searchBtn')) $('#searchBtn').onclick = W.searchOpen;
 
+    /* тема во вкладке Homework: открыть / свернуть */
+    Array.prototype.forEach.call(document.querySelectorAll('[data-hg]'), function (b) {
+      b.onclick = function () {
+        var g = b.dataset.hg;
+        if (!W.hwOpenGroups) W.hwOpenGroups = {};
+        if (W.hwOpenGroups[g]) delete W.hwOpenGroups[g]; else W.hwOpenGroups[g] = 1;
+        W.render();
+      };
+    });
+
     Array.prototype.forEach.call(document.querySelectorAll('[data-hw]'), function (b) {
       b.onclick = function () { W.openHomework(b.dataset.hw); };
     });
