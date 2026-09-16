@@ -307,7 +307,7 @@
 
         (P.storyTitle ? '<div class="story-title">' + esc(P.storyTitle) + '</div>' : '') +
 
-        /* задания в самом уроке — эти разделы выделены цветом внутри урока */
+        /* задания в самом уроке — кнопка открывает нужную главу урока */
         (lt.length ? '<div class="h">In the lesson <b>' + cnt(s.tasks, 'k', lt) + ' / ' + lt.length + '</b></div>' +
           '<div class="task-note">' + esc(P.lessonTasks.note) + '</div>' +
           lt.map(function (t, i) {

@@ -173,8 +173,9 @@ window.HOMEWORK = [
         current: true,
 
         lessonTasks: {
-          note: 'Открой урок Travel, главу 2 «Hotel & City». Разделы Hotel English и ' +
-                'Grammar: What happened yesterday? выделены цветом. Выполни их первыми.',
+          note: 'Эта домашка лежит так: вкладка Homework → тема Travel → часть Hotel & City. ' +
+                'Материал к ней — во вкладке Topics, урок Travel, глава 2 «Hotel & City». ' +
+                'Сначала пройди два раздела урока, потом делай задания ниже.',
           items: [
             { t: 'Hotel English: выучи 6 слов и выражений, у каждой фразы нажми 🔊 и повтори вслух.',
               btn: 'Open Hotel English', go: { lesson: 'travel', part: 'Hotel English' }, was: 0 },
