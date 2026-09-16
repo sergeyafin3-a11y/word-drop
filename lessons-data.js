@@ -25,7 +25,10 @@ window.LESSONS = [
     emoji: '✈️',
     file: 'lesson-travel.html',
     date: '11 Aug',
-    /* где лежит домашка по этому уроку — подсказка на карточке урока */
-    hwAt: 'Homework → Travel → Hotel & City'
+    /* где лежит домашка — подсказка на карточке урока */
+    hwAt: 'Homework → Travel → Hotel & City',
+    /* разделы урока, заданные на дом: внутри урока они ярко обводятся
+       и получают плашку HOMEWORK */
+    highlight: ['Hotel English', 'Grammar: What happened yesterday']
   }
 ];
