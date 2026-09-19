@@ -25,8 +25,6 @@ window.LESSONS = [
     emoji: '✈️',
     file: 'lesson-travel.html',
     date: '11 Aug',
-    /* домашка по этому уроку: кнопка прямо на карточке темы */
-    hwId: 'hw-travel-airport',
-    hwName: 'Travel: the whole trip · 25 мин'
+    /* если заполнить hwId и hwName, на карточке появится кнопка с домашкой */
   }
 ];
