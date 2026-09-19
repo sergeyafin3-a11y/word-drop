@@ -42,7 +42,7 @@
     return '<div class="h">Lessons</div>' +
       list.map(function (l) {
         var was = seen(l.id);
-        return '<div class="lcard">' +
+        return '<div class="lcard' + (l.locked ? ' locked' : '') + '">' +
           '<button class="lmain" data-lesson="' + l.id + '">' +
           '<div class="le">' + (l.emoji || '📘') + '</div>' +
           '<div style="flex:1;min-width:0">' +
@@ -50,10 +50,10 @@
           '<div class="ls">' + esc(l.sub || '') + '</div>' +
           '<div class="ld">' + esc(l.date || '') +
           (was ? ' · opened ' + esc(was) : ' · new') + '</div>' +
-          /* урок ещё не задан: замочек виден, но открыть можно */
-          (l.locked ? '<div class="llock">🔒</div>' : '') +
           '</div>' +
           '<div class="lgo">›</div></button>' +
+          /* урок ещё не задан: карточка гаснет, сверху большой замок. Открыть всё равно можно */
+          (l.locked ? '<div class="lbig"><span>🔒</span></div>' : '') +
           /* домашка по уроку открывается прямо отсюда, из темы */
           (l.hwId ? '<button class="lhw" data-hw="' + esc(l.hwId) + '">' +
             '<span>📌 Домашка · ' + esc(l.hwName || '') + '</span><span>›</span></button>' : '') +
