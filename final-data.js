@@ -109,17 +109,6 @@ window.FINALS = [
           ]
         },
         {
-          title: 'What is happening now?',
-          open: true,
-          note: 'Опиши, что происходит прямо сейчас: 3–4 предложения, Present Continuous — is / are + -ing.',
-          items: [
-            { q: '🏨 Гость стоит у стойки, администратор даёт ему ключ-карту, дети сидят на чемоданах.',
-              a: 'A man is standing at reception. The receptionist is giving him a key card. Two children are sitting on the suitcases.' },
-            { q: '🏙️ Семья идёт по старому городу, Женя фотографирует рынок, Валентина покупает апельсины.',
-              a: 'The family is walking in the old city. Zhenya is taking photos of the market, and Valentina is buying oranges.' }
-          ]
-        },
-        {
           title: 'True or false?',
           note: 'Текст: Last summer Ivan went to Sunny Bay. His hotel was opposite the market. ' +
                 'Breakfast was included, but his key card didn’t work. On Sunday he took the bus to the beach ' +
@@ -130,6 +119,53 @@ window.FINALS = [
             { q: 'Breakfast was not included.', a: 'False. Breakfast was included.' },
             { q: 'His key card worked well.', a: 'False. His key card didn’t work.' },
             { q: 'A woman at the bus stop helped him.', a: 'True.' }
+          ]
+        },
+        {
+          title: 'Role-play: at the hotel',
+          open: true,
+          note: 'Разыгрываем диалог: преподаватель — администратор, ты — гость. ' +
+                'Отвечай полными фразами, не одним словом.',
+          items: [
+            { q: 'Ты приехал в отель. Заселись: назови бронь, спроси про завтрак и про этаж.',
+              a: 'Good evening. I have a reservation under Ivanov. · Is breakfast included? · What floor is my room on?' },
+            { q: 'В номере не работает ключ-карта, и нет полотенец. Реши вопрос на ресепшене.',
+              a: 'Excuse me, my key card doesn’t work. · There are no towels in my room. · Could you help me, please?' }
+          ]
+        },
+        {
+          title: 'Explain the way',
+          open: true,
+          note: 'Объясни дорогу вслух. Нужны go straight, turn left / right, opposite, next to, ' +
+                'it’s ten minutes on foot.',
+          items: [
+            { q: 'От отеля до музея: прямо, потом налево, музей напротив рынка.',
+              a: 'Go straight, then turn left. The museum is opposite the market. It’s ten minutes on foot.' },
+            { q: 'Объясни дорогу от своего дома до ближайшего магазина.',
+              a: 'Go out and turn right. Go straight to the bus stop. The shop is next to the pharmacy.' }
+          ]
+        },
+        {
+          title: 'Ask me questions',
+          open: true,
+          note: 'Теперь вопросы задаёшь ты, я отвечаю. Спрашивай полными вопросами, ' +
+                'начинай с Where, When, What, How.',
+          items: [
+            { q: 'Задай мне четыре вопроса о моей последней поездке.',
+              a: 'Where did you go? · When did you arrive? · What did you see in the city? · How did you get to the hotel?' },
+            { q: 'Задай мне три вопроса о моих планах на лето.',
+              a: 'Where will you go? · Who will you go with? · What will you do there?' }
+          ]
+        },
+        {
+          title: 'Tell the story',
+          open: true,
+          note: 'Расскажи поездку Ковалёвых целиком: аэропорт → отель → город. ' +
+                'Минимум шесть предложений в Past Simple, используй слова с карточки.',
+          items: [
+            { q: 'From the airport to the museum: what happened to the Kovalevs?',
+              use: ['check-in desk', 'delayed', 'baggage claim', 'reservation', 'floor', 'turn left'],
+              a: 'Last Monday the Kovalevs flew to Spain. At the airport they looked for the check-in desk. The plane was delayed, and they waited two hours at the gate. At baggage claim one suitcase didn’t arrive. At the hotel Olga had a reservation, and their rooms were on the third floor. The next morning they went straight and turned left, and they found the museum opposite the market.' }
           ]
         },
         {
