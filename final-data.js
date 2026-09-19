@@ -56,15 +56,15 @@ window.FINALS = [
           ]
         },
         {
-          title: 'Finish the phrase',
-          open: true,
-          note: 'Я называю начало — договори выражение до конца и скажи с ним предложение.',
+          title: 'Put the words in order',
+          note: 'Слова перемешаны. Поставь их в правильном порядке и скажи предложение целиком. ' +
+                'Порядок в английском: кто → что делает → что → где → когда.',
           items: [
-            { q: 'book a …', a: 'book a hotel · book a room' },
-            { q: 'check …', a: 'check in at the hotel · check out at 12' },
-            { q: 'go …', a: 'go straight · go on a trip' },
-            { q: 'catch …', a: 'catch the bus · catch a taxi' },
-            { q: 'get …', a: 'get lost · get to the beach' }
+            { q: 'is · the check-in desk · where ?', a: 'Where is the check-in desk?' },
+            { q: 'we · to the museum · how · get · do ?', a: 'How do we get to the museum?' },
+            { q: 'on the third floor · are · our rooms', a: 'Our rooms are on the third floor.' },
+            { q: 'flew · last Monday · they · to Spain', a: 'They flew to Spain last Monday.' },
+            { q: 'the beach · tomorrow · visit · we · will', a: 'We will visit the beach tomorrow.' }
           ]
         },
         {
