@@ -563,9 +563,9 @@ input,select{font-family:inherit;font-size:17px;color:inherit}
 
 /* просмотр урока */
 .lesson-screen{display:flex;flex-direction:column;padding:0}
-.lesson-screen .sc-top{padding:14px 16px;flex:0 0 auto}
+.lesson-screen .sc-top{padding:14px 16px;flex:0 0 auto;max-width:900px}
 .jump{font-size:22px;width:40px;height:40px;border-radius:12px;background:var(--surface-2)}
-.lframe-wrap{flex:1;min-height:0;background:#fff;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.lframe-wrap{flex:1;min-height:0;width:100%;max-width:900px;background:#fff;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .lframe{width:100%;height:100%;border:0;display:block}
 .jumplist{
   position:absolute;left:12px;right:12px;top:64px;max-height:70vh;overflow-y:auto;
