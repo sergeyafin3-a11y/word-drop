@@ -21,14 +21,12 @@ window.LESSONS = [
   {
     id: 'travel',
     title: 'Travel',
-    sub: 'Matchmakers · A1–A2 · 5 chapters',
+    sub: 'Matchmakers · A1–A2 · 3 chapters',
     emoji: '✈️',
     file: 'lesson-travel.html',
     date: '11 Aug',
-    /* где лежит домашка — подсказка на карточке урока */
-    hwAt: 'Homework → Travel → Hotel & City',
-    /* разделы урока, заданные на дом: внутри урока они ярко обводятся
-       и получают плашку HOMEWORK */
-    highlight: ['Hotel English', 'Grammar: What happened yesterday']
+    /* домашка по этому уроку: кнопка прямо на карточке темы */
+    hwId: 'hw-travel-airport',
+    hwName: 'Travel: the whole trip · 25 мин'
   }
 ];

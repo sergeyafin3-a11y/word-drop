@@ -40,10 +40,11 @@
           '<div class="lt">' + esc(l.title) + '</div>' +
           '<div class="ls">' + esc(l.sub || '') + '</div>' +
           '<div class="ld">' + esc(l.date || '') +
-          (was ? ' · opened ' + esc(was) : ' · new') + '</div>' +
-          (l.hwAt ? '<div class="lhw">📌 Домашка: ' + esc(l.hwAt) + '</div>' : '') +
-          '</div>' +
+          (was ? ' · opened ' + esc(was) : ' · new') + '</div></div>' +
           '<div class="lgo">›</div></button>' +
+          /* домашка по уроку открывается прямо отсюда, из темы */
+          (l.hwId ? '<button class="lhw" data-hw="' + esc(l.hwId) + '">' +
+            '<span>📌 Домашка · ' + esc(l.hwName || '') + '</span><span>›</span></button>' : '') +
           '</div>';
       }).join('');
   };

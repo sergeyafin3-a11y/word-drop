@@ -21,7 +21,7 @@
   function st(id) {
     if (!W.s.hw) W.s.hw = {};
     var s = W.s.hw[id] || (W.s.hw[id] = {});
-    ['found', 'gaps', 'said', 'mine', 'told', 'used', 'tasks'].forEach(function (k) {
+    ['found', 'gaps', 'said', 'mine', 'told', 'used', 'tasks', 'facts'].forEach(function (k) {
       if (!s[k] || typeof s[k] !== 'object') s[k] = {};
     });
     return s;
@@ -30,7 +30,7 @@
   /* ---------- задания и ключи отметок ---------- */
   function txt(item) {
     if (typeof item === 'string') return item;
-    return item.en || item.t || ((item.s || '') + '|' + (item.a || ''));
+    return item.en || item.t || item.q || ((item.s || '') + '|' + (item.a || ''));
   }
   function ik(pre, item) {
     return pre + ':' + String(txt(item)).toLowerCase().replace(/\s+/g, ' ').trim();
@@ -42,6 +42,7 @@
   function MN(p) { return (p.mine && p.mine.items) || []; }
   function RT(p) { return (p.retell && p.retell.items) || []; }
   function LK(p) { return p.linkers || []; }
+  function FC(p) { return (p.facts && p.facts.items) || []; }
 
   /* однократный перенос отметок «по номеру» (c3, g7…) на отметки «по тексту» */
   function migrate(p, s) {
@@ -52,7 +53,8 @@
       ['gaps', 'g', GP(p)],
       ['mine', 'm', MN(p)],
       ['told', 't', RT(p)],
-      ['used', 'u', LK(p)]
+      ['used', 'u', LK(p)],
+      ['facts', 'f', FC(p)]
     ].forEach(function (b) {
       var bag = s[b[0]], old = {};
       Object.keys(bag).forEach(function (k) {
@@ -77,17 +79,37 @@
   /* ---------- части и прогресс ---------- */
   W.hwParts = function (h) { return [h].concat(h.more || []); };
   function keyOf(h, p) { return p === h ? h.id : (p.key || h.id); }
-  function stP(h, p) { var s = st(keyOf(h, p)); migrate(p, s); return s; }
+  /* прежняя часть свёрнута в одну домашку: её отметки один раз переезжают сюда.
+     Ключи текстовые, поэтому у совпавших заданий галочка остаётся на месте. */
+  function mergeOld(p, s) {
+    if (!p.mergeFrom) return;
+    var flag = 'mg_' + p.mergeFrom;
+    if (s[flag]) return;
+    var old = (W.s.hw || {})[p.mergeFrom];
+    if (old) ['found', 'gaps', 'said', 'mine', 'told', 'used', 'tasks', 'facts'].forEach(function (b) {
+      var from = old[b];
+      if (!from || typeof from !== 'object') return;
+      if (!s[b] || typeof s[b] !== 'object') s[b] = {};
+      Object.keys(from).forEach(function (k) {
+        if (from[k] && !/^[a-z]\d+$/.test(k)) s[b][k] = from[k];
+      });
+    });
+    s[flag] = 1;
+    W.saveNow();
+  }
+
+  function stP(h, p) { var s = st(keyOf(h, p)); migrate(p, s); mergeOld(p, s); return s; }
 
   function partDone(h, p) {
     var s = stP(h, p), f = 0;
     (p.find || []).forEach(function (w) { if (s.found[w.en.toLowerCase()]) f++; });
     return f + cnt(s.tasks, 'k', TK(p).concat(LT(p))) + cnt(s.said, 'c', CH(p)) +
-      cnt(s.gaps, 'g', GP(p)) + cnt(s.mine, 'm', MN(p)) + cnt(s.told, 't', RT(p));
+      cnt(s.gaps, 'g', GP(p)) + cnt(s.mine, 'm', MN(p)) + cnt(s.told, 't', RT(p)) +
+      cnt(s.facts, 'f', FC(p));
   }
   function partTotal(p) {
     return TK(p).length + LT(p).length + (p.find || []).length + GP(p).length +
-      CH(p).length + MN(p).length + RT(p).length;
+      CH(p).length + MN(p).length + RT(p).length + FC(p).length;
   }
   /* часть, заданная сейчас (среди частей после первой) */
   function currentPart(h) {
@@ -213,6 +235,42 @@
     return r;
   }
 
+  /* сколько слов уже найдено в тексте */
+  function fnd(P, s) {
+    return (P.find || []).filter(function (w) { return s.found[w.en.toLowerCase()]; }).length;
+  }
+
+  /* слова ищутся по темам: Airport, Hotel, City, Directions — видно, сколько в каждой */
+  function catLine(P, s) {
+    var cats = [], by = {};
+    (P.find || []).forEach(function (w) {
+      var c = w.cat;
+      if (!c) return;
+      if (!by[c]) { by[c] = []; cats.push(c); }
+      by[c].push(w);
+    });
+    if (!cats.length) return '';
+    return '<div class="chips find-cats">' + cats.map(function (c) {
+      var d = by[c].filter(function (w) { return s.found[w.en.toLowerCase()]; }).length;
+      return '<span class="chip' + (d === by[c].length ? ' in' : '') + '">' +
+        esc(c) + ' <b>' + d + '/' + by[c].length + '</b></span>';
+    }).join('') + '</div>';
+  }
+
+  /* короткая подсказка по временам перед упражнением */
+  function tensesBox(P) {
+    var t = P.tenses;
+    if (!t || !(t.rows || []).length) return '';
+    return (t.note ? '<div class="task-note">' + esc(t.note) + '</div>' : '') +
+      '<div class="card"><table class="gtable tenses">' +
+      '<tr><th>Время</th><th>Когда</th><th>Пример</th></tr>' +
+      t.rows.map(function (r) {
+        return '<tr><td><b>' + esc(r.t) + '</b><br><span class="tform">' +
+          esc(r.form || '') + '</span></td><td>' + esc(r.when || '') + '</td><td>' +
+          esc(r.ex || '') + '</td></tr>';
+      }).join('') + '</table></div>';
+  }
+
   /* ---------- домашка-задание по уроку: список заданий с кнопками перехода ---------- */
   function openAssign(h) {
     var body = W.open(h.title);
@@ -289,7 +347,8 @@
       var P = parts[pi], KEY = keyOf(h, P);
       var s = stP(h, P);
       var findN = (P.find || []).length;
-      var gaps = GP(P), lt = LT(P), ch = CH(P), mine = MN(P), ret = RT(P), lk = LK(P);
+      var gaps = GP(P), lt = LT(P), ch = CH(P), mine = MN(P), ret = RT(P), lk = LK(P), fc = FC(P);
+      var n = 0;   /* номер блока: блоков может не быть, поэтому считаем по ходу */
       var checkObj = P.check ? { id: KEY, check: P.check } : null;
 
       body.innerHTML =
@@ -321,7 +380,7 @@
           }).join('') : '') +
 
         /* 1 — найти слова */
-        '<div class="h">1 · Reading <b>' + partDone(h, P) + ' / ' + partTotal(P) + '</b></div>' +
+        '<div class="h">' + (++n) + ' · Reading <b>' + fnd(P, s) + ' / ' + findN + '</b></div>' +
         '<div class="task-note">Прочитай текст целиком. Найди в нём <b>' + findN +
         '</b> слов и выражений по теме «' + esc(P.findTopic || 'Сборы в поездку и аэропорт') + '». ' +
         'Нажми на каждое найденное слово один раз — оно подсветится и покажет перевод.</div>' +
@@ -330,14 +389,27 @@
           return '<p class="sp">' + markStory(p.en, P.find) +
             '<span class="sru' + (ruOn ? '' : ' hidden') + '">' + esc(p.ru) + '</span></p>';
         }).join('') + '</div>' +
-        '<div class="counter-line"><b>' +
-        (P.find || []).filter(function (w) { return s.found[w.en.toLowerCase()]; }).length +
-        '</b> / ' + findN + ' found</div>' +
+        '<div class="counter-line"><b>' + fnd(P, s) + '</b> / ' + findN + ' found</div>' +
+        catLine(P, s) +
         '<button class="btn btn-g" id="ruBtn">' +
         (ruOn ? 'Спрятать перевод' : 'Показать перевод') + '</button>' +
 
-        /* 2 — фразы целиком */
-        (ch.length ? '<div class="h">2 · Useful phrases <b>' + cnt(s.said, 'c', ch) + ' / ' + ch.length + '</b></div>' +
+        /* вопросы по тексту: ответ открывается галочкой, ученик сверяет свой ответ */
+        (fc.length ? '<div class="h">' + (++n) + ' · Read for information <b>' +
+          cnt(s.facts, 'f', fc) + ' / ' + fc.length + '</b></div>' +
+          '<div class="task-note">' + esc(P.facts.note) + '</div>' +
+          '<div class="card">' +
+          fc.map(function (q, i) {
+            var on = !!s.facts[ik('f', q)];
+            return '<div class="ch-line' + (on ? ' done' : '') + '">' +
+              '<div style="flex:1;min-width:0"><div class="ch-en">' + esc(q.q) + '</div>' +
+              (on ? '<div class="ch-ru">' + esc(q.a) + '</div>' : '') + '</div>' +
+              '<button class="tick' + (on ? ' on' : '') + '" data-f="' + i + '">' +
+              (on ? '✓' : '') + '</button></div>';
+          }).join('') + '</div>' : '') +
+
+        /* фразы целиком */
+        (ch.length ? '<div class="h">' + (++n) + ' · Useful phrases <b>' + cnt(s.said, 'c', ch) + ' / ' + ch.length + '</b></div>' +
           '<div class="task-note">' + esc(P.chunks.note) + '</div>' +
           '<div class="card">' +
           ch.map(function (c, i) {
@@ -350,11 +422,12 @@
               (on ? '✓' : '') + '</button></div>';
           }).join('') + '</div>' : '') +
 
-        /* 3 — пропуски */
-        (gaps.length ? '<div class="h">3 · Fill in the gaps <b>' + cnt(s.gaps, 'g', gaps) + ' / ' + gaps.length + '</b></div>' +
-          '<div class="task-note">Вставь в пропуски слова из текста, которые ты нашёл ' +
-          'в первом задании. Подбирай по смыслу. Проверь себя кнопкой <b>Check</b> ' +
-          'и переведи каждое предложение на русский вслух.</div>' +
+        /* грамматика: сначала табличка-подсказка, потом пропуски */
+        (gaps.length ? '<div class="h">' + (++n) + ' · Grammar <b>' + cnt(s.gaps, 'g', gaps) + ' / ' + gaps.length + '</b></div>' +
+          tensesBox(P) +
+          '<div class="task-note">' + esc(P.gapsNote || 'Вставь в пропуски слова из текста, ' +
+            'которые ты нашёл в первом задании. Подбирай по смыслу. Проверь себя кнопкой Check ' +
+            'и переведи каждое предложение на русский вслух.') + '</div>' +
           '<div class="card gapbox">' +
           gaps.map(function (g, i) {
             var ok = !!s.gaps[ik('g', g)];
@@ -371,7 +444,7 @@
           '</div>' : '') +
 
         /* 4 — про себя */
-        (mine.length ? '<div class="h">4 · Speaking · about you <b>' + cnt(s.mine, 'm', mine) + ' / ' + mine.length + '</b></div>' +
+        (mine.length ? '<div class="h">' + (++n) + ' · Speaking · about you <b>' + cnt(s.mine, 'm', mine) + ' / ' + mine.length + '</b></div>' +
           '<div class="task-note">' + esc(P.mine.note) + '</div>' +
           '<div class="card">' +
           mine.map(function (q, i) {
@@ -383,7 +456,7 @@
           }).join('') + '</div>' : '') +
 
         /* 5 — пересказ */
-        (ret.length ? '<div class="h">5 · Speaking · retell the story <b>' + cnt(s.told, 't', ret) + ' / ' + ret.length + '</b></div>' +
+        (ret.length ? '<div class="h">' + (++n) + ' · Speaking · retell the story <b>' + cnt(s.told, 't', ret) + ' / ' + ret.length + '</b></div>' +
           '<div class="task-note">' + esc(P.retell.note) + '</div>' +
           '<div class="card">' +
           '<div class="chips">' +
@@ -470,6 +543,7 @@
       toggle('[data-m]', s.mine, 'm', mine);
       toggle('[data-r]', s.told, 't', ret);
       toggle('[data-u]', s.used, 'u', lk);
+      toggle('[data-f]', s.facts, 'f', fc);
 
       if ($('#gCheck')) $('#gCheck').onclick = function () {
         var right = 0, wrong = 0;
