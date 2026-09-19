@@ -22,7 +22,7 @@ window.LESSONS = [
     id: 'city',
     title: 'People & the City',
     sub: 'Speaking course · A1–A2 · 5 chapters',
-    emoji: '🍸',
+    emoji: '🗽',
     file: 'lesson-city.html',
     date: '20 Sep'
   },
