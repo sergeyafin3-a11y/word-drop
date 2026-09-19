@@ -803,6 +803,64 @@ creative - творческий - ✨
 Imagine you are on a road trip - представь, что ты в поездке на машине - 🚗
 You have a great imagination - у тебя отличное воображение - 🌈
 
+# NEW WORDS | Lesson 18 Sep | 18 Sep
+
+// --- 1. Школа и выпускной ---
+to graduate - окончить школу - 🎓
+graduation - выпускной - 🎉
+a graduation album - выпускной альбом - 📕
+a photoshoot - фотосессия - 📸
+remote - дистанционный, удалённый - 💻
+remote lessons - уроки онлайн, дистанционно - 🖥️
+We graduate next year - мы заканчиваем школу в следующем году - 🎓
+We had a photoshoot for our graduation album - у нас была фотосессия для выпускного альбома - 📸
+Our lessons were remote - у нас были уроки дистанционно - 💻
+
+// --- 2. Когда? on + день недели ---
+on Monday - в понедельник - 📅
+on Friday - в пятницу - 📅
+on Monday morning - в понедельник утром - 🌅
+The photoshoot is on Monday - фотосессия в понедельник - 📸
+On Friday I have no plans - в пятницу у меня нет планов - 🗓️
+
+// --- 3. Сон и ночёвки ---
+to oversleep - проспать - 😴
+I overslept - я проспал - ⏰
+a sleepover - ночёвка у друзей - 🛏️
+I overslept and was late for school - я проспал и опоздал в школу - ⏰
+We had a sleepover at my friend's house - мы ночевали у друга - 🛏️
+
+// --- 4. Что я об этом думаю ---
+annoying - раздражающий, бесячий - 😤
+It's annoying - это раздражает - 😤
+Is it worth it? - оно того стоит? - 🤔
+It's worth it - оно того стоит - 👍
+It's not worth it - оно того не стоит - 👎
+Remote lessons are annoying - уроки онлайн раздражают - 🖥️
+A sleepover before school? Is it worth it? - ночёвка перед школой? Оно того стоит? - 🤔
+
+// --- 5. Погода и воздух ---
+because of bad weather - из-за плохой погоды - 🌧️
+air - воздух - 💨
+fresh air - свежий воздух - 🌬️
+outside - на улице, снаружи - 🌳
+without - без - 🚫
+to affect - влиять на - ➡️
+We stayed at home because of bad weather - мы остались дома из-за плохой погоды - 🌧️
+I want to go outside and get some fresh air - хочу выйти на улицу подышать свежим воздухом - 🌬️
+I can't live without my phone - я не могу жить без телефона - 📱
+Bad weather affects my mood - плохая погода влияет на моё настроение - 😔
+
+// --- 6. Проблемы и решения ---
+a problem - проблема - ⚠️
+the biggest problem - самая большая проблема - 🔺
+to decide - решать - 🧠
+a decision - решение - ✅
+to make a decision - принять решение - 🙌
+The biggest problem is the weather - самая большая проблема это погода - 🌧️
+I decided to stay at home - я решил остаться дома - 🏠
+It was a difficult decision - это было трудное решение - 🤯
+
 # TOPIC | Travel · Hotel & City | 🏨 | 🏨🗺️🚏
 = frames
 At the hotel I
