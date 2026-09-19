@@ -33,17 +33,6 @@ window.FINALS = [
           ]
         },
         {
-          title: 'Word to picture',
-          note: 'Назови слово по картинке. Одно слово или выражение.',
-          items: [
-            { q: '🧳', a: 'a suitcase', w: 'a suitcase' },
-            { q: '🗺️', a: 'a map', w: 'a map' },
-            { q: '🏛️', a: 'a museum', w: 'a museum' },
-            { q: '💊', a: 'a pharmacy', w: 'a pharmacy' },
-            { q: '🎫', a: 'a ticket', w: 'a ticket' }
-          ]
-        },
-        {
           title: 'Say it in English',
           note: 'Скажи предложение по-английски целиком. Не переводи по словам — вспоминай готовую фразу.',
           items: [
