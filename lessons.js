@@ -49,7 +49,10 @@
           '<div class="lt">' + esc(l.title) + '</div>' +
           '<div class="ls">' + esc(l.sub || '') + '</div>' +
           '<div class="ld">' + esc(l.date || '') +
-          (was ? ' · opened ' + esc(was) : ' · new') + '</div></div>' +
+          (was ? ' · opened ' + esc(was) : ' · new') + '</div>' +
+          /* урок ещё не задан: замочек виден, но открыть можно */
+          (l.locked ? '<div class="llock">🔒 Не открывай пока</div>' : '') +
+          '</div>' +
           '<div class="lgo">›</div></button>' +
           /* домашка по уроку открывается прямо отсюда, из темы */
           (l.hwId ? '<button class="lhw" data-hw="' + esc(l.hwId) + '">' +

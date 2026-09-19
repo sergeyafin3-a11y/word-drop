@@ -24,7 +24,8 @@ window.LESSONS = [
     sub: 'Speaking course · A1–A2 · 5 chapters',
     emoji: '🗽',
     file: 'lesson-city.html',
-    date: '20 Sep'
+    date: '20 Sep',
+    locked: true          /* замочек на карточке: урок ещё не задан */
   },
   {
     id: 'travel',
