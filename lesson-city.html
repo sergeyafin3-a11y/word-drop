@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>People &amp; the City — Speaking Course A1–A2</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Karla:ital,wght@0,400;0,600;0,800;1,400&display=swap">
+<style>
+:root{
+  --ink:#1A1420; --muted:#6C6377; --line:#E4DCE8; --white:#fff;
+  --paper:#FAF7FB; --pink:#D6246E; --pink-soft:#FDE7F0; --plum:#5B2A6B; --gold:#C8912F;
+  --blue:#2F5DA8; --green:#2C7A5B;
+  --display:'Playfair Display',Georgia,serif; --body:'Karla','Helvetica Neue',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+img{max-width:100%;display:block}
+h1,h2,h3,h4{font-family:var(--display);margin:0;line-height:1.1}
+h1{font-size:clamp(38px,9vw,74px);font-weight:900;letter-spacing:-.02em}
+h2{font-size:clamp(23px,5vw,32px);font-weight:700}
+h3{font-size:20px;font-weight:700}
+p{margin:0 0 12px}
+.wrap{max-width:1080px;margin:0 auto;padding:14px}
+
+/* --- шапка с главами --- */
+.topnav{position:sticky;top:0;z-index:20;background:rgba(250,247,251,.94);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);margin:0 -14px 14px;padding:10px 14px}
+.navrow{max-width:1080px;margin:auto;display:flex;gap:8px;overflow:auto;scrollbar-width:none}
+.navrow::-webkit-scrollbar{display:none}
+.navbtn{white-space:nowrap;border:1px solid var(--line);background:var(--white);color:var(--ink);
+  padding:10px 15px;border-radius:999px;font-weight:700;font-size:15px;cursor:pointer;font-family:var(--body)}
+.navbtn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* --- обложка --- */
+.hero{position:relative;border-radius:26px;overflow:hidden;padding:38px 26px 30px;color:#fff;
+  background:
+    radial-gradient(120% 90% at 85% 10%, rgba(255,255,255,.22), transparent 55%),
+    linear-gradient(145deg,#2A0F33 0%, #6B1B4E 45%, #D6246E 100%)}
+.hero .kicker{font-size:13px;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:#FFD6E8}
+.hero h1{margin:10px 0 14px;color:#fff}
+.hero p{max-width:34ch;color:#FBE7F1;font-size:18px}
+.hero .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.hero .chips span{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);
+  border-radius:999px;padding:7px 12px;font-size:14px;font-weight:700}
+.hero .glow{position:absolute;right:-60px;bottom:-70px;width:260px;height:260px;border-radius:50%;
+  background:radial-gradient(circle,#FFB6D5 0%,transparent 65%);opacity:.55}
+
+/* --- секции --- */
+.section{background:var(--white);border:1px solid var(--line);border-radius:22px;
+  padding:24px;margin:18px 0;box-shadow:0 8px 24px rgba(90,40,90,.06)}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  flex-wrap:wrap;margin-bottom:14px}
+.kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--pink)}
+.time{font-size:13px;font-weight:800;color:#fff;background:var(--plum);padding:6px 11px;border-radius:999px}
+.teacher{color:var(--muted);font-size:15px;background:#F4F0F7;border-radius:14px;padding:11px 13px}
+
+/* --- постеры вместо фотографий --- */
+.cast{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px;margin:14px 0}
+.poster{border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--white)}
+.poster .art{aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;font-size:76px;
+  position:relative;color:#fff}
+.poster .art span{position:relative;z-index:2}
+.poster .art b{position:absolute;left:14px;bottom:12px;z-index:2;font:800 13px/1 var(--body);
+  letter-spacing:.14em;text-transform:uppercase;opacity:.9}
+.a1{background:linear-gradient(160deg,#D6246E,#7B1E5C)}
+.a2{background:linear-gradient(160deg,#2F5DA8,#1B2E63)}
+.a3{background:linear-gradient(160deg,#C8912F,#7A4E12)}
+.a4{background:linear-gradient(160deg,#2C7A5B,#123D2C)}
+.a5{background:linear-gradient(160deg,#5B2A6B,#22102B)}
+.poster .body{padding:13px 14px}
+.poster h4{font-size:19px;margin-bottom:4px}
+.poster p{font-size:15px;margin:0;color:var(--muted)}
+
+/* --- слова и фразы --- */
+.grid{display:grid;gap:14px}
+.two{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.card{border:1px solid var(--line);border-radius:16px;padding:14px;background:var(--white)}
+.card h4{font-size:17px;margin-bottom:3px}
+.card .ru{color:var(--muted);font-size:15px}
+.phrase{background:#F7F1FA;border-radius:12px;padding:10px 12px;margin-top:9px;font-weight:600}
+.speak{border:0;background:var(--pink-soft);color:var(--pink);border-radius:999px;
+  padding:7px 11px;font-weight:800;cursor:pointer;font-family:var(--body);font-size:14px}
+.speak:hover{background:var(--pink);color:#fff}
+.wordbank{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.wordbank span{background:#F1ECF5;border-radius:999px;padding:8px 12px;font-weight:700;font-size:15px}
+
+/* --- грамматика --- */
+.gram{border-radius:20px;padding:20px;background:linear-gradient(150deg,#241030,#5B2A6B);color:#fff;margin:16px 0}
+.gram h3{color:#fff;margin-bottom:8px}
+.gram table{width:100%;border-collapse:collapse;margin-top:10px;font-size:15.5px}
+.gram td{padding:8px 10px 8px 0;border-bottom:1px solid rgba(255,255,255,.18);vertical-align:top}
+.gram td:first-child{font-weight:800;color:#FFC9E0;white-space:nowrap}
+.gram .ex{font-family:var(--display);font-style:italic;font-size:18px;margin-top:12px;color:#FFE3EF}
+
+/* --- задания --- */
+.task{border-left:4px solid var(--pink);background:#FFF6FA;border-radius:0 16px 16px 0;
+  padding:13px 15px;margin:14px 0;font-weight:600}
+.task b{color:var(--pink)}
+.quiz{margin-top:8px}
+.qrow{padding:11px 0;border-top:1px dashed var(--line);display:flex;gap:10px;align-items:flex-start}
+.qrow:first-child{border-top:0}
+.qn{font-weight:800;color:var(--pink);min-width:20px}
+.qtext{flex:1}
+.btn{border:0;background:var(--ink);color:#fff;border-radius:12px;padding:10px 14px;font-weight:800;
+  cursor:pointer;font-family:var(--body);font-size:15px}
+.btn.small{padding:7px 11px;font-size:14px;border-radius:10px}
+.btn.ghost{background:var(--white);color:var(--ink);border:1px solid var(--line)}
+.reveal{display:none;margin-top:9px;padding:11px 13px;border-radius:12px;background:#EAF4EE;
+  border:1px solid #CBE3D6;color:#14452F;font-weight:600}
+.reveal.on{display:block}
+.pair{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px}
+.line{background:#F7F1FA;border-radius:14px;padding:11px 13px}
+.line b{color:var(--plum)}
+.check{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-top:1px dashed var(--line)}
+.check:first-of-type{border-top:0}
+.check input{width:20px;height:20px;margin-top:2px;accent-color:var(--pink);flex:0 0 auto}
+.progress-wrap{height:9px;border-radius:999px;background:#EFE7F3;overflow:hidden;margin:12px 0}
+.progress{height:100%;width:0;background:linear-gradient(90deg,#D6246E,#C8912F);transition:width .2s}
+
+/* --- ролевые карточки --- */
+.roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:12px}
+.role{border-radius:18px;padding:16px;color:#fff;background:linear-gradient(150deg,#D6246E,#7B1E5C)}
+.role.b{background:linear-gradient(150deg,#2F5DA8,#1B2E63)}
+.role h4{color:#fff;font-size:18px;margin-bottom:6px}
+.role p{font-size:15px;margin:0;color:#FBE7F1}
+.footer{color:var(--muted);font-size:14px;padding:18px 4px 30px;text-align:center}
+@media(max-width:800px){
+  .wrap{padding:10px}
+  .topnav{margin:0 -10px 12px;padding:9px 10px}
+  .hero{padding:28px 20px 24px;border-radius:20px}
+  .section{padding:17px;border-radius:18px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topnav">
+    <div class="navrow">
+      <button class="navbtn active" onclick="showLesson(1,this)">1 · The Cast</button>
+      <button class="navbtn" onclick="showLesson(2,this)">2 · Have You Ever</button>
+      <button class="navbtn" onclick="showLesson(3,this)">3 · Dating &amp; Drama</button>
+      <button class="navbtn" onclick="showLesson(4,this)">4 · Red Carpet</button>
+      <button class="navbtn" onclick="showLesson(5,this)">Phrasebook</button>
+    </div>
+  </div>
+
+  <!-- ===================== LESSON 1 ===================== -->
+  <main id="lesson1" class="lesson active">
+
+    <div class="hero">
+      <div class="glow"></div>
+      <div class="kicker">4 × 60-minute speaking course · A1–A2</div>
+      <h1>People<br>&amp; the City</h1>
+      <p>Four friends, one loud city, too much coffee and never enough sleep.
+        You will learn to talk about people, experience, dating and glamour —
+        and to keep the conversation going.</p>
+      <div class="chips">
+        <span>describing people</span><span>Have you ever…?</span>
+        <span>dating</span><span>red carpet talk</span><span>real conversation</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <div><div class="kicker">Lesson 1</div><h2>The Cast: who is who</h2></div>
+        <span class="time">60 min</span>
+      </div>
+      <p class="teacher">Speak first, be correct later. In this lesson mistakes are normal —
+        we only fix the words we are learning today.</p>
+
+      <div class="cast">
+        <div class="poster">
+          <div class="art a1"><span>✍️</span><b>The Writer</b></div>
+          <div class="body"><h4>Carrie-type</h4>
+            <p>In her thirties. Curly hair, huge shoes, huger problems. Talkative and romantic.</p></div>
+        </div>
+        <div class="poster">
+          <div class="art a2"><span>⚖️</span><b>The Lawyer</b></div>
+          <div class="body"><h4>Miranda-type</h4>
+            <p>Short red hair, dark suits. Clever, sarcastic, always busy, never impressed.</p></div>
+        </div>
+        <div class="poster">
+          <div class="art a3"><span>💅</span><b>The Publicist</b></div>
+          <div class="body"><h4>Samantha-type</h4>
+            <p>Blonde, loud, confident. Knows everybody in town and is afraid of nothing.</p></div>
+        </div>
+        <div class="poster">
+          <div class="art a4"><span>🖼️</span><b>The Art Dealer</b></div>
+          <div class="body"><h4>Charlotte-type</h4>
+            <p>Dark hair, perfect manners. Polite, romantic, a little old-fashioned.</p></div>
+        </div>
+      </div>
+
+      <h3>Words you need</h3>
+      <div class="wordbank">
+        <span>tall / short</span><span>curly hair</span><span>dark hair</span><span>blonde</span>
+        <span>in her thirties</span><span>good-looking</span><span>talkative</span><span>confident</span>
+        <span>clever</span><span>sarcastic</span><span>polite</span><span>selfish</span>
+        <span>down-to-earth</span><span>glamorous</span>
+      </div>
+
+      <div class="grid two">
+        <div class="card"><h4>What does she look like?</h4>
+          <div class="ru">outside: face, hair, clothes</div>
+          <div class="phrase">She’s tall, with curly blonde hair.
+            <button class="speak" onclick="say('She is tall, with curly blonde hair.')">🔊</button></div>
+        </div>
+        <div class="card"><h4>What is she like?</h4>
+          <div class="ru">inside: character</div>
+          <div class="phrase">She’s confident and very funny.
+            <button class="speak" onclick="say('She is confident and very funny.')">🔊</button></div>
+        </div>
+      </div>
+
+      <div class="gram">
+        <h3>Two questions people always mix up</h3>
+        <table>
+          <tr><td>look like</td><td>appearance — hair, height, style</td></tr>
+          <tr><td>be like</td><td>character — funny, kind, difficult</td></tr>
+          <tr><td>word order</td><td>She’s a <b>tall young</b> woman <b>with</b> dark hair</td></tr>
+        </table>
+        <div class="ex">— What’s your best friend like? — Honestly? Loud, but the kindest person I know.</div>
+      </div>
+
+      <div class="task"><b>Practice 1.</b> Say one sentence about each character: first appearance,
+        then character. Use <i>with</i>: <i>She’s a short woman with red hair.</i></div>
+
+      <div class="quiz">
+        <div class="qrow"><span class="qn">1</span><span class="qtext">She never says “sorry” and she loves to argue. She is ___.</span></div>
+        <div class="qrow"><span class="qn">2</span><span class="qtext">He talks to everybody at the party. He is very ___.</span></div>
+        <div class="qrow"><span class="qn">3</span><span class="qtext">She always says “please” and “thank you”. She is ___.</span></div>
+        <div class="qrow"><span class="qn">4</span><span class="qtext">She is famous, rich and always beautiful. She is ___.</span></div>
+        <button class="btn small ghost" onclick="flip('k1')">Show answers</button>
+        <div class="reveal" id="k1">1 sarcastic · 2 talkative · 3 polite · 4 glamorous</div>
+      </div>
+
+      <div class="task"><b>Speaking.</b> Describe three people you know — a friend, someone in your
+        family, and a person you follow online. Six sentences each. I will guess who is who.</div>
+
+      <div class="task"><b>Speaking · the big one.</b> Which character are you most like, and why?
+        Start like this: <i>I think I’m like the lawyer, because…</i></div>
+    </div>
+  </main>
+
+  <!-- ===================== LESSON 2 ===================== -->
+  <main id="lesson2" class="lesson">
+    <div class="section">
+      <div class="section-head">
+        <div><div class="kicker">Lesson 2</div><h2>Have you ever…?</h2></div>
+        <span class="time">60 min</span>
+      </div>
+      <p class="teacher">This is the tense you need for real conversation: it opens stories.
+        You ask <i>Have you ever…?</i>, the other person says yes, and then you both switch to the past.</p>
+
+      <div class="grid two">
+        <div class="card"><h4>Experience — no date</h4>
+          <div class="phrase">She has never been to Paris.
+            <button class="speak" onclick="say('She has never been to Paris.')">🔊</button></div>
+          <div class="phrase">I have already met his family.
+            <button class="speak" onclick="say('I have already met his family.')">🔊</button></div>
+        </div>
+        <div class="card"><h4>Story — with a date</h4>
+          <div class="phrase">She went to Paris last spring.
+            <button class="speak" onclick="say('She went to Paris last spring.')">🔊</button></div>
+          <div class="phrase">I met his family in June.
+            <button class="speak" onclick="say('I met his family in June.')">🔊</button></div>
+        </div>
+      </div>
+
+      <div class="gram">
+        <h3>have / has + third form</h3>
+        <table>
+          <tr><td>+</td><td>I <b>have seen</b> it. · She <b>has seen</b> it.</td></tr>
+          <tr><td>−</td><td>I <b>haven’t seen</b> it. · He <b>hasn’t seen</b> it.</td></tr>
+          <tr><td>?</td><td><b>Have</b> you <b>ever</b> seen it? · <b>Has</b> she <b>ever</b> been there?</td></tr>
+          <tr><td>never</td><td>I’ve <b>never</b> been to New York. <i>(no “not” with never)</i></td></tr>
+          <tr><td>with date</td><td>never Present Perfect: <i>yesterday, last year, in 2020</i> → Past Simple</td></tr>
+        </table>
+        <div class="ex">— Have you ever been in love? — Yes, I have. — When was that? — Two years ago.</div>
+      </div>
+
+      <h3>Third forms you will actually use</h3>
+      <div class="wordbank">
+        <span>be — been</span><span>see — seen</span><span>do — done</span><span>eat — eaten</span>
+        <span>go — gone</span><span>meet — met</span><span>take — taken</span><span>write — written</span>
+        <span>break — broken</span><span>fall — fallen</span>
+      </div>
+
+      <div class="task"><b>Practice.</b> Make a question with <i>Have you ever…?</i> and answer it
+        honestly. If the answer is yes — add one sentence in the past.</div>
+      <div class="quiz">
+        <div class="qrow"><span class="qn">1</span><span class="qtext">(be) ___ you ever ___ abroad?</span></div>
+        <div class="qrow"><span class="qn">2</span><span class="qtext">(meet) ___ you ever ___ a famous person?</span></div>
+        <div class="qrow"><span class="qn">3</span><span class="qtext">(lose) I ___ never ___ my phone.</span></div>
+        <div class="qrow"><span class="qn">4</span><span class="qtext">(watch) She ___ already ___ the whole season.</span></div>
+        <div class="qrow"><span class="qn">5</span><span class="qtext">(text) He ___ me last night. <i>(careful — there is a time here)</i></span></div>
+        <button class="btn small ghost" onclick="flip('k2')">Show answers</button>
+        <div class="reveal" id="k2">1 Have … been · 2 Have … met · 3 have … lost · 4 has … watched · 5 texted</div>
+      </div>
+
+      <div class="task"><b>Speaking game · Find out about me.</b> Ask me ten questions with
+        <i>Have you ever…?</i> Every time I say yes, ask <i>When? Where? Who with?</i>
+        Your job is not the question — your job is to keep me talking.</div>
+
+      <div class="task"><b>Speaking · your list.</b> Three things you have already done this year,
+        and three things you have never done but really want to.</div>
+    </div>
+  </main>
+
+  <!-- ===================== LESSON 3 ===================== -->
+  <main id="lesson3" class="lesson">
+    <div class="section">
+      <div class="section-head">
+        <div><div class="kicker">Lesson 3</div><h2>Dating, drama and advice</h2></div>
+        <span class="time">60 min</span>
+      </div>
+      <p class="teacher">Today we learn the phrases people really use when they talk about each other —
+        and how to give advice without sounding like a textbook.</p>
+
+      <div class="grid two">
+        <div class="card"><h4>The good part</h4>
+          <div class="phrase">He asked her out.
+            <button class="speak" onclick="say('He asked her out.')">🔊</button></div>
+          <div class="phrase">They went on a date.
+            <button class="speak" onclick="say('They went on a date.')">🔊</button></div>
+          <div class="phrase">They’re seeing each other.
+            <button class="speak" onclick="say('They are seeing each other.')">🔊</button></div>
+        </div>
+        <div class="card"><h4>The drama</h4>
+          <div class="phrase">He didn’t text her back.
+            <button class="speak" onclick="say('He did not text her back.')">🔊</button></div>
+          <div class="phrase">They broke up last week.
+            <button class="speak" onclick="say('They broke up last week.')">🔊</button></div>
+          <div class="phrase">Then they made up again.
+            <button class="speak" onclick="say('Then they made up again.')">🔊</button></div>
+        </div>
+      </div>
+
+      <div class="wordbank">
+        <span>a date</span><span>a crush</span><span>a red flag</span><span>to flirt</span>
+        <span>to ghost somebody</span><span>to be single</span><span>to be in a relationship</span>
+        <span>to move in together</span><span>to argue</span><span>to apologise</span>
+      </div>
+
+      <div class="task"><b>Practice 1.</b> Put the story in order. Say the whole story out loud
+        when the order is right.</div>
+      <div class="quiz">
+        <div class="qrow"><span class="qn">A</span><span class="qtext">She waited three days. Nothing.</span></div>
+        <div class="qrow"><span class="qn">B</span><span class="qtext">They met at a party in September.</span></div>
+        <div class="qrow"><span class="qn">C</span><span class="qtext">He asked her out the same night.</span></div>
+        <div class="qrow"><span class="qn">D</span><span class="qtext">In the end he called and apologised.</span></div>
+        <div class="qrow"><span class="qn">E</span><span class="qtext">After the date he didn’t text her back.</span></div>
+        <button class="btn small ghost" onclick="flip('k3')">Show answers</button>
+        <div class="reveal" id="k3">B → C → E → A → D</div>
+      </div>
+
+      <div class="gram">
+        <h3>Giving advice like a friend, not like a book</h3>
+        <table>
+          <tr><td>should</td><td>You <b>should</b> talk to her. · You <b>shouldn’t</b> wait.</td></tr>
+          <tr><td>softer</td><td><b>Why don’t you</b> call him? · <b>Maybe you could</b> text her first.</td></tr>
+          <tr><td>strong</td><td>Honestly? <b>Just</b> forget about it.</td></tr>
+        </table>
+        <div class="ex">— He never texts first. — Girl. That’s a red flag. You should move on.</div>
+      </div>
+
+      <div class="task"><b>Speaking · the advice column.</b> I read you a problem,
+        you answer with three different pieces of advice. Then say which one you would take yourself.</div>
+
+      <div class="roles">
+        <div class="role"><h4>Role A · the friend in love</h4>
+          <p>You met somebody last week. You like them too much. You want advice —
+            and you don’t want to hear anything bad about them.</p></div>
+        <div class="role b"><h4>Role B · the honest friend</h4>
+          <p>You think this person is a red flag. Be kind, but say it. Use
+            <i>you should</i>, <i>why don’t you</i>, <i>to be honest</i>.</p></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===================== LESSON 4 ===================== -->
+  <main id="lesson4" class="lesson">
+    <div class="section">
+      <div class="section-head">
+        <div><div class="kicker">Lesson 4</div><h2>Red carpet English</h2></div>
+        <span class="time">60 min</span>
+      </div>
+      <p class="teacher">Small talk is a skill, and it is the same at the Grammys and at a new school
+        in a new country: compliment, question, reaction, question again.</p>
+
+      <div class="cast">
+        <div class="poster"><div class="art a5"><span>🎤</span><b>The interview</b></div>
+          <div class="body"><h4>Who are you wearing?</h4>
+            <p>Thirty seconds, four questions, a thousand cameras.</p></div></div>
+        <div class="poster"><div class="art a1"><span>👗</span><b>The look</b></div>
+          <div class="body"><h4>I’m obsessed with this dress</h4>
+            <p>Compliments are the fastest way into a conversation.</p></div></div>
+        <div class="poster"><div class="art a3"><span>🏆</span><b>The award</b></div>
+          <div class="body"><h4>I can’t believe it</h4>
+            <p>Reactions: surprise, joy, “I didn’t expect this”.</p></div></div>
+      </div>
+
+      <h3>Compliments that work</h3>
+      <div class="grid two">
+        <div class="card">
+          <div class="phrase">You look amazing tonight.
+            <button class="speak" onclick="say('You look amazing tonight.')">🔊</button></div>
+          <div class="phrase">I’m obsessed with your jacket.
+            <button class="speak" onclick="say('I am obsessed with your jacket.')">🔊</button></div>
+          <div class="phrase">That colour really suits you.
+            <button class="speak" onclick="say('That colour really suits you.')">🔊</button></div>
+        </div>
+        <div class="card">
+          <div class="phrase">— Thank you! That’s so nice of you.
+            <button class="speak" onclick="say('Thank you! That is so nice of you.')">🔊</button></div>
+          <div class="phrase">— Oh, stop it. But thank you!
+            <button class="speak" onclick="say('Oh, stop it. But thank you!')">🔊</button></div>
+        </div>
+      </div>
+
+      <h3>Interview questions</h3>
+      <div class="pair">
+        <div class="line"><b>Q:</b> So, how do you feel right now?
+          <button class="speak small" onclick="say('So, how do you feel right now?')">🔊</button></div>
+        <div class="line"><b>Q:</b> What are you working on at the moment?
+          <button class="speak small" onclick="say('What are you working on at the moment?')">🔊</button></div>
+        <div class="line"><b>Q:</b> Have you ever been here before?
+          <button class="speak small" onclick="say('Have you ever been here before?')">🔊</button></div>
+        <div class="line"><b>Q:</b> What’s next for you?
+          <button class="speak small" onclick="say('What is next for you?')">🔊</button></div>
+      </div>
+
+      <div class="gram">
+        <h3>React, don’t just answer</h3>
+        <table>
+          <tr><td>surprise</td><td>No way! · Are you serious? · I can’t believe it.</td></tr>
+          <tr><td>interest</td><td>Really? Tell me more. · And then what happened?</td></tr>
+          <tr><td>agreeing</td><td>Exactly. · Same here. · That’s so true.</td></tr>
+          <tr><td>buying time</td><td>Well… · To be honest… · Let me think.</td></tr>
+        </table>
+        <div class="ex">A dead conversation is a conversation with no reactions. Say something, anything —
+          <i>No way!</i> is better than silence.</div>
+      </div>
+
+      <div class="task"><b>Speaking · the red carpet.</b> You are the star, I am the reporter.
+        Answer four questions, and every answer must be longer than one sentence.
+        Then we swap: you interview me.</div>
+
+      <div class="task"><b>Speaking · moving out.</b> One day you land in a new country.
+        Tell me: where would you go, what would you do first, who would you talk to?
+        Useful: <i>I’d love to live in… · I’m planning to… · The first thing I’d do is…</i></div>
+    </div>
+  </main>
+
+  <!-- ===================== PHRASEBOOK ===================== -->
+  <main id="lesson5" class="lesson">
+    <div class="section">
+      <div class="section-head">
+        <div><div class="kicker">Pocket English</div><h2>Phrasebook</h2></div>
+        <span class="time">use it every lesson</span>
+      </div>
+      <p class="teacher">Tick a phrase when you have used it in a real conversation — not when you
+        have read it. Ten ticks is a new person.</p>
+
+      <div class="progress-wrap"><div id="pbProgress" class="progress"></div></div>
+      <p id="progressText" class="teacher" style="text-align:center">0 / 0 used</p>
+
+      <div class="grid two">
+        <div class="card"><h4>Starting a conversation</h4>
+          <label class="check"><input type="checkbox" class="pb" data-key="p1"><span>So, how’s it going?</span></label>
+          <label class="check"><input type="checkbox" class="pb" data-key="p2"><span>Long time no see!</span></label>
+          <label class="check"><input type="checkbox" class="pb" data-key="p3"><span>What have you been up to?</span></label>
+        </div>
+        <div class="card"><h4>Reacting</h4>
+          <label class="check"><input type="checkbox" class="pb" data-key="p4"><span>No way! Are you serious?</span></label>
+          <label class="check"><input type="checkbox" class="pb" data-key="p5"><span>That’s insane.</span></label>
+          <label class="check"><input type="checkbox" class="pb" data-key="p6"><span>Same here.</span></label>
+        </div>
+        <div class="card"><h4>Opinions</h4>
+          <label class="check"><input type="checkbox" class="pb" data-key="p7"><span>To be honest, I don’t think so.</span></label>
+          <label class="check"><input type="checkbox" class="pb" data-key="p8"><span>I’m obsessed with it.</span></label>
+          <label class="check"><input type="checkbox" class="pb" data-key="p9"><span>It’s not really my thing.</span></label>
+        </div>
+        <div class="card"><h4>When you are stuck</h4>
+          <label class="check"><input type="checkbox" class="pb" data-key="p10"><span>Well… let me think.</span></label>
+          <label class="check"><input type="checkbox" class="pb" data-key="p11"><span>How do you say… you know, when…</span></label>
+          <label class="check"><input type="checkbox" class="pb" data-key="p12"><span>Sorry, could you say that again?</span></label>
+        </div>
+        <div class="card"><h4>People</h4>
+          <label class="check"><input type="checkbox" class="pb" data-key="p13"><span>She’s the kindest person I know.</span></label>
+          <label class="check"><input type="checkbox" class="pb" data-key="p14"><span>He’s a bit too much sometimes.</span></label>
+          <label class="check"><input type="checkbox" class="pb" data-key="p15"><span>We get on really well.</span></label>
+        </div>
+        <div class="card"><h4>Life abroad</h4>
+          <label class="check"><input type="checkbox" class="pb" data-key="p16"><span>I’d love to live there one day.</span></label>
+          <label class="check"><input type="checkbox" class="pb" data-key="p17"><span>I’m planning to move after school.</span></label>
+          <label class="check"><input type="checkbox" class="pb" data-key="p18"><span>I’ve never been, but it’s on my list.</span></label>
+        </div>
+      </div>
+
+      <div class="task"><b>Rule of the course.</b> Every lesson you must use at least three phrases
+        from this page. Nobody cares about your grammar if you sound like a human being.</div>
+    </div>
+  </main>
+
+  <div class="footer">People &amp; the City · speaking course A1–A2 · made for one student who wants to talk</div>
+</div>
+
+<script>
+function showLesson(n, btn){
+  document.querySelectorAll('.lesson').forEach(function(x){ x.classList.remove('active'); });
+  document.getElementById('lesson' + n).classList.add('active');
+  document.querySelectorAll('.navbtn').forEach(function(x){ x.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function flip(id){
+  var el = document.getElementById(id);
+  if (el) el.classList.toggle('on');
+}
+var voice = null;
+function pickVoice(){
+  var vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  voice = vs.filter(function(v){ return /en-US|en_GB|en-GB/.test(v.lang); })[0] || vs[0] || null;
+}
+if (window.speechSynthesis){
+  pickVoice();
+  speechSynthesis.onvoiceschanged = pickVoice;
+}
+function say(text){
+  if (!window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  var u = new SpeechSynthesisUtterance(text);
+  if (voice) u.voice = voice;
+  u.rate = .95;
+  speechSynthesis.speak(u);
+}
+function saveAll(){
+  document.querySelectorAll('.pb').forEach(function(el){
+    try { localStorage.setItem('city_' + el.dataset.key, el.checked ? '1' : '0'); } catch(e){}
+  });
+}
+function updateProgress(){
+  var boxes = [].slice.call(document.querySelectorAll('.pb'));
+  var done = boxes.filter(function(x){ return x.checked; }).length;
+  var bar = document.getElementById('pbProgress');
+  var txt = document.getElementById('progressText');
+  if (bar) bar.style.width = (boxes.length ? done / boxes.length * 100 : 0) + '%';
+  if (txt) txt.textContent = done + ' / ' + boxes.length + ' used';
+}
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.pb').forEach(function(el){
+    try {
+      var v = localStorage.getItem('city_' + el.dataset.key);
+      if (v !== null) el.checked = v === '1';
+    } catch(e){}
+    el.addEventListener('change', function(){ saveAll(); updateProgress(); });
+  });
+  updateProgress();
+});
+</script>
+<style>
+.lesson{display:none}
+.lesson.active{display:block}
+</style>
+</body>
+</html>
