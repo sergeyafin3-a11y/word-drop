@@ -11,6 +11,15 @@
     return null;
   };
 
+  /* Файл урока тоже кэшируется. Подставляем к нему версию приложения — ту же,
+     что стоит у скриптов в index.html, — иначе на телефоне останется старый урок. */
+  function withVer(file) {
+    var s = document.querySelector('script[src*="lessons.js"]');
+    var m = s && s.src.match(/[?&]v=([^&]+)/);
+    if (!m) return file;
+    return file + (file.indexOf('?') < 0 ? '?' : '&') + 'v=' + m[1];
+  }
+
   /* какие уроки ученик уже открывал */
   function seen(id) {
     if (!W.s.lessons) W.s.lessons = {};
@@ -65,7 +74,7 @@
       '<button class="jump" id="ljump">☰</button>' +
       '</div>' +
       '<div class="lframe-wrap"><iframe class="lframe" id="lframe" ' +
-      'src="' + l.file + '" title="' + esc(l.title) + '"></iframe></div>' +
+      'src="' + withVer(l.file) + '" title="' + esc(l.title) + '"></iframe></div>' +
       '<div class="jumplist hidden" id="ljlist"></div>';
     document.body.appendChild(scr);
     document.body.style.overflow = 'hidden';
