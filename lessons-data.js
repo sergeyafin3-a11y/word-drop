@@ -21,7 +21,7 @@ window.LESSONS = [
   {
     id: 'travel',
     title: 'Travel',
-    sub: 'Matchmakers · A1–A2 · 3 chapters',
+    sub: 'Matchmakers · A1–A2 · 4 chapters',
     emoji: '✈️',
     file: 'lesson-travel.html',
     date: '11 Aug',
