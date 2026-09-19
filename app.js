@@ -133,7 +133,13 @@
       act('speed', '⏱', 'Speed round', 'answer fast, no pauses') +
       act('revision', '🔁', 'Revision', 'words he keeps forgetting') +
       act('duel', '🎤', 'Dialogue', 'roles and counter') +
-      '</div>';
+      '</div>' +
+      /* контрольная в конце темы — отдельным блоком, чтобы не путалась с разминками */
+      (W.final && W.final() ? '<div class="h">Final test</div>' +
+        '<div class="acts">' +
+        act('final', '🏁', 'Final Test (' + esc(W.final().sub || '') + ')',
+          W.checkSub(W.final()), 'accent') +
+        '</div>' : '');
   }
 
   /* ================= GRAMMAR ================= */
@@ -227,6 +233,7 @@
         if (a === 'speed') return W.actSpeed();
         if (a === 'revision') return W.actRevision();
         if (a === 'duel') return W.actDuel();
+        if (a === 'final') return W.finalTest();
         if (a === 'vtable') return W.verbTable();
         if (a === 'vcards') return W.verbCards();
         if (a === 'vmatch') return W.verbMatch();

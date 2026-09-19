@@ -22,9 +22,9 @@
   /* подпись на кнопке: когда проверяли и с каким результатом */
   W.checkSub = function (h) {
     var last = st(h).check;
-    var total = 0;
+    var total = 0, rounds = (h.check && h.check.rounds || []).length;
     (h.check && h.check.rounds || []).forEach(function (r) { total += r.items.length; });
-    if (!last || !last.total) return total + ' tasks · 5 rounds';
+    if (!last || !last.total) return total + ' tasks · ' + rounds + ' rounds';
     return 'Last check: ' + last.ok + ' / ' + last.total + ' · ' + last.date;
   };
 
@@ -38,7 +38,7 @@
     });
 
     var idx = 0, ok = 0, xp = 0, miss = [];
-    var body = W.open('Lesson check');
+    var body = W.open(h.checkTitle || 'Lesson check');
 
     function finish() {
       var s = st(h);
@@ -115,5 +115,18 @@
       $('#ckNo').onclick = function () { next(false); };
     }
     draw();
+  };
+
+  /* ---------- Final Test: контрольная в конце темы, из final-data.js ---------- */
+  W.finals = function () { return window.FINALS || []; };
+  W.final = function (id) {
+    var a = W.finals();
+    for (var i = 0; i < a.length; i++) if (!id || a[i].id === id) return a[i];
+    return null;
+  };
+  W.finalTest = function (id) {
+    var f = W.final(id);
+    if (!f) { W.toast('Final test not found'); return; }
+    W.hwCheck(f);
   };
 })();

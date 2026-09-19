@@ -912,6 +912,7 @@ a bank - банк - 🏦
 a pharmacy - аптека - 💊
 a supermarket - супермаркет - 🛒
 a museum - музей - 🏛️
+a market - рынок - 🛒
 a beach - пляж - 🏖️
 a café - кафе - ☕
 to go straight - идти прямо - ⬆️
