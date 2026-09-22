@@ -861,6 +861,66 @@ The biggest problem is the weather - самая большая проблема 
 I decided to stay at home - я решил остаться дома - 🏠
 It was a difficult decision - это было трудное решение - 🤯
 
+# NEW WORDS | Lesson 22 Sep | 22 Sep
+
+// --- 1. Погода и самочувствие ---
+rainy - дождливый - 🌧️
+snowy - снежный - ❄️
+sunny - солнечный - ☀️
+stormy - штормовой, грозовой - ⛈️
+It's rainy outside - на улице дождливо - 🌧️
+It was sunny all day - весь день было солнечно - ☀️
+It's too stormy to go out - слишком штормит, чтобы выходить - ⛈️
+sensitive to the weather - метеозависимый - 🌡️
+pressure - давление (атмосферное) - 🌡️
+I'm sensitive to the weather - я метеозависимый - 🤕
+The pressure is low today, so I have a headache - сегодня низкое давление, поэтому у меня болит голова - 🤕
+
+// --- 2. Моё мнение ---
+nothing special - ничего особенного - 😐
+It's ridiculous - это нелепо, это абсурд - 🙄
+too much - слишком много, перебор - 🤯
+the same - то же самое, одинаковый - 🟰
+The film was nothing special - фильм был так себе, ничего особенного - 😐
+Two hours of homework? It's ridiculous! - два часа домашки? это абсурд! - 🙄
+This is too much for me - это для меня слишком - 🤯
+We have the same phone - у нас одинаковые телефоны - 📱
+It's always the same - всегда одно и то же - 🔁
+
+// --- 3. Когда? during ---
+during - во время - ⏳
+during the lesson - во время урока - 📚
+during the summer - летом, в течение лета - 🏖️
+I never use my phone during the lesson - я никогда не сижу в телефоне во время урока - 📵
+It rained during the night - ночью шёл дождь - 🌧️
+
+// --- 4. talk, say, tell, speak ---
+to talk - разговаривать (с кем-то, обо всём подряд) - 💬
+to say - сказать, произнести вслух - 🗣️
+to tell - рассказать кому-то, сообщить с целью - 👂
+to speak - говорить на языке - 🌍
+We talked for two hours - мы проговорили два часа - 💬
+She said hello and left - она сказала «привет» и ушла - 🗣️
+Tell me about your weekend - расскажи мне про свои выходные - 👂
+I speak English and Russian - я говорю по-английски и по-русски - 🌍
+Can you speak German? - ты говоришь по-немецки? - 🇩🇪
+
+// --- 5. У меня есть: have got и have ---
+I haven't got a bag - у меня нет сумки - 👜
+I don't have a bag - у меня нет сумки - 👜
+Have you got a bag? - у тебя есть сумка? - ❓
+Do you have a bag? - у тебя есть сумка? - ❓
+She has got a new phone - у неё новый телефон - 📱
+Have you got any plans for the weekend? - у тебя есть планы на выходные? - 🗓️
+
+// --- 6. Будущее: will и won't ---
+will - буду, будет (про будущее) - 🔮
+won't - не буду, не будет (will + not) - 🚫
+I will call you tonight - я позвоню тебе вечером - 📞
+It will be sunny tomorrow - завтра будет солнечно - ☀️
+I won't be late - я не опоздаю - ⏰
+It won't rain today - сегодня не будет дождя - ☂️
+
 # TOPIC | Travel · Hotel & City | 🏨 | 🏨🗺️🚏
 = frames
 At the hotel I
