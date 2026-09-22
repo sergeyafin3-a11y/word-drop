@@ -653,6 +653,32 @@ input,select{font-family:inherit;font-size:17px;color:inherit}
 .ck-timer{font-size:56px;font-weight:800;text-align:center;margin:18px 0 10px;color:var(--accent)}
 .ck-timer.done{color:var(--ok)}
 
+/* заставка Final Test */
+.ft-hero{text-align:center;padding:8px 4px;width:100%}
+.ft-flag{font-size:68px;line-height:1}
+.ft-kick{margin-top:16px;font-size:13px;font-weight:800;letter-spacing:.32em;text-transform:uppercase;color:var(--accent)}
+.ft-title{font-size:48px;font-weight:800;line-height:1.05;margin-top:6px}
+.ft-sub{color:var(--muted);font-size:16px;line-height:1.45;margin:12px auto 0;max-width:30ch}
+.ft-stats{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:24px 0 6px}
+.ft-stats span{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:11px 16px;
+  font-size:13px;color:var(--muted);min-width:86px}
+.ft-stats b{display:block;font-size:24px;color:var(--ink);line-height:1.1}
+.ft-last{color:var(--muted);font-size:14px;margin-top:10px}
+.ft-go{margin-top:24px;width:100%;max-width:320px;font-size:19px;padding:17px}
+
+/* раунд «соедини пары» */
+.mt-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.4fr);gap:10px;margin-top:6px}
+.mt-col{display:flex;flex-direction:column;gap:8px}
+.mt-item{text-align:left;border:2px solid var(--line);background:var(--surface);color:var(--ink);
+  border-radius:14px;padding:11px 12px;font:inherit;font-size:15px;font-weight:600;line-height:1.3;
+  cursor:pointer;min-height:54px;transition:border-color .12s ease,background .12s ease}
+.mt-ru{font-weight:800}
+.mt-item.sel{border-color:var(--accent);background:var(--surface-2)}
+.mt-item.ok{border-color:var(--ok);color:var(--ok);opacity:.7;cursor:default}
+.mt-item.no{border-color:var(--bad)}
+.mt-foot{margin-top:16px;display:flex;flex-direction:column;gap:10px}
+.mt-res{text-align:center;font-weight:700;color:var(--muted)}
+
 /* ---------- домашка, заданная сейчас: яркая карточка ---------- */
 .hcard.now{background:var(--accent-grad);color:var(--accent-ink);box-shadow:0 10px 28px rgba(0,0,0,.25)}
 .hcard.now .htopic,.hcard.now .hsub,.hcard.now .hp,.hcard.now .htitle{color:var(--accent-ink)}

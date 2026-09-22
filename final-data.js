@@ -3,6 +3,8 @@
    проходится на уроке вместе с преподавателем, по карточкам.
 
    Раунд = одно задание: title, note (что делает ученик), items.
+   Раунд-сопоставление вместо items: pairs: [{ ru: 'слово', en: 'предложение', w: 'слово из Learn' }] —
+     два перемешанных столбца, ученик соединяет русское слово с английским предложением.
    Карточка: { q: 'вопрос', a: 'ответ', w: 'слово из Learn' }
      w — слово вернётся в повторение, если ученик его не вспомнил;
      open: true — ответ показывается как образец, вариантов может быть несколько;
@@ -18,18 +20,22 @@ window.FINALS = [
     sub: 'Travel',
     emoji: '🏁',
     checkTitle: 'Final Test · Travel',
+    intro: 'Airport, hotel and city — everything from the Travel lesson.',
+    minutes: 30,
 
     check: {
       rounds: [
         {
-          title: 'What’s the word?',
-          note: 'Прочитай описание и назови слово по-английски. Подсказок нет.',
-          items: [
-            { q: 'You go here first at the airport to give your suitcase.', a: 'check-in desk', w: 'a check-in desk' },
-            { q: 'You take your suitcase here after the flight.', a: 'baggage claim', w: 'baggage claim' },
-            { q: 'A plastic card that opens your hotel room.', a: 'key card', w: 'a key card' },
-            { q: 'You wait here for the bus.', a: 'bus stop', w: 'a bus stop' },
-            { q: 'You buy fruit and vegetables here.', a: 'market', w: 'a market' }
+          title: 'Match the words',
+          note: 'Слева — слово по-русски, справа — предложения по-английски. Нажми на слово, ' +
+                'потом на предложение, в котором оно есть. Соедини все пары.',
+          pairs: [
+            { ru: 'стойка регистрации', en: 'Where is the check-in desk?', w: 'a check-in desk' },
+            { ru: 'выход на посадку', en: 'Our gate is number twelve.', w: 'a gate' },
+            { ru: 'выдача багажа', en: 'We waited for our bags at baggage claim.', w: 'baggage claim' },
+            { ru: 'ключ-карта', en: 'My key card doesn’t work.', w: 'a key card' },
+            { ru: 'автобусная остановка', en: 'She is waiting at the bus stop.', w: 'a bus stop' },
+            { ru: 'рынок', en: 'We bought fruit at the market.', w: 'a market' }
           ]
         },
         {
