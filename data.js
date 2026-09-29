@@ -921,6 +921,56 @@ It will be sunny tomorrow - завтра будет солнечно - ☀️
 I won't be late - я не опоздаю - ⏰
 It won't rain today - сегодня не будет дождя - ☂️
 
+# NEW WORDS | Lesson 30 Sep | 30 Sep
+
+// --- 1. Музыка и концерты ---
+live music - живая музыка - 🎶
+an orchestra - оркестр - 🎻
+alternative - альтернативная (музыка) - 🎸
+a show - шоу, концерт - 🎤
+the worst show - худшее шоу - 👎
+the best concert in my life - лучший концерт в моей жизни - 🏆
+I love live music, but I hate big crowds - я люблю живую музыку, но не люблю толпу - 🎶
+It was the worst show I have ever seen - это было худшее шоу, что я видел - 👎
+
+// --- 2. Выгодно или нет ---
+a deal - сделка, выгодное предложение - 🤝
+good deals - выгодные предложения, скидки - 🏷️
+It's a good deal - это выгодно - 💸
+Deal! - договорились! - 🤝
+There are good deals on tickets this week - на этой неделе хорошие цены на билеты - 🎟️
+
+// --- 3. Как я себя чувствую ---
+calm - спокойный - 😌
+angry - злой, сердитый - 😠
+bipolar - биполярный, с резкими сменами настроения - 🎭
+I am out of it - я сегодня не в себе, туплю - 😵‍💫
+Stay calm and listen - успокойся и послушай - 😌
+He is calm one minute and angry the next - минуту назад он спокоен, а через минуту злой - 🎭
+Sorry, I am out of it today - извини, я сегодня не в себе - 😵‍💫
+
+// --- 4. Внешность и характер ---
+appearance - внешность - 🪞
+features - черты лица - 👀
+ugly - некрасивый, уродливый - 🙈
+rude - грубый, невоспитанный - 😤
+a sage - мудрец, мудрый человек - 🦉
+She has soft features and a calm voice - у неё мягкие черты лица и спокойный голос - 🪞
+Don't be rude to the waiter - не груби официанту - 😤
+She has a lot of experience in her life - у неё большой жизненный опыт - 🦉
+
+// --- 5. Слова, которые держат речь ---
+but - но - ↩️
+quite - довольно, вполне - 👌
+quiet - тихий (не путать с quite) - 🤫
+it depends - смотря как, зависит от ситуации - ⚖️
+everybody - все (каждый) - 👥
+everyone - все (то же самое, чуть формальнее) - 👥
+The film was quite good, but too long - фильм был довольно хороший, но слишком длинный - 🎬
+Everybody knows this song - эту песню знают все - 🎵
+Is everyone here? - все на месте? - 👥
+Do you like it? — It depends - тебе нравится? — Смотря как - ⚖️
+
 # TOPIC | Travel · Hotel & City | 🏨 | 🏨🗺️🚏
 = frames
 At the hotel I
