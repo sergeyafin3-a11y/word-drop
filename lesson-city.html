@@ -160,8 +160,9 @@ p{margin:0 0 12px}
 /* перетаскивание: порядок истории */
 .sortbox{display:flex;flex-direction:column;gap:9px;margin-top:8px}
 .sort-item{display:flex;align-items:center;gap:11px;background:var(--white);border:2px solid var(--line);
-  border-radius:16px;padding:13px;font-weight:600;cursor:grab;touch-action:none;user-select:none}
-.sort-item .grip{color:var(--accent);font-size:19px;line-height:1}
+  border-radius:16px;padding:13px;font-weight:600;touch-action:pan-y;user-select:none}
+.sort-item .grip{color:var(--accent);font-size:22px;line-height:1;padding:4px 6px;margin:-4px 0;
+  cursor:grab;touch-action:none;flex:0 0 auto}
 .sort-item.dragging{cursor:grabbing;border-color:var(--accent);background:var(--accent-soft);
   box-shadow:0 12px 26px rgba(40,10,50,.2)}
 .sort-item.ok{border-color:#2C7A5B}
@@ -177,8 +178,9 @@ p{margin:0 0 12px}
   box-shadow:0 14px 28px rgba(30,10,40,.32);transform:translate(-50%,-50%)}
 .dlines{display:flex;flex-direction:column;gap:10px}
 .dline{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:13px;font-weight:600}
-.gap{display:inline-block;min-width:104px;border-bottom:3px solid var(--accent);text-align:center;
-  font-weight:800;color:var(--accent);padding:0 6px;cursor:pointer}
+.gap{display:inline-block;min-width:112px;min-height:32px;line-height:30px;vertical-align:middle;
+  border-bottom:3px solid var(--accent);text-align:center;font-weight:800;color:var(--accent);
+  padding:0 8px;cursor:pointer;border-radius:8px 8px 0 0}
 .gap.over{background:var(--accent-soft);border-radius:8px 8px 0 0}
 .gap.ok{border-color:#2C7A5B;color:#2C7A5B}
 .gap.no{border-color:#C2323F;color:#C2323F}
@@ -391,8 +393,8 @@ p{margin:0 0 12px}
         <span>to keep a secret</span><span>to tell the truth</span>
       </div>
 
-      <div class="task"><b>Task 1.</b> Drag the lines into the right order, then tell the story
-        out loud in five sentences.</div>
+      <div class="task"><b>Task 1.</b> Drag the lines by the ⠿ handle into the right order,
+        then tell the story out loud in five sentences.</div>
       <div class="sortbox" id="story3"></div>
       <div class="row-btn">
         <button class="btn" onclick="checkOrder('story3')">Check</button>
@@ -716,15 +718,18 @@ function shuffleArr(a){
 function buildOrder(id){
   var box = document.getElementById(id);
   if (!box) return;
+  if (box.dragStop) box.dragStop();        /* строку могли тащить в момент перемешивания */
   var idx = shuffleArr(ORDER[id].map(function(t, i){ return i; }));
   box.innerHTML = idx.map(function(i){
     return '<div class="sort-item" data-k="' + i + '"><span class="grip">⠿</span>' +
       '<span>' + ORDER[id][i] + '</span></div>';
   }).join('');
-  document.getElementById(id + 's').textContent = '';
+  var sc = document.getElementById(id + 's');
+  if (sc) sc.textContent = '';
 }
 function checkOrder(id){
   var box = document.getElementById(id);
+  if (!box) return;
   var items = [].slice.call(box.children), right = 0;
   items.forEach(function(el, pos){
     var ok = +el.dataset.k === pos;
@@ -732,20 +737,26 @@ function checkOrder(id){
     el.classList.toggle('no', !ok);
     if (ok) right++;
   });
-  document.getElementById(id + 's').textContent = right + ' / ' + items.length;
+  var sc = document.getElementById(id + 's');
+  if (sc) sc.textContent = right + ' / ' + items.length;
 }
 function initSortable(box){
+  if (!box) return;
   var dragging = null;
   box.addEventListener('pointerdown', function(e){
-    var it = e.target.closest('.sort-item');
+    if (!e.isPrimary || (e.button != null && e.button !== 0)) return;
+    /* тащим только за ручку ⠿ — иначе на телефоне не пролистать урок */
+    var grip = e.target.closest('.grip');
+    var it = grip && grip.closest('.sort-item');
     if (!it) return;
     dragging = it;
-    try { it.setPointerCapture(e.pointerId); } catch (err) {}
     it.classList.add('dragging');
-    it.classList.remove('ok', 'no');
+    /* старую подсветку проверки снимаем со всех строк, она уже не про этот порядок */
+    [].slice.call(box.children).forEach(function(x){ x.classList.remove('ok', 'no'); });
   });
   box.addEventListener('pointermove', function(e){
     if (!dragging) return;
+    if (e.buttons === 0) { stop(); return; }   /* кнопку отпустили мимо списка */
     e.preventDefault();
     var after = null;
     [].slice.call(box.children).forEach(function(x){
@@ -757,8 +768,10 @@ function initSortable(box){
     else if (box.firstChild !== dragging) box.insertBefore(dragging, box.firstChild);
   });
   function stop(){ if (dragging) { dragging.classList.remove('dragging'); dragging = null; } }
-  box.addEventListener('pointerup', stop);
-  box.addEventListener('pointercancel', stop);
+  /* строка переезжает по DOM, поэтому события отпускания слушаем на документе, а не на ней */
+  document.addEventListener('pointerup', stop);
+  document.addEventListener('pointercancel', stop);
+  box.dragStop = stop;
 }
 
 /* ---------- слова в пропуски: тащим или нажимаем ---------- */
@@ -770,18 +783,20 @@ var GAPS = [
   ['The ending of the season was ', '.', 'surprising'],
   ['Are you ', ' in fashion?', 'interested']
 ];
-var picked = null, flying = null;
+var pickedWord = null, flying = null, dragFrom = null;
 function buildGaps(){
   var bank = document.getElementById('bank4'), lines = document.getElementById('lines4');
   if (!bank || !lines) return;
-  picked = null;
+  pickedWord = null;
+  if (flying) { flying.remove(); flying = null; }
   bank.innerHTML = shuffleArr(GAPS.map(function(g){ return g[2]; })).map(function(w){
     return '<button class="dchip" data-w="' + w + '">' + w + '</button>';
   }).join('');
   lines.innerHTML = GAPS.map(function(g){
     return '<div class="dline">' + g[0] + '<span class="gap" data-a="' + g[2] + '"></span>' + g[1] + '</div>';
   }).join('');
-  document.getElementById('gaps4s').textContent = '';
+  var sc = document.getElementById('gaps4s');
+  if (sc) sc.textContent = '';
 }
 function chipFor(w){
   var found = null;
@@ -797,7 +812,7 @@ function putInGap(gap, w){
   gap.classList.remove('ok', 'no', 'over');
   var chip = chipFor(w);
   if (chip) { chip.classList.add('used'); chip.classList.remove('sel'); }
-  picked = null;
+  pickedWord = null;
 }
 function checkGaps(){
   var gaps = [].slice.call(document.querySelectorAll('#lines4 .gap')), right = 0;
@@ -807,7 +822,8 @@ function checkGaps(){
     g.classList.toggle('no', !ok);
     if (ok) right++;
   });
-  document.getElementById('gaps4s').textContent = right + ' / ' + gaps.length;
+  var sc = document.getElementById('gaps4s');
+  if (sc) sc.textContent = right + ' / ' + gaps.length;
 }
 function gapAt(e){
   var el = document.elementFromPoint(e.clientX, e.clientY);
@@ -818,11 +834,14 @@ function initGapDrag(){
   if (!bank || !lines) return;
   var moved = false;
   bank.addEventListener('pointerdown', function(e){
+    if (!e.isPrimary || (e.button != null && e.button !== 0)) return;
     var c = e.target.closest('.dchip');
     if (!c) return;
+    if (flying) { flying.remove(); flying = null; }   /* второй палец не должен плодить копии */
     moved = false;
-    picked = c.dataset.w;
-    document.querySelectorAll('.dchip.sel').forEach(function(x){ x.classList.remove('sel'); });
+    dragFrom = { x: e.clientX, y: e.clientY };
+    pickedWord = c.dataset.w;
+    document.querySelectorAll('#bank4 .dchip.sel').forEach(function(x){ x.classList.remove('sel'); });
     c.classList.add('sel');
     try { c.setPointerCapture(e.pointerId); } catch (err) {}
     flying = c.cloneNode(true);
@@ -834,7 +853,8 @@ function initGapDrag(){
   bank.addEventListener('pointermove', function(e){
     if (!flying) return;
     e.preventDefault();
-    moved = true;
+    /* дрожание пальца — это всё ещё нажатие, а не перетаскивание */
+    if (dragFrom && (Math.abs(e.clientX - dragFrom.x) > 6 || Math.abs(e.clientY - dragFrom.y) > 6)) moved = true;
     flying.style.left = e.clientX + 'px';
     flying.style.top = e.clientY + 'px';
     var g = gapAt(e);
@@ -847,17 +867,17 @@ function initGapDrag(){
     flying.remove();
     flying = null;
     document.querySelectorAll('.gap.over').forEach(function(x){ x.classList.remove('over'); });
-    if (g && picked) putInGap(g, picked);
+    if (g && pickedWord) putInGap(g, pickedWord);
     /* просто нажали, не потащили — слово остаётся выбранным, можно нажать на пропуск */
     else if (!moved) return;
-    else { picked = null; document.querySelectorAll('.dchip.sel').forEach(function(x){ x.classList.remove('sel'); }); }
+    else { pickedWord = null; document.querySelectorAll('#bank4 .dchip.sel').forEach(function(x){ x.classList.remove('sel'); }); }
   }
   bank.addEventListener('pointerup', drop);
   bank.addEventListener('pointercancel', drop);
   lines.addEventListener('click', function(e){
     var g = e.target.closest('.gap');
     if (!g) return;
-    if (picked) { putInGap(g, picked); return; }
+    if (pickedWord) { putInGap(g, pickedWord); return; }
     if (g.textContent) {                      /* вернуть слово обратно в набор */
       var back = chipFor(g.textContent);
       if (back) back.classList.remove('used');
