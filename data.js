@@ -1100,4 +1100,91 @@ Have you ever got lost in a city? What happened?
 Explain how to get from your home to the nearest shop.
 
 
+# TOPIC | Friendship & Description | 🤝 | 🤝👀🎬
+
+= words
+tall - высокий - 📏
+short - невысокий - 📐
+curly hair - кудрявые волосы - 💇
+dark hair - тёмные волосы - 🖤
+blonde - блондин, блондинка - 👱
+good-looking - привлекательный - 😎
+appearance - внешность - 🪞
+features - черты лица - 👀
+talkative - разговорчивый - 💬
+confident - уверенный в себе - 💪
+clever - умный - 🧠
+polite - вежливый - 🙇
+kind - добрый - 🤗
+strict - строгий - 📏
+funny - смешной, весёлый - 😄
+quiet - тихий, спокойный - 🤫
+calm - спокойный - 😌
+rude - грубый - 😤
+romantic - романтичный - 💐
+a best friend - лучший друг - 🤝
+an argument - ссора - ⚡
+upset - расстроенный - 😞
+angry - злой - 😠
+a secret - секрет - 🤐
+the truth - правда - ✅
+sorry - извини - 🙏
+a series - сериал - 📺
+a season - сезон - 🎞️
+an episode - серия - ▶️
+a character - персонаж - 🎭
+a song - песня - 🎵
+an album - альбом - 💿
+my favourite - мой любимый - ⭐
+boring - скучный - 🥱
+bored - которому скучно - 😑
+exciting - захватывающий - 🎢
+excited - в предвкушении - 🤩
+interesting - интересный - 🧐
+interested - которому интересно - 👀
+surprising - неожиданный - 😲
+surprised - удивлённый - 😯
+tired - уставший - 😴
+
+= phrases
+What does she look like? - как она выглядит? - 👀
+What is she like? - какая она по характеру? - 💭
+She is tall, with curly blonde hair - она высокая, с кудрявыми светлыми волосами - 💇
+She is confident and very funny - она уверенная в себе и очень весёлая - 😄
+He is the kindest person I know - он самый добрый человек, которого я знаю - 🤗
+We get on really well - мы отлично ладим - 🤝
+Have you ever been abroad? - ты когда-нибудь был за границей? - ✈️
+Have you ever met a famous person? - ты когда-нибудь встречал знаменитость? - 🌟
+I have never been to New York - я никогда не был в Нью-Йорке - 🗽
+Yes, I have. No, I haven't - да, был. нет, не был - 🙋
+They had a big argument - они сильно поссорились - ⚡
+She didn't text me back - она не ответила мне на сообщение - 📱
+I said sorry first - я первый извинился - 🙏
+We were friends again the same day - мы помирились в тот же день - 🤝
+You should talk to her - тебе стоит с ней поговорить - 💬
+Why don't you call him? - почему бы тебе не позвонить ему? - 📞
+To be honest, I think you were wrong - честно говоря, я думаю, ты был неправ - 🫤
+It's my favourite episode - это моя любимая серия - ⭐
+You should watch it! - тебе стоит это посмотреть! - 📺
+It's not for me - это не моё - 🙅
+I really like this band - мне очень нравится эта группа - 🎸
+No way! Are you serious? - да ладно! ты серьёзно? - 😲
+Really? Tell me more - правда? расскажи подробнее - 👂
+Same here - у меня так же - 🙌
+Well, let me think - так, дай подумать - 🤔
+What's new? - что нового? - 👋
+Long time no see! - сколько лет, сколько зим! - 🫂
+I'd love to live there one day - я бы хотел когда-нибудь там жить - 🌍
+
+= questions
+What is your best friend like?
+What does your best friend look like?
+Have you ever been abroad?
+Have you ever met a famous person?
+When did you last have an argument with a friend?
+Who says sorry first, you or your friend?
+What series are you watching now?
+What is your favourite song this year?
+What do people love that you don't like?
+Would you like to live in another country? Why?
 `;
