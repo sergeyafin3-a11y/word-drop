@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>People &amp; the City — Speaking Course A1–A2</title>
+<title>And Just Like That — Speaking Course A1–A2</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@600;700;900&family=Karla:ital,wght@0,400;0,600;0,800;1,400&display=swap">
 <style>
 :root{
@@ -157,6 +157,31 @@ p{margin:0 0 12px}
 .role.b{background:linear-gradient(140deg,#0E1B3F,#23408F 45%,#2F7BE0)}
 .role h4{color:#fff;font-size:19px;margin-bottom:6px;letter-spacing:-.01em}
 .role p{font-size:15px;margin:0;color:rgba(255,255,255,.92)}
+/* перетаскивание: порядок истории */
+.sortbox{display:flex;flex-direction:column;gap:9px;margin-top:8px}
+.sort-item{display:flex;align-items:center;gap:11px;background:var(--white);border:2px solid var(--line);
+  border-radius:16px;padding:13px;font-weight:600;cursor:grab;touch-action:none;user-select:none}
+.sort-item .grip{color:var(--accent);font-size:19px;line-height:1}
+.sort-item.dragging{cursor:grabbing;border-color:var(--accent);background:var(--accent-soft);
+  box-shadow:0 12px 26px rgba(40,10,50,.2)}
+.sort-item.ok{border-color:#2C7A5B}
+.sort-item.no{border-color:#C2323F}
+
+/* перетаскивание: слова в пропуски */
+.dbank{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 14px;min-height:46px}
+.dchip{background:var(--accent-soft);border:2px solid transparent;border-radius:999px;padding:10px 15px;
+  font-weight:800;font-size:15px;cursor:grab;touch-action:none;user-select:none;font-family:var(--body)}
+.dchip.sel{background:var(--accent);color:#fff}
+.dchip.used{opacity:.22;pointer-events:none}
+.dchip.fly{position:fixed;z-index:99;pointer-events:none;background:var(--accent);color:#fff;
+  box-shadow:0 14px 28px rgba(30,10,40,.32);transform:translate(-50%,-50%)}
+.dlines{display:flex;flex-direction:column;gap:10px}
+.dline{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:13px;font-weight:600}
+.gap{display:inline-block;min-width:104px;border-bottom:3px solid var(--accent);text-align:center;
+  font-weight:800;color:var(--accent);padding:0 6px;cursor:pointer}
+.gap.over{background:var(--accent-soft);border-radius:8px 8px 0 0}
+.gap.ok{border-color:#2C7A5B;color:#2C7A5B}
+.gap.no{border-color:#C2323F;color:#C2323F}
 .credits{color:var(--muted);font-size:13px;line-height:1.5;padding:18px 4px 34px}
 .lesson{display:none}
 .lesson.active{display:block}
@@ -190,7 +215,7 @@ p{margin:0 0 12px}
     <div class="hero">
       <div class="glow"></div>
       <div class="kicker">4 × 60-minute speaking course · A1–A2</div>
-      <h1>People<br>&amp; the City</h1>
+      <h1>And Just<br>Like That</h1>
       <p>Four friends, one loud city and a lot of talking. You will learn to describe people,
         ask about their experience and keep a conversation going.</p>
       <div class="chips">
@@ -366,16 +391,13 @@ p{margin:0 0 12px}
         <span>to keep a secret</span><span>to tell the truth</span>
       </div>
 
-      <div class="task"><b>Task 1.</b> Put the story in order, then tell it out loud
-        in five sentences.</div>
-      <div>
-        <div class="qrow"><span class="qn">A</span><span>They didn’t talk for a week.</span></div>
-        <div class="qrow"><span class="qn">B</span><span>They were best friends for six years.</span></div>
-        <div class="qrow"><span class="qn">C</span><span>Then one of them forgot the other’s birthday.</span></div>
-        <div class="qrow"><span class="qn">D</span><span>In the end she said sorry, and they were friends again.</span></div>
-        <div class="qrow"><span class="qn">E</span><span>They had a big argument about it.</span></div>
-        <button class="btn ghost" style="margin-top:10px" onclick="flip('k3')">Show answers</button>
-        <div class="reveal" id="k3">B → C → E → A → D</div>
+      <div class="task"><b>Task 1.</b> Drag the lines into the right order, then tell the story
+        out loud in five sentences.</div>
+      <div class="sortbox" id="story3"></div>
+      <div class="row-btn">
+        <button class="btn" onclick="checkOrder('story3')">Check</button>
+        <button class="btn ghost" onclick="buildOrder('story3')">Shuffle again</button>
+        <span class="score" id="story3s"></span>
       </div>
 
       <div class="gram">
@@ -451,16 +473,14 @@ p{margin:0 0 12px}
         <div class="ex">— The last episode was so sad! — I know. It’s such a good series.</div>
       </div>
 
-      <div class="task"><b>Task 1.</b> -ed or -ing? Say the whole sentence out loud.</div>
-      <div>
-        <div class="qrow"><span class="qn">1</span><span>The awards show was three hours long. I was so bor___ .</span></div>
-        <div class="qrow"><span class="qn">2</span><span>Her new album is amaz___ .</span></div>
-        <div class="qrow"><span class="qn">3</span><span>I’m really excit___ about the concert.</span></div>
-        <div class="qrow"><span class="qn">4</span><span>The film was two hours long and nothing happened. I was so tir___ .</span></div>
-        <div class="qrow"><span class="qn">5</span><span>The ending of the season was surpris___ .</span></div>
-        <div class="qrow"><span class="qn">6</span><span>Are you interest___ in fashion?</span></div>
-        <button class="btn ghost" style="margin-top:10px" onclick="flip('k4')">Show answers</button>
-        <div class="reveal" id="k4">1 bored · 2 amazing · 3 excited · 4 tired · 5 surprising · 6 interested</div>
+      <div class="task"><b>Task 1.</b> Drag the right word into every gap: -ed or -ing?
+        Then say each sentence out loud.</div>
+      <div class="dbank" id="bank4"></div>
+      <div class="dlines" id="lines4"></div>
+      <div class="row-btn">
+        <button class="btn" onclick="checkGaps()">Check</button>
+        <button class="btn ghost" onclick="buildGaps()">Start again</button>
+        <span class="score" id="gaps4s"></span>
       </div>
 
       <div class="task"><b>Task 2.</b> so or such?</div>
@@ -576,7 +596,7 @@ p{margin:0 0 12px}
     City photos via Wikimedia Commons under free licences: Central Park — Anthony Quintano, CC BY 2.0 ·
     New York taxis — Z22, CC BY-SA 3.0 ·
     Lower Manhattan skyline — Christian David, CC BY-SA 4.0.
-    People &amp; the City · speaking course A1–A2.
+    And Just Like That · speaking course A1–A2.
   </div>
 </div>
 
@@ -676,8 +696,183 @@ function updateProgress(){
   if (bar) bar.style.width = (boxes.length ? done / boxes.length * 100 : 0) + '%';
   if (txt) txt.textContent = done + ' / ' + boxes.length + ' used';
 }
+/* ---------- порядок истории: строки перетаскиваются ---------- */
+var ORDER = {
+  story3: [
+    'They were best friends for six years.',
+    'Then one of them forgot the other’s birthday.',
+    'They had a big argument about it.',
+    'They didn’t talk for a week.',
+    'In the end she said sorry, and they were friends again.'
+  ]
+};
+function shuffleArr(a){
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1)), t = a[i];
+    a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+function buildOrder(id){
+  var box = document.getElementById(id);
+  if (!box) return;
+  var idx = shuffleArr(ORDER[id].map(function(t, i){ return i; }));
+  box.innerHTML = idx.map(function(i){
+    return '<div class="sort-item" data-k="' + i + '"><span class="grip">⠿</span>' +
+      '<span>' + ORDER[id][i] + '</span></div>';
+  }).join('');
+  document.getElementById(id + 's').textContent = '';
+}
+function checkOrder(id){
+  var box = document.getElementById(id);
+  var items = [].slice.call(box.children), right = 0;
+  items.forEach(function(el, pos){
+    var ok = +el.dataset.k === pos;
+    el.classList.toggle('ok', ok);
+    el.classList.toggle('no', !ok);
+    if (ok) right++;
+  });
+  document.getElementById(id + 's').textContent = right + ' / ' + items.length;
+}
+function initSortable(box){
+  var dragging = null;
+  box.addEventListener('pointerdown', function(e){
+    var it = e.target.closest('.sort-item');
+    if (!it) return;
+    dragging = it;
+    try { it.setPointerCapture(e.pointerId); } catch (err) {}
+    it.classList.add('dragging');
+    it.classList.remove('ok', 'no');
+  });
+  box.addEventListener('pointermove', function(e){
+    if (!dragging) return;
+    e.preventDefault();
+    var after = null;
+    [].slice.call(box.children).forEach(function(x){
+      if (x === dragging) return;
+      var r = x.getBoundingClientRect();
+      if (e.clientY > r.top + r.height / 2) after = x;
+    });
+    if (after) { if (after.nextSibling !== dragging) box.insertBefore(dragging, after.nextSibling); }
+    else if (box.firstChild !== dragging) box.insertBefore(dragging, box.firstChild);
+  });
+  function stop(){ if (dragging) { dragging.classList.remove('dragging'); dragging = null; } }
+  box.addEventListener('pointerup', stop);
+  box.addEventListener('pointercancel', stop);
+}
+
+/* ---------- слова в пропуски: тащим или нажимаем ---------- */
+var GAPS = [
+  ['The awards show was three hours long. I was so ', '.', 'bored'],
+  ['Her new album is ', '.', 'amazing'],
+  ['I’m really ', ' about the concert.', 'excited'],
+  ['The film was two hours long and nothing happened. I was so ', '.', 'tired'],
+  ['The ending of the season was ', '.', 'surprising'],
+  ['Are you ', ' in fashion?', 'interested']
+];
+var picked = null, flying = null;
+function buildGaps(){
+  var bank = document.getElementById('bank4'), lines = document.getElementById('lines4');
+  if (!bank || !lines) return;
+  picked = null;
+  bank.innerHTML = shuffleArr(GAPS.map(function(g){ return g[2]; })).map(function(w){
+    return '<button class="dchip" data-w="' + w + '">' + w + '</button>';
+  }).join('');
+  lines.innerHTML = GAPS.map(function(g){
+    return '<div class="dline">' + g[0] + '<span class="gap" data-a="' + g[2] + '"></span>' + g[1] + '</div>';
+  }).join('');
+  document.getElementById('gaps4s').textContent = '';
+}
+function chipFor(w){
+  var found = null;
+  document.querySelectorAll('#bank4 .dchip').forEach(function(c){
+    if (!found && c.dataset.w === w) found = c;
+  });
+  return found;
+}
+function putInGap(gap, w){
+  if (!gap || !w) return;
+  if (gap.textContent) { var back = chipFor(gap.textContent); if (back) back.classList.remove('used'); }
+  gap.textContent = w;
+  gap.classList.remove('ok', 'no', 'over');
+  var chip = chipFor(w);
+  if (chip) { chip.classList.add('used'); chip.classList.remove('sel'); }
+  picked = null;
+}
+function checkGaps(){
+  var gaps = [].slice.call(document.querySelectorAll('#lines4 .gap')), right = 0;
+  gaps.forEach(function(g){
+    var ok = g.textContent.trim() === g.dataset.a;
+    g.classList.toggle('ok', ok);
+    g.classList.toggle('no', !ok);
+    if (ok) right++;
+  });
+  document.getElementById('gaps4s').textContent = right + ' / ' + gaps.length;
+}
+function gapAt(e){
+  var el = document.elementFromPoint(e.clientX, e.clientY);
+  return el && el.closest ? el.closest('.gap') : null;
+}
+function initGapDrag(){
+  var bank = document.getElementById('bank4'), lines = document.getElementById('lines4');
+  if (!bank || !lines) return;
+  var moved = false;
+  bank.addEventListener('pointerdown', function(e){
+    var c = e.target.closest('.dchip');
+    if (!c) return;
+    moved = false;
+    picked = c.dataset.w;
+    document.querySelectorAll('.dchip.sel').forEach(function(x){ x.classList.remove('sel'); });
+    c.classList.add('sel');
+    try { c.setPointerCapture(e.pointerId); } catch (err) {}
+    flying = c.cloneNode(true);
+    flying.className = 'dchip fly';
+    document.body.appendChild(flying);
+    flying.style.left = e.clientX + 'px';
+    flying.style.top = e.clientY + 'px';
+  });
+  bank.addEventListener('pointermove', function(e){
+    if (!flying) return;
+    e.preventDefault();
+    moved = true;
+    flying.style.left = e.clientX + 'px';
+    flying.style.top = e.clientY + 'px';
+    var g = gapAt(e);
+    document.querySelectorAll('.gap.over').forEach(function(x){ x.classList.remove('over'); });
+    if (g) g.classList.add('over');
+  });
+  function drop(e){
+    if (!flying) return;
+    var g = gapAt(e);
+    flying.remove();
+    flying = null;
+    document.querySelectorAll('.gap.over').forEach(function(x){ x.classList.remove('over'); });
+    if (g && picked) putInGap(g, picked);
+    /* просто нажали, не потащили — слово остаётся выбранным, можно нажать на пропуск */
+    else if (!moved) return;
+    else { picked = null; document.querySelectorAll('.dchip.sel').forEach(function(x){ x.classList.remove('sel'); }); }
+  }
+  bank.addEventListener('pointerup', drop);
+  bank.addEventListener('pointercancel', drop);
+  lines.addEventListener('click', function(e){
+    var g = e.target.closest('.gap');
+    if (!g) return;
+    if (picked) { putInGap(g, picked); return; }
+    if (g.textContent) {                      /* вернуть слово обратно в набор */
+      var back = chipFor(g.textContent);
+      if (back) back.classList.remove('used');
+      g.textContent = '';
+      g.classList.remove('ok', 'no');
+    }
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function(){
   buildMatch();
+  buildOrder('story3');
+  initSortable(document.getElementById('story3'));
+  buildGaps();
+  initGapDrag();
   document.querySelectorAll('.pb').forEach(function(el){
     try {
       var v = localStorage.getItem('city_' + el.dataset.key);
