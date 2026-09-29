@@ -161,8 +161,9 @@ p{margin:0 0 12px}
 .sortbox{display:flex;flex-direction:column;gap:9px;margin-top:8px}
 .sort-item{display:flex;align-items:center;gap:11px;background:var(--white);border:2px solid var(--line);
   border-radius:16px;padding:13px;font-weight:600;touch-action:pan-y;user-select:none}
-.sort-item .grip{color:var(--accent);font-size:22px;line-height:1;padding:4px 6px;margin:-4px 0;
-  cursor:grab;touch-action:none;flex:0 0 auto}
+.sort-item .grip{color:var(--accent);font-size:22px;line-height:1;flex:0 0 auto;cursor:grab;
+  touch-action:none;display:flex;align-items:center;justify-content:center;
+  min-width:44px;min-height:44px;margin:-9px -6px -9px -9px;border-radius:12px}
 .sort-item.dragging{cursor:grabbing;border-color:var(--accent);background:var(--accent-soft);
   box-shadow:0 12px 26px rgba(40,10,50,.2)}
 .sort-item.ok{border-color:#2C7A5B}
@@ -170,8 +171,8 @@ p{margin:0 0 12px}
 
 /* перетаскивание: слова в пропуски */
 .dbank{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 14px;min-height:46px}
-.dchip{background:var(--accent-soft);border:2px solid transparent;border-radius:999px;padding:10px 15px;
-  font-weight:800;font-size:15px;cursor:grab;touch-action:none;user-select:none;font-family:var(--body)}
+.dchip{background:var(--accent-soft);border:2px solid transparent;border-radius:999px;padding:12px 15px;
+  font-weight:800;font-size:15px;cursor:grab;touch-action:pan-y;user-select:none;font-family:var(--body)}
 .dchip.sel{background:var(--accent);color:#fff}
 .dchip.used{opacity:.22;pointer-events:none}
 .dchip.fly{position:fixed;z-index:99;pointer-events:none;background:var(--accent);color:#fff;
@@ -181,7 +182,7 @@ p{margin:0 0 12px}
 .gap{display:inline-block;min-width:112px;min-height:32px;line-height:30px;vertical-align:middle;
   border-bottom:3px solid var(--accent);text-align:center;font-weight:800;color:var(--accent);
   padding:0 8px;cursor:pointer;border-radius:8px 8px 0 0}
-.gap.over{background:var(--accent-soft);border-radius:8px 8px 0 0}
+.gap.over{background:var(--accent-soft);outline:3px solid var(--accent);outline-offset:4px}
 .gap.ok{border-color:#2C7A5B;color:#2C7A5B}
 .gap.no{border-color:#C2323F;color:#C2323F}
 .credits{color:var(--muted);font-size:13px;line-height:1.5;padding:18px 4px 34px}
@@ -605,6 +606,7 @@ p{margin:0 0 12px}
 <script>
 /* ---------- главы ---------- */
 function showLesson(n, btn){
+  if (typeof dropDragReset === 'function') dropDragReset();   /* палец мог держать слово при смене главы */
   document.querySelectorAll('.lesson').forEach(function(x){ x.classList.remove('active'); });
   document.getElementById('lesson' + n).classList.add('active');
   document.querySelectorAll('.navbtn').forEach(function(x){ x.classList.remove('active'); });
@@ -742,20 +744,24 @@ function checkOrder(id){
 }
 function initSortable(box){
   if (!box) return;
-  var dragging = null;
+  var dragging = null, dragId = null;
   box.addEventListener('pointerdown', function(e){
-    if (!e.isPrimary || (e.button != null && e.button !== 0)) return;
+    if (dragging || !e.isPrimary || (e.button != null && e.button !== 0)) return;
     /* тащим только за ручку ⠿ — иначе на телефоне не пролистать урок */
     var grip = e.target.closest('.grip');
     var it = grip && grip.closest('.sort-item');
     if (!it) return;
     dragging = it;
+    dragId = e.pointerId;
     it.classList.add('dragging');
-    /* старую подсветку проверки снимаем со всех строк, она уже не про этот порядок */
+    /* старую подсветку и счёт снимаем: они уже не про этот порядок */
     [].slice.call(box.children).forEach(function(x){ x.classList.remove('ok', 'no'); });
+    var sc = document.getElementById(box.id + 's');
+    if (sc) sc.textContent = '';
   });
   box.addEventListener('pointermove', function(e){
-    if (!dragging) return;
+    /* события второго пальца игнорируем, иначе он перехватит чужое перетаскивание */
+    if (!dragging || e.pointerId !== dragId) return;
     if (e.buttons === 0) { stop(); return; }   /* кнопку отпустили мимо списка */
     e.preventDefault();
     var after = null;
@@ -767,11 +773,15 @@ function initSortable(box){
     if (after) { if (after.nextSibling !== dragging) box.insertBefore(dragging, after.nextSibling); }
     else if (box.firstChild !== dragging) box.insertBefore(dragging, box.firstChild);
   });
-  function stop(){ if (dragging) { dragging.classList.remove('dragging'); dragging = null; } }
+  function stop(e){
+    if (e && e.pointerId != null && dragId != null && e.pointerId !== dragId) return;
+    if (dragging) { dragging.classList.remove('dragging'); dragging = null; }
+    dragId = null;
+  }
   /* строка переезжает по DOM, поэтому события отпускания слушаем на документе, а не на ней */
   document.addEventListener('pointerup', stop);
   document.addEventListener('pointercancel', stop);
-  box.dragStop = stop;
+  box.dragStop = function(){ stop(); };
 }
 
 /* ---------- слова в пропуски: тащим или нажимаем ---------- */
@@ -783,12 +793,12 @@ var GAPS = [
   ['The ending of the season was ', '.', 'surprising'],
   ['Are you ', ' in fashion?', 'interested']
 ];
-var pickedWord = null, flying = null, dragFrom = null;
+var pickedWord = null, flying = null, dragFrom = null, dragId = null, dragChip = null;
 function buildGaps(){
   var bank = document.getElementById('bank4'), lines = document.getElementById('lines4');
   if (!bank || !lines) return;
   pickedWord = null;
-  if (flying) { flying.remove(); flying = null; }
+  dropDragReset();
   bank.innerHTML = shuffleArr(GAPS.map(function(g){ return g[2]; })).map(function(w){
     return '<button class="dchip" data-w="' + w + '">' + w + '</button>';
   }).join('');
@@ -797,6 +807,11 @@ function buildGaps(){
   }).join('');
   var sc = document.getElementById('gaps4s');
   if (sc) sc.textContent = '';
+}
+/* сбросить перетаскивание слова: и при перемешивании, и при смене главы */
+function dropDragReset(){
+  if (flying) { flying.remove(); flying = null; }
+  dragId = null; dragChip = null; dragFrom = null;
 }
 function chipFor(w){
   var found = null;
@@ -834,38 +849,41 @@ function initGapDrag(){
   if (!bank || !lines) return;
   var moved = false;
   bank.addEventListener('pointerdown', function(e){
-    if (!e.isPrimary || (e.button != null && e.button !== 0)) return;
+    if (dragId !== null || !e.isPrimary || (e.button != null && e.button !== 0)) return;
     var c = e.target.closest('.dchip');
     if (!c) return;
-    if (flying) { flying.remove(); flying = null; }   /* второй палец не должен плодить копии */
+    dropDragReset();
     moved = false;
+    dragId = e.pointerId;
+    dragChip = c;
     dragFrom = { x: e.clientX, y: e.clientY };
     pickedWord = c.dataset.w;
     document.querySelectorAll('#bank4 .dchip.sel').forEach(function(x){ x.classList.remove('sel'); });
     c.classList.add('sel');
     try { c.setPointerCapture(e.pointerId); } catch (err) {}
-    flying = c.cloneNode(true);
-    flying.className = 'dchip fly';
-    document.body.appendChild(flying);
-    flying.style.left = e.clientX + 'px';
-    flying.style.top = e.clientY + 'px';
   });
   bank.addEventListener('pointermove', function(e){
-    if (!flying) return;
+    if (dragId === null || e.pointerId !== dragId || !dragChip) return;
+    /* пока палец почти не сдвинулся — это нажатие, и страницу ещё можно листать */
+    if (!dragFrom || (Math.abs(e.clientX - dragFrom.x) <= 6 && Math.abs(e.clientY - dragFrom.y) <= 6)) return;
+    moved = true;
+    if (!flying) {
+      flying = dragChip.cloneNode(true);
+      flying.className = 'dchip fly';
+      document.body.appendChild(flying);
+    }
     e.preventDefault();
-    /* дрожание пальца — это всё ещё нажатие, а не перетаскивание */
-    if (dragFrom && (Math.abs(e.clientX - dragFrom.x) > 6 || Math.abs(e.clientY - dragFrom.y) > 6)) moved = true;
+    /* слово держим выше пальца, иначе оно закрывает подсвеченный пропуск */
     flying.style.left = e.clientX + 'px';
-    flying.style.top = e.clientY + 'px';
+    flying.style.top = (e.clientY - 38) + 'px';
     var g = gapAt(e);
     document.querySelectorAll('.gap.over').forEach(function(x){ x.classList.remove('over'); });
     if (g) g.classList.add('over');
   });
   function drop(e){
-    if (!flying) return;
-    var g = gapAt(e);
-    flying.remove();
-    flying = null;
+    if (dragId === null || (e && e.pointerId != null && e.pointerId !== dragId)) return;
+    var g = (e && e.clientX != null) ? gapAt(e) : null;
+    dropDragReset();
     document.querySelectorAll('.gap.over').forEach(function(x){ x.classList.remove('over'); });
     if (g && pickedWord) putInGap(g, pickedWord);
     /* просто нажали, не потащили — слово остаётся выбранным, можно нажать на пропуск */
