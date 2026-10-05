@@ -21,6 +21,12 @@
     return $('#scBody');
   };
   W.close = function () {
+    /* экран мог занять микрофон или плеер — даём ему прибраться за собой */
+    if (W.onClose) {
+      var fn = W.onClose;
+      W.onClose = null;
+      try { fn(); } catch (e) {}
+    }
     if (W.timerId) { clearInterval(W.timerId); W.timerId = null; }
     if (scr) { scr.remove(); scr = null; }
     document.body.style.overflow = '';

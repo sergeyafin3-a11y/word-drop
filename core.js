@@ -56,7 +56,7 @@
     /* выкидываем пустышки: слова, которых ученик ещё не касался */
     var s = W.s, p = {
       v: s.v, xp: s.xp, words: {}, days: s.days, records: s.records, rules: s.rules,
-      hw: s.hw, lessons: s.lessons, mig2: s.mig2
+      hw: s.hw, lessons: s.lessons, shadow: s.shadow, mig2: s.mig2
     };
     Object.keys(s.words || {}).forEach(function (k) {
       var w = s.words[k];
@@ -110,6 +110,14 @@
 
     /* Домашка: сделанное объединяем, ничего не теряя.
        Внутри могут быть и наборы галочек (found, gaps, used), и простые флаги. */
+    /* отметки shadowing: берём то, чего нет, и более свежую дату */
+    Object.keys(p.shadow || {}).forEach(function (id) {
+      if (!s.shadow) s.shadow = {};
+      var from = p.shadow[id] || {}, to = s.shadow[id] || (s.shadow[id] = {});
+      if (from.done && (!to.done || from.done > to.done)) to.done = from.done;
+      if (from.times && from.times > (to.times || 0)) to.times = from.times;
+    });
+
     Object.keys(p.hw || {}).forEach(function (id) {
       if (!s.hw) s.hw = {};
       if (!s.hw[id]) s.hw[id] = {};

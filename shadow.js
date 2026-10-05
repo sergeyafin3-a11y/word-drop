@@ -13,6 +13,9 @@
     return null;
   };
 
+  /* чтение: список не должен ничего записывать в прогресс */
+  function read(id) { return (W.s.shadow || {})[id] || {}; }
+  /* запись: только когда ученик реально отметил */
   function st(id) {
     if (!W.s.shadow) W.s.shadow = {};
     return W.s.shadow[id] || (W.s.shadow[id] = {});
@@ -30,7 +33,7 @@
       '<div class="task-note">Listen to a short video and speak at the same time as the speaker. ' +
       'Same words, same speed. Five minutes a day is enough.</div>' +
       list.map(function (v) {
-        var s = st(v.id);
+        var s = read(v.id);
         return '<button class="shcard' + (s.done ? ' done' : '') + '" data-shadow="' + esc(v.id) + '">' +
           '<div class="sh-top"><div class="sh-title">' + esc(v.title) + '</div>' +
           '<div class="sh-time">' + mmss(v.secs) + '</div></div>' +
@@ -42,16 +45,24 @@
   };
 
   /* ---------- проигрыватель: обычный iframe, скорость через YouTube API ---------- */
-  var apiAdded = false;
+  /* Колбэк YouTube может прийти, когда экран уже закрыт или открыт другой ролик.
+     Поэтому у каждого открытия свой номер, и чужие колбэки ничего не делают. */
+  var apiAdded = false, waiting = [], gen = 0;
+  function apiReady() {
+    var q = waiting;
+    waiting = [];
+    q.forEach(function (fn) { try { fn(); } catch (e) {} });
+  }
   function needApi(cb) {
     if (window.YT && window.YT.Player) { cb(); return; }
+    waiting.push(cb);
+    if (apiAdded) return;
+    apiAdded = true;
     var prev = window.onYouTubeIframeAPIReady;
     window.onYouTubeIframeAPIReady = function () {
       if (typeof prev === 'function') prev();
-      cb();
+      apiReady();
     };
-    if (apiAdded) return;
-    apiAdded = true;
     var t = document.createElement('script');
     t.src = 'https://www.youtube.com/iframe_api';
     document.head.appendChild(t);
@@ -61,7 +72,8 @@
   W.openShadow = function (id) {
     var v = W.shadowOne(id);
     if (!v) return;
-    var s = st(id);
+    var mine = ++gen;      /* номер этого открытия */
+    var s = read(id);      /* только для показа: отметку ставим ниже, по кнопке */
     var body = W.open('Shadowing');
     body.style.justifyContent = 'flex-start';
 
@@ -137,6 +149,7 @@
     /* --- скорость речи --- */
     var player = null;
     needApi(function () {
+      if (mine !== gen || !document.getElementById('shFrame')) return;   /* экран уже другой */
       try {
         player = new window.YT.Player('shFrame', {});
       } catch (e) { player = null; }
@@ -156,12 +169,25 @@
     });
 
     /* --- запись голоса --- */
-    var rec = null, chunks = [], blob = null, stream = null;
+    var rec = null, chunks = [], blob = null, stream = null, starting = false, url = null;
     var recBtn = $('#shRec'), note = $('#shNote'), audio = $('#shAudio'), send = $('#shSend');
 
     function stopStream() {
       if (stream) { stream.getTracks().forEach(function (t) { t.stop(); }); stream = null; }
     }
+    function dropUrl() {
+      if (url) { try { URL.revokeObjectURL(url); } catch (e) {} url = null; }
+    }
+    /* экран закрыли крестиком: отпускаем микрофон, гасим плеер, чистим ссылки */
+    W.onClose = function () {
+      gen++;
+      try { if (rec && rec.state === 'recording') rec.stop(); } catch (e) {}
+      rec = null;
+      stopStream();
+      dropUrl();
+      try { if (player && player.destroy) player.destroy(); } catch (e) {}
+      player = null;
+    };
     function fail(msg) {
       note.textContent = msg;
       recBtn.textContent = '● Record';
@@ -170,19 +196,34 @@
 
     recBtn.onclick = function () {
       if (rec && rec.state === 'recording') { rec.stop(); return; }
+      if (starting) return;                 /* второе нажатие, пока включается микрофон */
       if (!navigator.mediaDevices || !window.MediaRecorder) {
         fail('This phone cannot record here. Use the voice recorder app and send the file.');
         return;
       }
+      starting = true;
       navigator.mediaDevices.getUserMedia({ audio: true }).then(function (st2) {
+        starting = false;
+        if (!recBtn.isConnected) {          /* экран закрыли, пока включался микрофон */
+          st2.getTracks().forEach(function (t) { t.stop(); });
+          return;
+        }
         stream = st2;
         chunks = [];
-        rec = new MediaRecorder(st2);
+        try {
+          rec = new MediaRecorder(st2);
+        } catch (e) {
+          stopStream();
+          fail('This phone cannot record here. Use the voice recorder app and send the file.');
+          return;
+        }
         rec.ondataavailable = function (e) { if (e.data && e.data.size) chunks.push(e.data); };
         rec.onstop = function () {
           stopStream();
           blob = new Blob(chunks, { type: (chunks[0] && chunks[0].type) || 'audio/mp4' });
-          audio.src = URL.createObjectURL(blob);
+          dropUrl();
+          url = URL.createObjectURL(blob);
+          audio.src = url;
           audio.classList.remove('hidden');
           send.classList.remove('hidden');
           recBtn.textContent = '● Record';
@@ -194,11 +235,17 @@
         recBtn.classList.add('rec-on');
         note.textContent = 'Recording… speak with the video';
       }).catch(function () {
+        starting = false;
+        stopStream();
         fail('No microphone. Allow the microphone in your browser settings.');
       });
     };
 
     $('#shAgain').onclick = function () {
+      try { audio.pause(); } catch (e) {}
+      audio.removeAttribute('src');
+      dropUrl();
+      blob = null;
       audio.classList.add('hidden');
       send.classList.add('hidden');
       note.textContent = 'Ready';
@@ -214,22 +261,35 @@
         return;
       }
       var a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
+      if (!('download' in a)) {
+        W.toast('Send the recording from your voice recorder app');
+        return;
+      }
+      var tmp = URL.createObjectURL(blob);
+      a.href = tmp;
       a.download = name;
       document.body.appendChild(a);
       a.click();
       a.remove();
-      W.toast('Saved to your files');
+      setTimeout(function () { try { URL.revokeObjectURL(tmp); } catch (e) {} }, 60000);
+      W.toast('Saved as a file');
     };
 
     /* --- отметка «сделал» --- */
     $('#shDone').onclick = function () {
-      s.done = W.today();
+      var s = st(id);
+      var today = W.today();
+      var first = s.done !== today;        /* XP только за первый раз в день */
+      s.done = today;
       s.times = (s.times || 0) + 1;
       W.saveNow();
-      W.addXP(20);
-      W.toast('Nice! +20 XP');
-      stopStream();
+      if (first) {
+        W.addXP(20);
+        if (W.finishAct) W.finishAct();    /* день засчитан, стрик горит */
+        W.toast('Nice! +20 XP');
+      } else {
+        W.toast('Done again — nice');
+      }
       W.close();
       W.go('hw');
     };
