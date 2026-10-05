@@ -260,6 +260,10 @@
       b.onclick = function () { W.openHomework(b.dataset.hw); };
     });
 
+    Array.prototype.forEach.call(document.querySelectorAll('[data-shadow]'), function (b) {
+      b.onclick = function () { W.openShadow(b.dataset.shadow); };
+    });
+
     Array.prototype.forEach.call(document.querySelectorAll('[data-lesson]'), function (b) {
       b.onclick = function () { W.openLesson(b.dataset.lesson, b.dataset.part || ''); };
     });

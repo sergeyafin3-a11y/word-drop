@@ -198,7 +198,7 @@
           '<div class="hg-arrow">' + (open ? '▴' : '▾') + '</div></button>' +
           (open ? '<div class="hg-body">' + hs.map(hwCard).join('') + '</div>' : '') +
           '</div>';
-      }).join('');
+      }).join('') + W.viewShadow();
   };
 
   /* ---------- текст: слова НЕ подсвечены, ученик ищет сам ----------
