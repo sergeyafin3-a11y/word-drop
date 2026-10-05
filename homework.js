@@ -159,7 +159,8 @@
     var list = W.homeworks();
     if (!list.length) {
       return '<div class="empty"><b>No homework yet</b>' +
-        '<p>Домашка появится здесь после урока.</p></div>';
+        '<p>Домашка появится здесь после урока.</p></div>' +
+        (W.viewShadow ? W.viewShadow() : '');
     }
 
     /* Домашки разложены по темам. Тема, в которой есть заданная сейчас домашка,
@@ -198,7 +199,7 @@
           '<div class="hg-arrow">' + (open ? '▴' : '▾') + '</div></button>' +
           (open ? '<div class="hg-body">' + hs.map(hwCard).join('') + '</div>' : '') +
           '</div>';
-      }).join('');
+      }).join('') + (W.viewShadow ? W.viewShadow() : '');
   };
 
   /* ---------- текст: слова НЕ подсвечены, ученик ищет сам ----------
