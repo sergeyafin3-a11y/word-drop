@@ -103,7 +103,9 @@
       '<div class="task-note">Copy the <b>music</b> of the voice, not only the words: where the voice goes up, ' +
       'where it stops, which word is loud. Twenty seconds done well is better than two minutes done badly.</div>' +
 
-      '<div class="h">Key lines</div>' +
+      '<div class="h">Say these first</div>' +
+      '<div class="task-note">Short lines on the same topic. Say each one three times before you ' +
+      'start the video, so your mouth is ready.</div>' +
       '<div class="card">' +
       (v.phrases || []).map(function (p, i) {
         return '<div class="ch-line"><button class="ch-say" data-say="' + i + '">🔊</button>' +
