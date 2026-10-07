@@ -971,6 +971,57 @@ Everybody knows this song - эту песню знают все - 🎵
 Is everyone here? - все на месте? - 👥
 Do you like it? — It depends - тебе нравится? — Смотря как - ⚖️
 
+# NEW WORDS | Lesson 6 Oct | 6 Oct
+
+// --- 1. Нравится или нет ---
+gorgeous - шикарный, очень красивый - ✨
+to adore - обожать - 💖
+not tasty - невкусный - 🤢
+disgusting - противный, отвратительный - 🤮
+heartbreaking - душераздирающий, до слёз - 💔
+a rich laugh - густой, заразительный смех - 😂
+She has a rich laugh - у неё очень заразительный смех - 😂
+You look gorgeous today - ты сегодня шикарно выглядишь - ✨
+I adore this song - я обожаю эту песню - 💖
+The soup was not tasty at all - суп был совсем невкусный - 🤢
+The ending was heartbreaking - концовка была до слёз - 💔
+
+// --- 2. Это ощущается иначе ---
+it hits different - цепляет по-другому, ощущается сильнее - ⚡
+in another way - по-другому, иначе - 🔄
+This song hits different at night - ночью эта песня цепляет совсем иначе - ⚡
+Say it in another way, please - скажи это по-другому, пожалуйста - 🔄
+
+// --- 3. Осень и одежда ---
+a coat - пальто - 🧥
+I wear a coat - я ношу пальто - 🧥
+a church - церковь - ⛪
+September feels like summer - сентябрь ощущается как лето - ☀️
+It is cold, so I wear a coat - холодно, поэтому я ношу пальто - 🧥
+There is an old church near my house - рядом с моим домом старая церковь - ⛪
+
+// --- 4. Когда это было и сколько идёт ---
+I started reading - я начал читать - 📖
+in the beginning - в начале - 🥇
+so far - пока что, на данный момент - ⏳
+not far from here - недалеко отсюда - 📍
+four years ago - четыре года назад - 📅
+What happened? - что случилось? - ❓
+We'll see - посмотрим, видно будет - 🤷
+School takes a lot of time - школа занимает много времени - ⏰
+I started reading this book in September - я начал читать эту книгу в сентябре - 📖
+In the beginning it was boring, but now I like it - в начале было скучно, а теперь нравится - 📖
+So far everything is fine - пока что всё хорошо - ⏳
+We moved here four years ago - мы переехали сюда четыре года назад - 📦
+
+// --- 5. Когда поссорились ---
+ugly - некрасивый, уродливый - 🙈
+angry - злой, сердитый - 😠
+to apologise - извиняться - 🙏
+to say sorry - сказать «извини» - 🙏
+He was angry, but he said sorry first - он злился, но извинился первым - 🙏
+I apologised and we were friends again - я извинился, и мы помирились - 🤝
+
 # TOPIC | Travel · Hotel & City | 🏨 | 🏨🗺️🚏
 = frames
 At the hotel I
