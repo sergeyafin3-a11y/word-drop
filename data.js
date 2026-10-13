@@ -1022,6 +1022,58 @@ to say sorry - сказать «извини» - 🙏
 He was angry, but he said sorry first - он злился, но извинился первым - 🙏
 I apologised and we were friends again - я извинился, и мы помирились - 🤝
 
+# NEW WORDS | Lesson 13 Oct | 13 Oct
+
+// --- 1. Кино и сериалы ---
+a character - персонаж - 🎭
+an actor - актёр - 🎬
+to reveal - раскрыть, показать (тайну) - 🔍
+to rewatch - пересматривать - 🔁
+the whole film - весь фильм целиком - 🎞️
+Jurassic Park - «Парк Юрского периода» - 🦖
+When I was a child, I was a big fan of Jurassic Park - в детстве я был большим фанатом «Парка Юрского периода» - 🦖
+My favourite character is the girl - мой любимый персонаж — девочка - 🎭
+The end reveals everything - в конце всё раскрывается - 🔍
+I rewatch this film every year - я пересматриваю этот фильм каждый год - 🔁
+I watched the whole season in two days - я посмотрел весь сезон за два дня - 🎞️
+
+// --- 2. Как я на это реагирую ---
+to notice - замечать - 👀
+to wish - желать, хотеть бы - 🌠
+poor - бедный, бедняжка - 🥺
+nothing special - ничего особенного - 😐
+a cry from the heart - крик души - 💔
+It broke my heart - это разбило мне сердце - 💔
+I didn't notice the time - я не заметил, как прошло время - 👀
+I wish I could see it again - жаль, что не могу посмотреть это ещё раз - 🌠
+Poor guy, he lost everything - бедняга, он потерял всё - 🥺
+How was the film? — Nothing special - как фильм? — да ничего особенного - 😐
+
+// --- 3. Советы ---
+advice - совет, советы (всегда без -s) - 💡
+a piece of advice - один совет - 💡
+tips - подсказки, лайфхаки - 📝
+recommendations - рекомендации - ⭐
+it depends - смотря как, зависит от ситуации - ⚖️
+Can you give me some advice? - можешь дать мне совет? - 💡
+Here is one piece of advice - вот тебе один совет - 💡
+Do you have any tips for me? - есть для меня какие-нибудь подсказки? - 📝
+What are your recommendations? - что посоветуешь? - ⭐
+
+// --- 4. Время и дела ---
+little time - мало времени - ⏳
+I don't have much time - у меня мало времени - ⏳
+to refresh - освежить в памяти, обновить - 🔄
+the gym - спортзал - 🏋️
+I go to the gym twice a week - я хожу в спортзал два раза в неделю - 🏋️
+I need to refresh my English before the trip - мне надо освежить английский перед поездкой - 🔄
+
+// --- 5. Один или одинокий ---
+alone - один, в одиночестве - 🚶
+lonely - одинокий (грустно) - 😔
+I was alone at home, but I was not lonely - я был дома один, но мне не было одиноко - 🏠
+Sometimes I like to be alone - иногда мне нравится побыть одному - 🚶
+
 # TOPIC | Travel · Hotel & City | 🏨 | 🏨🗺️🚏
 = frames
 At the hotel I
