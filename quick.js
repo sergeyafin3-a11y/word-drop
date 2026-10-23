@@ -12,7 +12,8 @@
   }
 
   function split(line) {
-    return line.split(/\s+[-—–]\s+|\s*\|\s*|\t+/).map(function (x) { return x.trim(); }).filter(Boolean);
+    /* длинное тире — знак внутри предложения, а не разделитель строки */
+    return line.split(/\s+[-–]\s+|\s*\|\s*|\t+/).map(function (x) { return x.trim(); }).filter(Boolean);
   }
 
   W.parseQuick = function (text) {
