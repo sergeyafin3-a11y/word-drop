@@ -181,6 +181,22 @@ p{margin:0 0 12px}
 .dchip.used{opacity:.22;pointer-events:none}
 .dchip.fly{position:fixed;z-index:99;pointer-events:none;background:var(--accent);color:#fff;
   box-shadow:0 14px 28px rgba(30,10,40,.32);transform:translate(-50%,-50%)}
+.band{border-radius:16px;padding:13px 16px;margin:20px 0;font-family:var(--display);
+  font-weight:800;font-size:16px;line-height:1.4}
+.band.hw{background:#FFF3D6;border:1px solid #EFD28F;color:#6B4A05}
+.band.cls{background:var(--accent-soft);border:1px solid var(--line)}
+/* поля, в которые ученик печатает ответ сам */
+.tline{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:13px;
+  font-weight:600;line-height:2.2;margin-bottom:10px}
+.tline .n{font-family:var(--display);font-weight:900;color:var(--accent);margin-right:8px}
+.tline .was{font-weight:800;color:#C2323F;text-decoration:underline wavy #C2323F 2px;
+  text-underline-offset:4px}
+.ti{font:inherit;font-weight:800;font-size:16px;color:var(--accent);background:#fff;
+  border:0;border-bottom:3px solid var(--accent);border-radius:8px 8px 0 0;padding:4px 8px;
+  width:9.5em;max-width:100%}
+.ti:focus{outline:3px solid var(--accent);outline-offset:3px}
+.ti.ok{border-color:#2C7A5B;color:#2C7A5B}
+.ti.no{border-color:#C2323F;color:#C2323F}
 .dlines{display:flex;flex-direction:column;gap:10px}
 .dline{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:13px;font-weight:600}
 .gap{display:inline-block;min-width:112px;min-height:32px;line-height:30px;vertical-align:middle;
@@ -196,6 +212,8 @@ p{margin:0 0 12px}
 @media(max-width:800px){
   .wrap{padding:10px}
   .gram td:first-child{white-space:normal}
+  .ti{width:7.5em}
+  .tline{line-height:1.95}
   .topnav{margin:0 -10px 12px;padding:9px 10px}
   .hero{padding:32px 20px 26px;border-radius:22px}
   .section{padding:18px;border-radius:20px}
@@ -449,13 +467,54 @@ p{margin:0 0 12px}
         <div class="qrow"><span class="qn">6</span><span>In the show, and in real life — do people change, or do they stay the same?</span></div>
       </div>
 
-      <h3>1 · What people do · 4 min</h3>
+      <div class="band hw">✅ In class we did the warm-up.
+        📌 At home: everything from here down to <b>Task 5</b>. Read the rules first,
+        then do the tasks and press <b>Check</b> — the app tells you what is right.</div>
+
+      <h3>1 · What people do · 8 min</h3>
       <div class="wordbank">
         <span>to lie</span><span>to tell the truth</span><span>to ignore somebody</span><span>to interrupt</span>
         <span>to talk behind your back</span><span>to support somebody</span><span>to listen</span><span>to apologise</span>
         <span>to promise</span><span>to keep a promise</span><span>to break a promise</span><span>to help out</span>
         <span>on purpose</span><span>by mistake</span>
       </div>
+      <div class="task"><b>Task 1 · Match the words.</b> Tap a translation, then tap the box
+        next to the English word. Tap a full box again to take the word back.
+        Then press <b>Check</b>.</div>
+      <div class="dbank" id="wbank"></div>
+      <div class="dlines" id="wlines"></div>
+      <div class="row-btn">
+        <button class="btn" onclick="checkWords()">Check</button>
+        <button class="btn ghost" onclick="buildWords()">Start again</button>
+        <span class="score" id="wscore"></span>
+      </div>
+
+      <div class="task"><b>Task 2 · Now write it yourself.</b> Matching is easy — writing is
+        what makes the word stay. Type the English word. <i>to</i> at the start is up to you.</div>
+      <div class="tbox" id="t2">
+        <div class="tline"><span class="n">1</span>врать<br>
+          <input class="ti" data-a="to lie|lie" autocapitalize="off" autocomplete="off" spellcheck="false"></div>
+        <div class="tline"><span class="n">2</span>перебивать<br>
+          <input class="ti" data-a="to interrupt|interrupt" autocapitalize="off" autocomplete="off" spellcheck="false"></div>
+        <div class="tline"><span class="n">3</span>извиняться<br>
+          <input class="ti" data-a="to apologise|apologise|to apologize|apologize" autocapitalize="off" autocomplete="off" spellcheck="false"></div>
+        <div class="tline"><span class="n">4</span>обещать<br>
+          <input class="ti" data-a="to promise|promise" autocapitalize="off" autocomplete="off" spellcheck="false"></div>
+        <div class="tline"><span class="n">5</span>нарушить обещание<br>
+          <input class="ti" data-a="to break a promise|break a promise" autocapitalize="off" autocomplete="off" spellcheck="false"></div>
+        <div class="tline"><span class="n">6</span>обсуждать за спиной<br>
+          <input class="ti" data-a="to talk behind your back|talk behind your back" autocapitalize="off" autocomplete="off" spellcheck="false"></div>
+        <div class="tline"><span class="n">7</span>специально, нарочно<br>
+          <input class="ti" data-a="on purpose" autocapitalize="off" autocomplete="off" spellcheck="false"></div>
+        <div class="tline"><span class="n">8</span>случайно, по ошибке<br>
+          <input class="ti" data-a="by mistake" autocapitalize="off" autocomplete="off" spellcheck="false"></div>
+        <div class="row-btn">
+          <button class="btn" onclick="checkType('t2')">Check answers</button>
+          <button class="btn ghost" onclick="clearType('t2')">Clear</button>
+          <span class="score"></span>
+        </div>
+      </div>
+
       <div class="task"><b>Say it now.</b> Go back to the warm-up questions and answer two of them
         again — this time with <b>three verbs from the line above</b>. One answer about the show,
         one about your own life.</div>
@@ -494,16 +553,50 @@ p{margin:0 0 12px}
         <div class="ex">Same verb, two endings. <b>-ing</b> is the thing, <b>-ed</b> is the person.</div>
       </div>
 
-      <div class="task"><b>Task 1 · Two halves, one sentence.</b> I give you a verb and a thing.
-        You say <b>both</b> halves out loud, like this:
-        <i>bore · the lesson → “The lesson was boring, so I was bored.”</i></div>
-      <div>
-        <div class="qrow"><span class="qn">1</span><span>excite · the trip to New York</span></div>
-        <div class="qrow"><span class="qn">2</span><span>surprise · her answer</span></div>
-        <div class="qrow"><span class="qn">3</span><span>annoy · his question</span></div>
-        <div class="qrow"><span class="qn">4</span><span>tire · the long day at school</span></div>
-        <div class="qrow"><span class="qn">5</span><span>confuse · the ending of the episode</span></div>
-        <div class="qrow"><span class="qn">6</span><span>disappoint · the end of the season</span></div>
+      <div class="card">
+        <h4>Разбери это дома — по-русски</h4>
+        <div class="ru" style="line-height:1.6">
+          <p><b>-ing</b> — про <b>вещь</b>: какой фильм, какой урок, какая новость. Вещь
+            <i>делает</i> чувство. <i>The film is boring.</i> — фильм скучный.</p>
+          <p><b>-ed</b> — про <b>человека</b>: что он чувствует. Человек <i>получает</i> чувство.
+            <i>I am bored.</i> — мне скучно.</p>
+          <p><b>Проверка за секунду.</b> Переведи на русский. Получается «мне / ему / ей» —
+            ставь <b>-ed</b>. Получается «какой / какая / какое» — ставь <b>-ing</b>.</p>
+          <p><b>Главная ошибка.</b> <i>I am boring</i> — это «я скучный человек».
+            Если хочешь сказать «мне скучно», можно только <i>I am bored</i>.</p>
+          <p><b>Как выучить таблицу за три минуты.</b> Закрой пальцем правый столбец,
+            посмотри на глагол и скажи вслух обе формы: <i>bore → boring, bored</i>.
+            Открой и проверь. Пройди все десять пар два раза.</p>
+        </div>
+      </div>
+
+      <div class="task"><b>Task 3 · Two halves, one sentence.</b> Every line has one verb.
+        The <b>thing</b> takes <b>-ing</b>, the <b>person</b> takes <b>-ed</b>.
+        Type both forms, then press <b>Check answers</b>. Say the whole sentence out loud after that.</div>
+      <div class="tbox" id="t3">
+        <div class="tline"><span class="n">1</span>excite<br>
+          The trip to New York was <input class="ti" data-a="exciting" autocapitalize="off" autocomplete="off" spellcheck="false">,
+          so I was <input class="ti" data-a="excited" autocapitalize="off" autocomplete="off" spellcheck="false">.</div>
+        <div class="tline"><span class="n">2</span>surprise<br>
+          Her answer was <input class="ti" data-a="surprising" autocapitalize="off" autocomplete="off" spellcheck="false">,
+          so I was <input class="ti" data-a="surprised" autocapitalize="off" autocomplete="off" spellcheck="false">.</div>
+        <div class="tline"><span class="n">3</span>annoy<br>
+          His question was <input class="ti" data-a="annoying" autocapitalize="off" autocomplete="off" spellcheck="false">,
+          so I was <input class="ti" data-a="annoyed" autocapitalize="off" autocomplete="off" spellcheck="false">.</div>
+        <div class="tline"><span class="n">4</span>tire<br>
+          The long day at school was <input class="ti" data-a="tiring" autocapitalize="off" autocomplete="off" spellcheck="false">,
+          so I was <input class="ti" data-a="tired" autocapitalize="off" autocomplete="off" spellcheck="false">.</div>
+        <div class="tline"><span class="n">5</span>confuse<br>
+          The ending of the episode was <input class="ti" data-a="confusing" autocapitalize="off" autocomplete="off" spellcheck="false">,
+          so I was <input class="ti" data-a="confused" autocapitalize="off" autocomplete="off" spellcheck="false">.</div>
+        <div class="tline"><span class="n">6</span>disappoint<br>
+          The end of the season was <input class="ti" data-a="disappointing" autocapitalize="off" autocomplete="off" spellcheck="false">,
+          so I was <input class="ti" data-a="disappointed" autocapitalize="off" autocomplete="off" spellcheck="false">.</div>
+        <div class="row-btn">
+          <button class="btn" onclick="checkType('t3')">Check answers</button>
+          <button class="btn ghost" onclick="clearType('t3')">Clear</button>
+          <span class="score"></span>
+        </div>
         <button class="btn ghost" style="margin-top:10px" onclick="flip('k3a')">Show answers</button>
         <div class="reveal" id="k3a">1 The trip was exciting, so I was excited. ·
           2 Her answer was surprising, so I was surprised. ·
@@ -514,7 +607,7 @@ p{margin:0 0 12px}
       </div>
 
       <h3>3 · Put them in · 6 min</h3>
-      <div class="task"><b>Task 2 · Drag and say.</b> Put the right word in every gap,
+      <div class="task"><b>Task 4 · Drag and say.</b> Put the right word in every gap,
         then read each sentence out loud. Eight sentences, four of them about a person
         and four about a thing — look at the ending before you drop the word.</div>
       <div class="dbank" id="bank4"></div>
@@ -536,22 +629,49 @@ p{margin:0 0 12px}
           <tr><td>the quick test</td><td>After <b>I am</b> / <b>he is</b> / <b>she was</b> about a real person → <b>-ed</b>.</td></tr>
         </table>
       </div>
-      <div class="task"><b>Task 3 · Fix it out loud.</b> Six wrong sentences. Say the right one —
-        the whole sentence, not just the word.</div>
-      <div>
-        <div class="qrow"><span class="qn">1</span><span>I am very boring in this lesson.</span></div>
-        <div class="qrow"><span class="qn">2</span><span>The ending was so surprised!</span></div>
-        <div class="qrow"><span class="qn">3</span><span>After the trip I was very tiring.</span></div>
-        <div class="qrow"><span class="qn">4</span><span>Are you interesting in football?</span></div>
-        <div class="qrow"><span class="qn">5</span><span>Sorry, I am confusing — say it again.</span></div>
-        <div class="qrow"><span class="qn">6</span><span>The news about her was very shocked.</span></div>
+
+      <div class="card">
+        <h4>Почему это важно</h4>
+        <div class="ru" style="line-height:1.6">
+          <p>Одна буква меняет смысл на противоположный, и носитель услышит именно то,
+            что ты сказал, а не то, что ты имел в виду:</p>
+          <p><i>I am bored</i> — мне скучно. &nbsp;·&nbsp; <i>I am boring</i> — я скучный человек.</p>
+          <p><i>He is confused</i> — он не понял. &nbsp;·&nbsp; <i>He is confusing</i> — его никто не понимает.</p>
+          <p><i>I am interested</i> — мне интересно. &nbsp;·&nbsp; <i>I am interesting</i> — я интересный человек.</p>
+          <p><b>Правило без исключений для A1:</b> говоришь про себя или про другого человека —
+            ставь <b>-ed</b>. Говоришь про фильм, книгу, новость, день, урок — ставь <b>-ing</b>.</p>
+        </div>
+      </div>
+      <div class="task"><b>Task 5 · Fix the mistake.</b> In every sentence <b class="was">one word</b>
+        is wrong — it is underlined in red. Type the right form of that word and press
+        <b>Check answers</b>. Then read the correct sentence out loud.</div>
+      <div class="tbox" id="t5">
+        <div class="tline"><span class="n">1</span>I am very <span class="was">boring</span> in this lesson.<br>
+          → I am very <input class="ti" data-a="bored" autocapitalize="off" autocomplete="off" spellcheck="false"> in this lesson.</div>
+        <div class="tline"><span class="n">2</span>The ending was so <span class="was">surprised</span>!<br>
+          → The ending was so <input class="ti" data-a="surprising" autocapitalize="off" autocomplete="off" spellcheck="false">!</div>
+        <div class="tline"><span class="n">3</span>After the trip I was very <span class="was">tiring</span>.<br>
+          → After the trip I was very <input class="ti" data-a="tired" autocapitalize="off" autocomplete="off" spellcheck="false">.</div>
+        <div class="tline"><span class="n">4</span>Are you <span class="was">interesting</span> in football?<br>
+          → Are you <input class="ti" data-a="interested" autocapitalize="off" autocomplete="off" spellcheck="false"> in football?</div>
+        <div class="tline"><span class="n">5</span>Sorry, I am <span class="was">confusing</span> — say it again.<br>
+          → Sorry, I am <input class="ti" data-a="confused" autocapitalize="off" autocomplete="off" spellcheck="false"> — say it again.</div>
+        <div class="tline"><span class="n">6</span>The news about her was very <span class="was">shocked</span>.<br>
+          → The news about her was very <input class="ti" data-a="shocking" autocapitalize="off" autocomplete="off" spellcheck="false">.</div>
+        <div class="row-btn">
+          <button class="btn" onclick="checkType('t5')">Check answers</button>
+          <button class="btn ghost" onclick="clearType('t5')">Clear</button>
+          <span class="score"></span>
+        </div>
         <button class="btn ghost" style="margin-top:10px" onclick="flip('k4')">Show answers</button>
         <div class="reveal" id="k4">1 I am very bored in this lesson. · 2 The ending was so surprising! ·
           3 After the trip I was very tired. · 4 Are you interested in football? ·
           5 Sorry, I am confused — say it again. · 6 The news about her was very shocking.</div>
       </div>
 
-      <div class="task"><b>Task 4 · Finish it about you.</b> No right answers here — but every
+      <div class="band cls">🎤 Homework ends here. Everything below we do together in the lesson.</div>
+
+      <div class="task"><b>Task 6 · Finish it about you.</b> No right answers here — but every
         sentence must be true and longer than three words.</div>
       <div class="pair">
         <div class="line">I am really interested in…</div>
@@ -573,7 +693,7 @@ p{margin:0 0 12px}
         </table>
         <div class="ex">Also useful: <b>on purpose</b> (he knew) against <b>by mistake</b> (he didn’t).</div>
       </div>
-      <div class="task"><b>Task 5 · Change the label.</b> I give you a label — you turn it into
+      <div class="task"><b>Task 7 · Change the label.</b> I give you a label — you turn it into
         one action. <i>“He is selfish” → “He didn’t help his friend when she asked.”</i></div>
       <div class="pair">
         <div class="line">She is a bad friend.</div>
@@ -595,7 +715,7 @@ p{margin:0 0 12px}
         <div class="ex">One rule: never stop after “I think so”. The next word is always <b>because</b>.</div>
       </div>
 
-      <div class="task"><b>Task 6 · Pick a side.</b> I read a sentence. You agree or you don’t,
+      <div class="task"><b>Task 8 · Pick a side.</b> I read a sentence. You agree or you don’t,
         <b>and you give one real example</b> — from the show or from your own life.
         Then I take the other side and you answer me. Two rounds each, no one-word answers.</div>
       <div class="pair">
@@ -607,7 +727,7 @@ p{margin:0 0 12px}
       </div>
 
       <h3>7 · One minute, no stopping · 5 min</h3>
-      <div class="task"><b>Task 7 · The wrong thing.</b> Start the timer and talk for <b>60 seconds</b>:
+      <div class="task"><b>Task 9 · The wrong thing.</b> Start the timer and talk for <b>60 seconds</b>:
         think of a person in the show who did something wrong. What exactly did they do?
         Was it on purpose or by mistake? Was it a bad action or a bad person?
         And what would you do in their place?<br>
@@ -1106,8 +1226,123 @@ function initGapDrag(){
   });
 }
 
+/* ---------- слово и перевод: нажать перевод, потом нажать поле ---------- */
+var WPAIRS = [
+  ['to lie', 'врать'],
+  ['to tell the truth', 'говорить правду'],
+  ['to ignore somebody', 'игнорировать кого-то'],
+  ['to interrupt', 'перебивать'],
+  ['to talk behind your back', 'обсуждать за спиной'],
+  ['to support somebody', 'поддерживать кого-то'],
+  ['to listen', 'слушать'],
+  ['to apologise', 'извиняться'],
+  ['to promise', 'обещать'],
+  ['to keep a promise', 'сдержать обещание'],
+  ['to break a promise', 'нарушить обещание'],
+  ['to help out', 'выручить, помочь'],
+  ['on purpose', 'специально, нарочно'],
+  ['by mistake', 'случайно, по ошибке']
+];
+var wPick = null;
+function wChip(ru){
+  var found = null;
+  document.querySelectorAll('#wbank .dchip').forEach(function(c){
+    if (!found && c.dataset.w === ru) found = c;
+  });
+  return found;
+}
+function buildWords(){
+  var bank = document.getElementById('wbank'), lines = document.getElementById('wlines');
+  if (!bank || !lines) return;
+  wPick = null;
+  bank.innerHTML = shuffleArr(WPAIRS.map(function(p){ return p[1]; })).map(function(ru){
+    return '<button class="dchip" data-w="' + ru + '">' + ru + '</button>';
+  }).join('');
+  lines.innerHTML = WPAIRS.map(function(p){
+    return '<div class="dline">' + p[0] + ' <span class="gap" data-a="' + p[1] + '"></span></div>';
+  }).join('');
+  var sc = document.getElementById('wscore');
+  if (sc) sc.textContent = '';
+}
+function checkWords(){
+  var gaps = [].slice.call(document.querySelectorAll('#wlines .gap')), right = 0;
+  gaps.forEach(function(g){
+    var ok = g.textContent.trim() === g.dataset.a;
+    g.classList.toggle('ok', ok);
+    g.classList.toggle('no', !ok);
+    if (ok) right++;
+  });
+  var sc = document.getElementById('wscore');
+  if (sc) sc.textContent = right + ' / ' + gaps.length;
+}
+function initWords(){
+  var bank = document.getElementById('wbank'), lines = document.getElementById('wlines');
+  if (!bank || !lines) return;
+  bank.addEventListener('click', function(e){
+    var c = e.target.closest('.dchip');
+    if (!c) return;
+    if (wPick === c.dataset.w){ wPick = null; c.classList.remove('sel'); return; }
+    document.querySelectorAll('#wbank .dchip.sel').forEach(function(x){ x.classList.remove('sel'); });
+    wPick = c.dataset.w;
+    c.classList.add('sel');
+  });
+  lines.addEventListener('click', function(e){
+    var g = e.target.closest('.gap');
+    if (!g) return;
+    if (g.textContent){                      /* в поле уже что-то лежит — вернуть в набор */
+      var back = wChip(g.textContent);
+      if (back) back.classList.remove('used');
+      g.textContent = '';
+      g.classList.remove('ok', 'no');
+      if (!wPick) return;
+    }
+    if (!wPick) return;
+    g.textContent = wPick;
+    g.classList.remove('ok', 'no');
+    var ch = wChip(wPick);
+    if (ch){ ch.classList.add('used'); ch.classList.remove('sel'); }
+    wPick = null;
+  });
+}
+
+/* ---------- ответы, которые ученик печатает сам ---------- */
+function tnorm(s){
+  return String(s == null ? '' : s).toLowerCase()
+    .replace(/[\u2019\u2018`\u00b4]/g, "'")
+    .replace(/\s+/g, ' ').trim()
+    .replace(/[.!?,;:]+$/, '');
+}
+function checkType(id){
+  var box = document.getElementById(id);
+  if (!box) return;
+  var ins = [].slice.call(box.querySelectorAll('input.ti')), right = 0;
+  ins.forEach(function(i){
+    var typed = tnorm(i.value);
+    var ok = typed !== '' && String(i.dataset.a || '').split('|').some(function(a){
+      return tnorm(a) === typed;
+    });
+    i.classList.toggle('ok', ok);
+    i.classList.toggle('no', !ok && typed !== '');
+    if (ok) right++;
+  });
+  var sc = box.querySelector('.score');
+  if (sc) sc.textContent = right + ' / ' + ins.length;
+}
+function clearType(id){
+  var box = document.getElementById(id);
+  if (!box) return;
+  box.querySelectorAll('input.ti').forEach(function(i){
+    i.value = '';
+    i.classList.remove('ok', 'no');
+  });
+  var sc = box.querySelector('.score');
+  if (sc) sc.textContent = '';
+}
+
 document.addEventListener('DOMContentLoaded', function(){
   buildMatch();
+  buildWords();
+  initWords();
   buildOrder('story3');
   initSortable(document.getElementById('story3'));
   buildGaps();
