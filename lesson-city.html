@@ -474,7 +474,7 @@ p{margin:0 0 12px}
         <div class="qrow"><span class="qn">6</span><span>In the show, and in real life — do people change, or do they stay the same?</span></div>
       </div>
 
-      <div class="band hw">📌 <b>Homework: Task 1 only</b> — match the words with the translations.
+      <div class="band hw">📌 <b>Homework: Task 1 only</b> — put the phrases back into the sentences.
         Everything else in this chapter we do together in the lesson.
         The real homework is in the <b>Homework</b> tab at the top.</div>
 
@@ -485,9 +485,11 @@ p{margin:0 0 12px}
         <span>to promise</span><span>to keep a promise</span><span>to break a promise</span><span>to help out</span>
         <span>on purpose</span><span>by mistake</span>
       </div>
-      <div class="task"><b>Task 1 · Match the words.</b> Tap a translation, then tap the box
-        next to the English word. Tap a full box again to take the word back.
-        Then press <b>Check</b>.</div>
+      <div class="task"><b>Task 1 · Put the words back.</b> Every sentence lost one phrase.
+        No translations — the sentence itself tells you which one fits, and the phrases are
+        already in the form the sentence needs.<br>
+        Tap a phrase, then tap the empty box. Tap a full box again to take the phrase back.
+        Then press <b>Check</b> and read every sentence out loud.</div>
       <div class="dbank" id="wbank"></div>
       <div class="dlines" id="wlines"></div>
       <div class="row-btn">
@@ -1349,22 +1351,22 @@ function initGapDrag(){
   });
 }
 
-/* ---------- слово и перевод: нажать перевод, потом нажать поле ---------- */
+/* ---------- фразы обратно в предложения: нажать фразу, потом нажать поле ---------- */
 var WPAIRS = [
-  ['to lie', 'врать'],
-  ['to tell the truth', 'говорить правду'],
-  ['to ignore somebody', 'игнорировать кого-то'],
-  ['to interrupt', 'перебивать'],
-  ['to talk behind your back', 'обсуждать за спиной'],
-  ['to support somebody', 'поддерживать кого-то'],
-  ['to listen', 'слушать'],
-  ['to apologise', 'извиняться'],
-  ['to promise', 'обещать'],
-  ['to keep a promise', 'сдержать обещание'],
-  ['to break a promise', 'нарушить обещание'],
-  ['to help out', 'выручить, помочь'],
-  ['on purpose', 'специально, нарочно'],
-  ['by mistake', 'случайно, по ошибке']
+  ['She looked straight at me and ', ' about the whole evening.', 'lied'],
+  ['It was hard, but in the end he ', '.', 'told the truth'],
+  ['She was angry, so she ', ' my messages for three days.', 'ignored'],
+  ['Please don’t ', ' me — let me finish the story.', 'interrupt'],
+  ['A real friend says it to your face. A bad friend ', '.', 'talks behind your back'],
+  ['Nobody believed her, but her three friends ', ' her.', 'supported'],
+  ['You don’t have to give advice. Sometimes you just ', '.', 'listen'],
+  ['If you are wrong, ', ' first. It is not easy, but it works.', 'apologise'],
+  ['I can’t ', ' anything, but I will try to come.', 'promise'],
+  ['She said she would be there at seven, and she ', '.', 'kept her promise'],
+  ['He said he would call me back, but he ', ' again.', 'broke his promise'],
+  ['I had a terrible week, and my sister ', ' every day.', 'helped out'],
+  ['He didn’t do it ', ' — he just forgot.', 'on purpose'],
+  ['Sorry, I sent that message to you ', '.', 'by mistake']
 ];
 var wPick = null;
 function wChip(ru){
@@ -1378,11 +1380,11 @@ function buildWords(){
   var bank = document.getElementById('wbank'), lines = document.getElementById('wlines');
   if (!bank || !lines) return;
   wPick = null;
-  bank.innerHTML = shuffleArr(WPAIRS.map(function(p){ return p[1]; })).map(function(ru){
-    return '<button class="dchip" data-w="' + ru + '">' + ru + '</button>';
+  bank.innerHTML = shuffleArr(WPAIRS.map(function(p){ return p[2]; })).map(function(w){
+    return '<button class="dchip" data-w="' + w + '">' + w + '</button>';
   }).join('');
   lines.innerHTML = WPAIRS.map(function(p){
-    return '<div class="dline">' + p[0] + ' <span class="gap" data-a="' + p[1] + '"></span></div>';
+    return '<div class="dline">' + p[0] + '<span class="gap" data-a="' + p[2] + '"></span>' + p[1] + '</div>';
   }).join('');
   var sc = document.getElementById('wscore');
   if (sc) sc.textContent = '';
