@@ -62,7 +62,7 @@ p{margin:0 0 12px}
   background:radial-gradient(circle,#FFB6D5 0%,transparent 65%);opacity:.5}
 
 .poster{margin:18px auto;max-width:470px}
-.poster img{width:100%;display:block;border-radius:20px;border:1px solid var(--line)}
+.poster img{width:100%;display:block;aspect-ratio:736/946;border-radius:20px;border:1px solid var(--line)}
 .poster .pcap{margin-top:12px;font-family:var(--display);font-weight:700;font-size:16.5px;
   line-height:1.4;text-align:center}
 .banner{position:relative;border-radius:22px;overflow:hidden;margin:18px 0}
@@ -222,7 +222,7 @@ p{margin:0 0 12px}
 
     <div class="hero">
       <div class="glow"></div>
-      <div class="kicker">4 × 60-minute speaking course · A1–A2</div>
+      <div class="kicker">Three speaking lessons + homework · A1–A2</div>
       <h1>And Just<br>Like That</h1>
       <p>Four friends, one loud city and a lot of talking. You will learn to describe people,
         ask about their experience and keep a conversation going.</p>
@@ -439,12 +439,14 @@ p{margin:0 0 12px}
 
       <h3>Warm-up · 5 min</h3>
       <div class="card">
-        <div class="ru">No new words yet. Just answer — full sentences, not one word.</div>
-        <div class="qrow"><span class="qn">1</span><span>In the last episode, did somebody do something you didn’t like?</span></div>
-        <div class="qrow"><span class="qn">2</span><span>Who helped a friend? What did they do?</span></div>
-        <div class="qrow"><span class="qn">3</span><span>Did anybody say sorry? Was it honest?</span></div>
-        <div class="qrow"><span class="qn">4</span><span>What would you do in that situation?</span></div>
-        <div class="qrow"><span class="qn">5</span><span>Do people change, or do they always stay the same?</span></div>
+        <div class="ru">No new words yet — answer with what you have. Think first, then speak;
+          full sentences, not one word. We come back to these questions after the word list.</div>
+        <div class="qrow"><span class="qn">1</span><span>Is a small lie always a bad thing? Think of one real example.</span></div>
+        <div class="qrow"><span class="qn">2</span><span>What is harder: to say sorry, or to listen when somebody says sorry to you?</span></div>
+        <div class="qrow"><span class="qn">3</span><span>Can a good friend break a promise and still be a good friend?</span></div>
+        <div class="qrow"><span class="qn">4</span><span>Why do people talk behind your back? Are they angry, or just afraid?</span></div>
+        <div class="qrow"><span class="qn">5</span><span>Somebody helps you every day and never says a word about it. Do you notice?</span></div>
+        <div class="qrow"><span class="qn">6</span><span>In the show, and in real life — do people change, or do they stay the same?</span></div>
       </div>
 
       <h3>1 · What people do · 4 min</h3>
@@ -454,9 +456,9 @@ p{margin:0 0 12px}
         <span>to promise</span><span>to keep a promise</span><span>to break a promise</span><span>to help out</span>
         <span>on purpose</span><span>by mistake</span>
       </div>
-      <div class="task"><b>Say it now.</b> Three sentences about the last episode, each with a
-        different verb from the line above: somebody <b>did</b> something good, somebody <b>did</b>
-        something bad, somebody <b>did</b> something you still don’t understand.</div>
+      <div class="task"><b>Say it now.</b> Go back to the warm-up questions and answer two of them
+        again — this time with <b>three verbs from the line above</b>. One answer about the show,
+        one about your own life.</div>
 
       <h3>2 · The rule in two fingers · 5 min</h3>
       <div class="grid two">
@@ -625,10 +627,12 @@ p{margin:0 0 12px}
       </div>
       <p class="teacher">Everything from the three lessons in one place, plus one new rule to learn
         on your own. Do it <b>out loud</b> — reading with your eyes does not count.
-        Every task has <b>Show answers</b> under it, so you can check yourself.</p>
+        Tasks 1, 4 and 6 have <b>Show answers</b> under them — check yourself there.
+        The rest you bring to the lesson.</p>
 
+      <h3>1 · The new rule: so and such</h3>
       <div class="gram">
-        <h3>1 · The new rule: so and such</h3>
+        <h3>so, or such a?</h3>
         <table>
           <tr><td>so + adjective</td><td><b>It’s so good.</b> · <b>She was so tired.</b></td></tr>
           <tr><td>such a + adjective + noun</td><td><b>It’s such a good song.</b> · <b>He is such a kind person.</b></td></tr>
@@ -673,8 +677,9 @@ p{margin:0 0 12px}
       <div class="task"><b>Task 3 · Ten out of twenty-eight.</b> Choose ten words you are least sure
         about and say one true sentence with each. About real people, not about “a man”.</div>
 
+      <h3>3 · The four tenses, one more time</h3>
       <div class="gram">
-        <h3>3 · The four tenses, one more time</h3>
+        <h3>One table, four times</h3>
         <table>
           <tr><td>Present Simple</td><td>always, usually, every week — normal life<br>
             <b>She always says sorry first.</b></td></tr>
@@ -729,7 +734,7 @@ p{margin:0 0 12px}
 
       <div class="card">
         <h4>Before the next lesson</h4>
-        <div class="qrow"><span class="qn">✓</span><span>Tasks 1 and 6 checked with the answers.</span></div>
+        <div class="qrow"><span class="qn">✓</span><span>Tasks 1, 4 and 6 checked with the answers.</span></div>
         <div class="qrow"><span class="qn">✓</span><span>Ten words said in your own sentences.</span></div>
         <div class="qrow"><span class="qn">✓</span><span>Four tenses about one real person.</span></div>
         <div class="qrow"><span class="qn">✓</span><span>Notes for the one-minute story ready.</span></div>
@@ -986,7 +991,7 @@ var GAPS = [
   ['They argued for two hours. After that I was ', '.', 'tired'],
   ['He told the truth in the end. Honestly, that was ', '.', 'surprising'],
   ['Are you ', ' in what she did next?', 'interested'],
-  ['He interrupted me ten times. I was really ', '.', 'annoyed'],
+  ['He interrupted me ten times. That was really ', '.', 'annoying'],
   ['Nobody told me the whole truth, so the story was ', '.', 'confusing']
 ];
 var pickedWord = null, flying = null, dragFrom = null, dragId = null, dragChip = null;
