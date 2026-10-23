@@ -43,9 +43,9 @@ p{margin:0 0 12px}
   font-family:var(--body);transition:transform .12s ease}
 .navbtn:hover{transform:translateY(-1px)}
 .navrow .navbtn:nth-child(1).active{background:#D6246E}
-.navrow .navbtn:nth-child(2).active{background:#2456C6}
-.navrow .navbtn:nth-child(3).active{background:#DC5A26}
-.navrow .navbtn:nth-child(4).active{background:#7A34C8}
+.navrow .navbtn:nth-child(2).active{background:#DC5A26}
+.navrow .navbtn:nth-child(3).active{background:#7A34C8}
+.navrow .navbtn:nth-child(4).active{background:#2456C6}
 .navrow .navbtn:nth-child(5).active{background:#0F7355}
 .navbtn.active{color:#fff;border-color:transparent}
 
@@ -61,6 +61,10 @@ p{margin:0 0 12px}
 .hero .glow{position:absolute;right:-60px;bottom:-70px;width:280px;height:280px;border-radius:50%;
   background:radial-gradient(circle,#FFB6D5 0%,transparent 65%);opacity:.5}
 
+.poster{margin:18px auto;max-width:470px}
+.poster img{width:100%;display:block;border-radius:20px;border:1px solid var(--line)}
+.poster .pcap{margin-top:12px;font-family:var(--display);font-weight:700;font-size:16.5px;
+  line-height:1.4;text-align:center}
 .banner{position:relative;border-radius:22px;overflow:hidden;margin:18px 0}
 .banner img{width:100%;aspect-ratio:16/8;object-fit:cover}
 .banner .cap{position:absolute;left:0;right:0;bottom:0;padding:16px;color:#fff;
@@ -191,6 +195,7 @@ p{margin:0 0 12px}
 @media(prefers-reduced-motion:reduce){.who,.chip,.navbtn{transition:none}}
 @media(max-width:800px){
   .wrap{padding:10px}
+  .gram td:first-child{white-space:normal}
   .topnav{margin:0 -10px 12px;padding:9px 10px}
   .hero{padding:32px 20px 26px;border-radius:22px}
   .section{padding:18px;border-radius:20px}
@@ -207,6 +212,7 @@ p{margin:0 0 12px}
       <button class="navbtn active" onclick="showLesson(1,this)">1 · Who Is Who</button>
       <button class="navbtn" onclick="showLesson(3,this)">2 · Friends &amp; Drama</button>
       <button class="navbtn" onclick="showLesson(4,this)">3 · What Do You Think</button>
+      <button class="navbtn" onclick="showLesson(6,this)">4 · Homework</button>
       <button class="navbtn" onclick="showLesson(5,this)">Phrasebook</button>
     </div>
   </div>
@@ -427,6 +433,10 @@ p{margin:0 0 12px}
       <div class="banner"><img src="city-skyline.jpg" alt="New York skyline">
         <div class="cap">Eight million people, and every one of them did something today</div></div>
 
+      <div class="poster"><img src="city-bingo.jpg" alt="Verb patterns bingo card">
+        <div class="pcap">Start here. Choose any square and finish the sentence out loud —
+          a full sentence, not two words. Five squares in a row and you shout <b>bingo</b>.</div></div>
+
       <h3>Warm-up · 5 min</h3>
       <div class="card">
         <div class="ru">No new words yet. Just answer — full sentences, not one word.</div>
@@ -451,14 +461,14 @@ p{margin:0 0 12px}
       <h3>2 · The rule in two fingers · 5 min</h3>
       <div class="grid two">
         <div class="card"><h4>👉 the thing → -ing</h4>
-          <div class="ru">Point at the film, the song, the lesson.</div>
+          <div class="ru">Point at it: the film, the song, the lesson. The thing <b>makes</b> the feeling.</div>
           <div class="phrase">The film is boring.
             <button class="speak" onclick="say('The film is boring.')">🔊</button></div>
           <div class="phrase">This song is amazing.
             <button class="speak" onclick="say('This song is amazing.')">🔊</button></div>
         </div>
         <div class="card"><h4>👈 me → -ed</h4>
-          <div class="ru">Point at yourself. This is how you feel.</div>
+          <div class="ru">Point at yourself. You <b>get</b> the feeling. People only — chairs are never tired.</div>
           <div class="phrase">I am bored.
             <button class="speak" onclick="say('I am bored.')">🔊</button></div>
           <div class="phrase">I am excited.
@@ -466,7 +476,7 @@ p{margin:0 0 12px}
         </div>
       </div>
       <div class="gram">
-        <h3>Six pairs you need</h3>
+        <h3>Ten pairs you need</h3>
         <table>
           <tr><td>bore</td><td>The lesson is <b>boring</b>. → I am <b>bored</b>.</td></tr>
           <tr><td>interest</td><td>The book is <b>interesting</b>. → I am <b>interested</b>.</td></tr>
@@ -474,11 +484,37 @@ p{margin:0 0 12px}
           <tr><td>surprise</td><td>The ending is <b>surprising</b>. → I am <b>surprised</b>.</td></tr>
           <tr><td>tire</td><td>The trip was <b>tiring</b>. → I was <b>tired</b>.</td></tr>
           <tr><td>relax</td><td>This music is <b>relaxing</b>. → I am <b>relaxed</b>.</td></tr>
+          <tr><td>annoy</td><td>His question was <b>annoying</b>. → I was <b>annoyed</b>.</td></tr>
+          <tr><td>confuse</td><td>The story is <b>confusing</b>. → I am <b>confused</b>.</td></tr>
+          <tr><td>shock</td><td>The news was <b>shocking</b>. → I was <b>shocked</b>.</td></tr>
+          <tr><td>disappoint</td><td>The party was <b>disappointing</b>. → I was <b>disappointed</b>.</td></tr>
         </table>
+        <div class="ex">Same verb, two endings. <b>-ing</b> is the thing, <b>-ed</b> is the person.</div>
       </div>
 
-      <div class="task"><b>Task 1 · Drag and say.</b> Put the right word in every gap,
-        then read each sentence out loud.</div>
+      <div class="task"><b>Task 1 · Two halves, one sentence.</b> I give you a verb and a thing.
+        You say <b>both</b> halves out loud, like this:
+        <i>bore · the lesson → “The lesson was boring, so I was bored.”</i></div>
+      <div>
+        <div class="qrow"><span class="qn">1</span><span>excite · the trip to New York</span></div>
+        <div class="qrow"><span class="qn">2</span><span>surprise · her answer</span></div>
+        <div class="qrow"><span class="qn">3</span><span>annoy · his question</span></div>
+        <div class="qrow"><span class="qn">4</span><span>tire · the long day at school</span></div>
+        <div class="qrow"><span class="qn">5</span><span>confuse · the ending of the episode</span></div>
+        <div class="qrow"><span class="qn">6</span><span>disappoint · the end of the season</span></div>
+        <button class="btn ghost" style="margin-top:10px" onclick="flip('k3a')">Show answers</button>
+        <div class="reveal" id="k3a">1 The trip was exciting, so I was excited. ·
+          2 Her answer was surprising, so I was surprised. ·
+          3 His question was annoying, so I was annoyed. ·
+          4 The long day was tiring, so I was tired. ·
+          5 The ending was confusing, so I was confused. ·
+          6 The end of the season was disappointing, so I was disappointed.</div>
+      </div>
+
+      <h3>3 · Put them in · 6 min</h3>
+      <div class="task"><b>Task 2 · Drag and say.</b> Put the right word in every gap,
+        then read each sentence out loud. Eight sentences, four of them about a person
+        and four about a thing — look at the ending before you drop the word.</div>
       <div class="dbank" id="bank4"></div>
       <div class="dlines" id="lines4"></div>
       <div class="row-btn">
@@ -487,43 +523,41 @@ p{margin:0 0 12px}
         <span class="score" id="gaps4s"></span>
       </div>
 
-      <h3>3 · The trap · 4 min</h3>
+      <h3>4 · The trap · 5 min</h3>
       <div class="gram">
         <h3>One letter changes everything</h3>
         <table>
           <tr><td>I am bored.</td><td>Nothing interesting is happening to me. ✅ what you mean</td></tr>
           <tr><td>I am boring.</td><td>People are bored <b>with me</b>. 😅 careful</td></tr>
-          <tr><td>after I am / he is</td><td>about a person → <b>-ed</b>, almost always</td></tr>
+          <tr><td>He is confused.</td><td>He doesn’t understand. ✅</td></tr>
+          <tr><td>He is confusing.</td><td>Nobody understands <b>him</b>. 😅</td></tr>
+          <tr><td>the quick test</td><td>After <b>I am</b> / <b>he is</b> / <b>she was</b> about a real person → <b>-ed</b>.</td></tr>
         </table>
       </div>
-      <div class="task"><b>Task 2 · Fix it out loud.</b> Four wrong sentences. Say the right one.</div>
+      <div class="task"><b>Task 3 · Fix it out loud.</b> Six wrong sentences. Say the right one —
+        the whole sentence, not just the word.</div>
       <div>
         <div class="qrow"><span class="qn">1</span><span>I am very boring in this lesson.</span></div>
         <div class="qrow"><span class="qn">2</span><span>The ending was so surprised!</span></div>
         <div class="qrow"><span class="qn">3</span><span>After the trip I was very tiring.</span></div>
         <div class="qrow"><span class="qn">4</span><span>Are you interesting in football?</span></div>
+        <div class="qrow"><span class="qn">5</span><span>Sorry, I am confusing — say it again.</span></div>
+        <div class="qrow"><span class="qn">6</span><span>The news about her was very shocked.</span></div>
         <button class="btn ghost" style="margin-top:10px" onclick="flip('k4')">Show answers</button>
-        <div class="reveal" id="k4">1 I am very bored · 2 so surprising · 3 I was very tired ·
-          4 Are you interested in football?</div>
+        <div class="reveal" id="k4">1 I am very bored in this lesson. · 2 The ending was so surprising! ·
+          3 After the trip I was very tired. · 4 Are you interested in football? ·
+          5 Sorry, I am confused — say it again. · 6 The news about her was very shocking.</div>
       </div>
 
-      <h3>4 · so and such · 5 min</h3>
-      <div class="gram">
-        <h3>Which one?</h3>
-        <table>
-          <tr><td>so + adjective</td><td><b>It’s so good.</b> · <b>She was so tired.</b></td></tr>
-          <tr><td>such + a + adjective + noun</td><td><b>It’s such a good song.</b></td></tr>
-          <tr><td>the test</td><td>Is there a noun after the adjective? Yes → <b>such a</b>. No → <b>so</b>.</td></tr>
-        </table>
-      </div>
-      <div class="task"><b>Task 3 · so or such?</b> Say the full sentence, don’t just say the word.</div>
-      <div>
-        <div class="qrow"><span class="qn">1</span><span>This song is ___ good.</span></div>
-        <div class="qrow"><span class="qn">2</span><span>It’s ___ a good song.</span></div>
-        <div class="qrow"><span class="qn">3</span><span>The last episode was ___ sad.</span></div>
-        <div class="qrow"><span class="qn">4</span><span>That was ___ a bad day.</span></div>
-        <button class="btn ghost" style="margin-top:10px" onclick="flip('k5')">Show answers</button>
-        <div class="reveal" id="k5">1 so · 2 such · 3 so · 4 such</div>
+      <div class="task"><b>Task 4 · Finish it about you.</b> No right answers here — but every
+        sentence must be true and longer than three words.</div>
+      <div class="pair">
+        <div class="line">I am really interested in…</div>
+        <div class="line">… is boring for me, honestly.</div>
+        <div class="line">Last week I was surprised when…</div>
+        <div class="line">I get annoyed when people…</div>
+        <div class="line">The most exciting thing this month was…</div>
+        <div class="line">English is still confusing for me when…</div>
       </div>
 
       <h3>5 · One action is not the whole person · 6 min</h3>
@@ -537,7 +571,7 @@ p{margin:0 0 12px}
         </table>
         <div class="ex">Also useful: <b>on purpose</b> (he knew) against <b>by mistake</b> (he didn’t).</div>
       </div>
-      <div class="task"><b>Task 4 · Change the label.</b> I give you a label — you turn it into
+      <div class="task"><b>Task 5 · Change the label.</b> I give you a label — you turn it into
         one action. <i>“He is selfish” → “He didn’t help his friend when she asked.”</i></div>
       <div class="pair">
         <div class="line">She is a bad friend.</div>
@@ -559,27 +593,148 @@ p{margin:0 0 12px}
         <div class="ex">One rule: never stop after “I think so”. The next word is always <b>because</b>.</div>
       </div>
 
-      <div class="task"><b>Task 5 · Pick a side.</b> I read a sentence. You agree or you don’t,
+      <div class="task"><b>Task 6 · Pick a side.</b> I read a sentence. You agree or you don’t,
         <b>and you give one real example</b> — from the show or from your own life.
         Then I take the other side and you answer me. Two rounds each, no one-word answers.</div>
       <div class="pair">
         <div class="line">A small lie is fine if it protects your friend.</div>
         <div class="line">If somebody lies to you once, you can never trust them again.</div>
         <div class="line">A real friend tells you the truth, even when it hurts.</div>
-        <div class="line">People who talk behind your back don’t change.</div>
         <div class="line">Saying sorry is easy. Doing something about it is the hard part.</div>
         <div class="line">You should always give a friend a second chance.</div>
       </div>
 
       <h3>7 · One minute, no stopping · 5 min</h3>
-      <div class="task"><b>Task 6 · The wrong thing.</b> Start the timer and talk for <b>60 seconds</b>:
+      <div class="task"><b>Task 7 · The wrong thing.</b> Start the timer and talk for <b>60 seconds</b>:
         think of a person in the show who did something wrong. What exactly did they do?
         Was it on purpose or by mistake? Was it a bad action or a bad person?
         And what would you do in their place?<br>
-        Three verbs from today and one <b>so</b> or <b>such</b>. I don’t correct you until the timer stops.</div>
+        Three verbs from today and two words with <b>-ing</b> or <b>-ed</b>.
+        I don’t correct you until the timer stops.</div>
 
     </div>
 
+  </main>
+
+  <!-- ================= HOMEWORK ================= -->
+  <main id="lesson6" class="lesson t2">
+    <div class="section">
+      <div class="section-head">
+        <div><div class="kicker">After the lesson</div><h2>Homework</h2></div>
+        <span class="time">about 40 min</span>
+      </div>
+      <p class="teacher">Everything from the three lessons in one place, plus one new rule to learn
+        on your own. Do it <b>out loud</b> — reading with your eyes does not count.
+        Every task has <b>Show answers</b> under it, so you can check yourself.</p>
+
+      <div class="gram">
+        <h3>1 · The new rule: so and such</h3>
+        <table>
+          <tr><td>so + adjective</td><td><b>It’s so good.</b> · <b>She was so tired.</b></td></tr>
+          <tr><td>such a + adjective + noun</td><td><b>It’s such a good song.</b> · <b>He is such a kind person.</b></td></tr>
+          <tr><td>the test</td><td>Is there a noun after the adjective? Yes → <b>such a</b>. No → <b>so</b>.</td></tr>
+          <tr><td>no “a” here</td><td>With plural or uncountable: <b>such good friends</b> · <b>such bad news</b>.</td></tr>
+        </table>
+        <div class="ex">Short cut: <b>so</b> + one word, <b>such a</b> + two words.</div>
+      </div>
+      <div class="task"><b>Task 1 · so or such?</b> Say the whole sentence out loud, then check.</div>
+      <div>
+        <div class="qrow"><span class="qn">1</span><span>This song is ___ good.</span></div>
+        <div class="qrow"><span class="qn">2</span><span>It’s ___ a good song.</span></div>
+        <div class="qrow"><span class="qn">3</span><span>The last episode was ___ sad.</span></div>
+        <div class="qrow"><span class="qn">4</span><span>That was ___ a bad day.</span></div>
+        <div class="qrow"><span class="qn">5</span><span>She is ___ a kind person.</span></div>
+        <div class="qrow"><span class="qn">6</span><span>I was ___ tired after school.</span></div>
+        <div class="qrow"><span class="qn">7</span><span>They are ___ good friends.</span></div>
+        <div class="qrow"><span class="qn">8</span><span>The ending was ___ confusing.</span></div>
+        <button class="btn ghost" style="margin-top:10px" onclick="flip('h1')">Show answers</button>
+        <div class="reveal" id="h1">1 so · 2 such · 3 so · 4 such · 5 such · 6 so · 7 such · 8 so</div>
+      </div>
+      <div class="task"><b>Task 2 · Three and three.</b> Say three true sentences about your week
+        with <b>so</b>, and three with <b>such a</b>. Record them on your phone and listen once.</div>
+
+      <h3>2 · All the words from this lesson</h3>
+      <div class="ru">Chapter 1 — what people are like:</div>
+      <div class="wordbank">
+        <span>talkative</span><span>confident</span><span>clever</span><span>polite</span>
+        <span>kind</span><span>strict</span><span>funny</span><span>quiet</span>
+      </div>
+      <div class="ru">Chapter 2 — helping a friend:</div>
+      <div class="wordbank">
+        <span>advice</span><span>a recommendation</span><span>a tip</span><span>You should…</span>
+        <span>I’d recommend…</span><span>Why don’t you…?</span><span>to argue</span><span>to make up</span>
+      </div>
+      <div class="ru">Chapter 3 — what people do:</div>
+      <div class="wordbank">
+        <span>to lie</span><span>to tell the truth</span><span>to ignore somebody</span><span>to interrupt</span>
+        <span>to talk behind your back</span><span>to support somebody</span><span>to apologise</span><span>to promise</span>
+        <span>to keep a promise</span><span>to break a promise</span><span>on purpose</span><span>by mistake</span>
+      </div>
+      <div class="task"><b>Task 3 · Ten out of twenty-eight.</b> Choose ten words you are least sure
+        about and say one true sentence with each. About real people, not about “a man”.</div>
+
+      <div class="gram">
+        <h3>3 · The four tenses, one more time</h3>
+        <table>
+          <tr><td>Present Simple</td><td>always, usually, every week — normal life<br>
+            <b>She always says sorry first.</b></td></tr>
+          <tr><td>Present Continuous</td><td>right now, at the moment — look at it happening<br>
+            <b>Look, she is texting him now.</b></td></tr>
+          <tr><td>Past Simple</td><td>yesterday, last week, two days ago — finished<br>
+            <b>They had a big argument last week.</b></td></tr>
+          <tr><td>Future Simple</td><td>tomorrow, tonight, next week — a plan or a promise<br>
+            <b>I will text her tonight.</b></td></tr>
+        </table>
+        <div class="ex">The time word tells you the tense. Hear the time word first, then choose.</div>
+      </div>
+      <div class="task"><b>Task 4 · Which tense?</b> Say the tense out loud, then say the same
+        sentence about a real person you know.</div>
+      <div>
+        <div class="qrow"><span class="qn">1</span><span>My best friend never says sorry first.</span></div>
+        <div class="qrow"><span class="qn">2</span><span>Look, he is calling me right now.</span></div>
+        <div class="qrow"><span class="qn">3</span><span>We had a big argument two days ago.</span></div>
+        <div class="qrow"><span class="qn">4</span><span>I will tell her the truth tonight.</span></div>
+        <div class="qrow"><span class="qn">5</span><span>She is watching the new season at the moment.</span></div>
+        <div class="qrow"><span class="qn">6</span><span>I usually watch one episode a day.</span></div>
+        <div class="qrow"><span class="qn">7</span><span>He broke his promise last Friday.</span></div>
+        <div class="qrow"><span class="qn">8</span><span>Next week I will apologise to him.</span></div>
+        <button class="btn ghost" style="margin-top:10px" onclick="flip('h2')">Show answers</button>
+        <div class="reveal" id="h2">1 Present Simple · 2 Present Continuous · 3 Past Simple ·
+          4 Future Simple · 5 Present Continuous · 6 Present Simple · 7 Past Simple · 8 Future Simple</div>
+      </div>
+      <div class="task"><b>Task 5 · One friend, four tenses.</b> Choose one real person and say
+        four sentences about them, one in each tense: what they <b>usually</b> do ·
+        what they are doing <b>now</b> · what they did <b>last week</b> ·
+        what they <b>will</b> do tomorrow.</div>
+
+      <h3>4 · -ing or -ed · quick test</h3>
+      <div class="task"><b>Task 6.</b> One word is missing in every sentence. Say the full sentence.</div>
+      <div>
+        <div class="qrow"><span class="qn">1</span><span>The film was three hours long. I was really (bore) ___.</span></div>
+        <div class="qrow"><span class="qn">2</span><span>Her new album is (amaze) ___.</span></div>
+        <div class="qrow"><span class="qn">3</span><span>He interrupted me again. It was so (annoy) ___.</span></div>
+        <div class="qrow"><span class="qn">4</span><span>Sorry, I don’t understand — I am (confuse) ___.</span></div>
+        <div class="qrow"><span class="qn">5</span><span>Are you (interest) ___ in this series?</span></div>
+        <div class="qrow"><span class="qn">6</span><span>The news about them was (shock) ___.</span></div>
+        <button class="btn ghost" style="margin-top:10px" onclick="flip('h3')">Show answers</button>
+        <div class="reveal" id="h3">1 bored · 2 amazing · 3 annoying · 4 confused · 5 interested · 6 shocking</div>
+      </div>
+
+      <h3>5 · Prepare one story</h3>
+      <div class="task"><b>Task 7 · Bring it to the lesson.</b> Think of a time when somebody
+        <b>broke a promise</b> — a friend, a classmate, somebody in the show.
+        Make notes, <b>don’t write the whole text</b>, and be ready to tell it in one minute:
+        what they promised · what they really did · on purpose or by mistake ·
+        how you felt (one <b>-ed</b> word) · what you would do now.</div>
+
+      <div class="card">
+        <h4>Before the next lesson</h4>
+        <div class="qrow"><span class="qn">✓</span><span>Tasks 1 and 6 checked with the answers.</span></div>
+        <div class="qrow"><span class="qn">✓</span><span>Ten words said in your own sentences.</span></div>
+        <div class="qrow"><span class="qn">✓</span><span>Four tenses about one real person.</span></div>
+        <div class="qrow"><span class="qn">✓</span><span>Notes for the one-minute story ready.</span></div>
+      </div>
+    </div>
   </main>
 
   <!-- ================= PHRASEBOOK ================= -->
@@ -830,7 +985,9 @@ var GAPS = [
   ['They are friends again and I’m really ', ' about it.', 'excited'],
   ['They argued for two hours. After that I was ', '.', 'tired'],
   ['He told the truth in the end. Honestly, that was ', '.', 'surprising'],
-  ['Are you ', ' in what she did next?', 'interested']
+  ['Are you ', ' in what she did next?', 'interested'],
+  ['He interrupted me ten times. I was really ', '.', 'annoyed'],
+  ['Nobody told me the whole truth, so the story was ', '.', 'confusing']
 ];
 var pickedWord = null, flying = null, dragFrom = null, dragId = null, dragChip = null;
 function buildGaps(){
