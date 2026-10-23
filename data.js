@@ -1074,6 +1074,98 @@ lonely - одинокий (грустно) - 😔
 I was alone at home, but I was not lonely - я был дома один, но мне не было одиноко - 🏠
 Sometimes I like to be alone - иногда мне нравится побыть одному - 🚶
 
+# NEW WORDS | Lesson 23 Oct | 23 Oct
+
+// --- 1. Волнение и страх ---
+anxiety - тревога, волнение - 😰
+anxious - встревоженный, нервничающий - 😟
+You are anxious - ты нервничаешь - 😟
+scary - страшный - 😱
+It is scary - это страшно - 😱
+Before the exam I always feel anxious - перед экзаменом я всегда нервничаю - 😰
+The first episode was really scary - первая серия была по-настоящему страшная - 😱
+Don't be anxious, it is already done - не нервничай, это уже сделано - ✅
+it is already done - это уже сделано - ✅
+
+// --- 2. Что я чувствую от сериала ---
+emotional - эмоциональный, трогательный - 🥹
+heartbreaking - душераздирающий, разрывающий сердце - 💔
+a heartbreaking episode - серия, от которой разрывается сердце - 💔
+American Horror Story - «Американская история ужасов» - 🩸
+I can't wait - не могу дождаться - ⏰
+I can't wait for the next episode - не могу дождаться следующей серии - ⏰
+That episode was so emotional, I cried - та серия была такая трогательная, я плакал - 🥹
+American Horror Story is scary, but I love it - «Американская история ужасов» страшная, но я её люблю - 🩸
+
+// --- 3. Одинаковое и разное ---
+the same - такой же, то же самое - 🟰
+It's not the same - это не то же самое - ❌
+different - другой, не такой - 🔀
+He is different too - он тоже другой - 🔀
+difficult - трудный, сложный - 😮‍💨
+to describe - описывать - 🗣️
+it depends - смотря как, зависит от ситуации - ⚖️
+The book and the film are not the same - книга и фильм — это не одно и то же - ❌
+Every character is different - каждый персонаж разный - 🔀
+Can you describe her in three words? - можешь описать её тремя словами? - 🗣️
+Do you like it? — It depends - тебе нравится? — смотря когда - ⚖️
+
+// --- 4. Какой человек ---
+tolerant - терпимый, принимающий других - 🤲
+annoying - раздражающий, бесячий - 😤
+permanent - постоянный, навсегда - ♾️
+to overestimate - переоценить - 📈
+My mum is very tolerant - моя мама очень терпимая - 🤲
+He is annoying, but he is a good friend - он бесячий, но хороший друг - 😤
+Nothing is permanent - ничто не вечно - ♾️
+I overestimated my English before the trip - я переоценил свой английский перед поездкой - 📈
+
+// --- 5. Планы и решения ---
+to decide - решать - 🤔
+a decision - решение - 🤔
+Today I decided - сегодня я решил - 🤔
+for next week - на следующую неделю - 📅
+She goes - она ходит, она идёт - 🚶‍♀️
+Today I decided to start again - сегодня я решил начать заново - 🔄
+This homework is for next week - это домашнее задание на следующую неделю - 📅
+She goes to the gym every Monday - она ходит в спортзал каждый понедельник - 🚶‍♀️
+
+// --- 6. Косплей и демоверсии ---
+a demo version - демоверсия, пробный вариант - 📄
+demo versions - демоверсии - 📄
+a pair cosplay - парный косплей - 👯
+We did two demo versions of the exam - мы сделали две демоверсии экзамена - 📄
+We are making a pair cosplay for the festival - мы делаем парный косплей к фестивалю - 👯
+I can't wait to see your cosplay - не могу дождаться, когда увижу твой косплей - ⏰
+
+// --- 7. Ссора, извинения и благодарность ---
+an argument - ссора, спор - 💢
+to argue - спорить, ссориться - 😤
+to forgive - прощать - 🕊️
+to apologize - извиняться (брит. apologise) - 🙏
+advice - совет, советы (всегда без -s) - 💡
+gratitude - благодарность - 🙇
+This situation shows - эта ситуация показывает - 🔎
+We had an argument about nothing - мы поссорились из-за ерунды - 💢
+He apologized and I forgave him - он извинился, и я его простил - 🕊️
+Can you give me some advice? - можешь дать мне совет? - 💡
+This situation shows that he is different too - эта ситуация показывает, что он тоже другой - 🔎
+I want to say thank you — that is my gratitude - я хочу сказать спасибо — это моя благодарность - 🙇
+
+// --- 8. Добавить ещё ---
+to add - добавлять - ➕
+adding - добавление (процесс) - ➕
+an addition - добавление, дополнение - ➕
+extra - дополнительный, лишний - ✨
+dressing - заправка (для салата) - 🥗
+Can I have extra dressing, please? - можно мне побольше заправки? - 🥗
+Add one more example, please - добавь ещё один пример, пожалуйста - ➕
+This is a nice addition to the story - это хорошее дополнение к истории - ➕
+
+// --- 9. Фраза урока ---
+easy peasy lemon squeezy - проще простого - 🍋
+Was it difficult? — No, easy peasy lemon squeezy! - было трудно? — нет, проще простого! - 🍋
+
 # TOPIC | Travel · Hotel & City | 🏨 | 🏨🗺️🚏
 = frames
 At the hotel I
