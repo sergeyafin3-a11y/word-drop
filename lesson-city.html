@@ -197,6 +197,14 @@ p{margin:0 0 12px}
 .ti:focus{outline:3px solid var(--accent);outline-offset:3px}
 .ti.ok{border-color:#2C7A5B;color:#2C7A5B}
 .ti.no{border-color:#C2323F;color:#C2323F}
+.ts{font:inherit;font-weight:800;font-size:16px;color:var(--accent);background:#fff;
+  border:2px solid var(--accent);border-radius:12px;padding:8px 10px;max-width:100%}
+.ts.ok{border-color:#2C7A5B;color:#2C7A5B}
+.ts.no{border-color:#C2323F;color:#C2323F}
+/* объяснение показывается только если ответ неверный */
+.why{display:none;margin-top:8px;padding:10px 12px;border-radius:12px;background:#FDE8EC;
+  color:#8C1F2B;font-weight:700;font-size:15px;line-height:1.45}
+.why.on{display:block}
 .dlines{display:flex;flex-direction:column;gap:10px}
 .dline{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:13px;font-weight:600}
 .gap{display:inline-block;min-width:112px;min-height:32px;line-height:30px;vertical-align:middle;
@@ -467,9 +475,9 @@ p{margin:0 0 12px}
         <div class="qrow"><span class="qn">6</span><span>In the show, and in real life — do people change, or do they stay the same?</span></div>
       </div>
 
-      <div class="band hw">✅ In class we did the warm-up.
-        📌 At home: everything from here down to <b>Task 5</b>. Read the rules first,
-        then do the tasks and press <b>Check</b> — the app tells you what is right.</div>
+      <div class="band hw">📌 <b>Homework: Task 1 only</b> — match the words with the translations.
+        Everything else in this chapter we do together in the lesson.
+        The real homework is in the <b>Homework</b> tab at the top.</div>
 
       <h3>1 · What people do · 8 min</h3>
       <div class="wordbank">
@@ -553,23 +561,6 @@ p{margin:0 0 12px}
         <div class="ex">Same verb, two endings. <b>-ing</b> is the thing, <b>-ed</b> is the person.</div>
       </div>
 
-      <div class="card">
-        <h4>Разбери это дома — по-русски</h4>
-        <div class="ru" style="line-height:1.6">
-          <p><b>-ing</b> — про <b>вещь</b>: какой фильм, какой урок, какая новость. Вещь
-            <i>делает</i> чувство. <i>The film is boring.</i> — фильм скучный.</p>
-          <p><b>-ed</b> — про <b>человека</b>: что он чувствует. Человек <i>получает</i> чувство.
-            <i>I am bored.</i> — мне скучно.</p>
-          <p><b>Проверка за секунду.</b> Переведи на русский. Получается «мне / ему / ей» —
-            ставь <b>-ed</b>. Получается «какой / какая / какое» — ставь <b>-ing</b>.</p>
-          <p><b>Главная ошибка.</b> <i>I am boring</i> — это «я скучный человек».
-            Если хочешь сказать «мне скучно», можно только <i>I am bored</i>.</p>
-          <p><b>Как выучить таблицу за три минуты.</b> Закрой пальцем правый столбец,
-            посмотри на глагол и скажи вслух обе формы: <i>bore → boring, bored</i>.
-            Открой и проверь. Пройди все десять пар два раза.</p>
-        </div>
-      </div>
-
       <div class="task"><b>Task 3 · Two halves, one sentence.</b> Every line has one verb.
         The <b>thing</b> takes <b>-ing</b>, the <b>person</b> takes <b>-ed</b>.
         Type both forms, then press <b>Check answers</b>. Say the whole sentence out loud after that.</div>
@@ -629,19 +620,6 @@ p{margin:0 0 12px}
           <tr><td>the quick test</td><td>After <b>I am</b> / <b>he is</b> / <b>she was</b> about a real person → <b>-ed</b>.</td></tr>
         </table>
       </div>
-
-      <div class="card">
-        <h4>Почему это важно</h4>
-        <div class="ru" style="line-height:1.6">
-          <p>Одна буква меняет смысл на противоположный, и носитель услышит именно то,
-            что ты сказал, а не то, что ты имел в виду:</p>
-          <p><i>I am bored</i> — мне скучно. &nbsp;·&nbsp; <i>I am boring</i> — я скучный человек.</p>
-          <p><i>He is confused</i> — он не понял. &nbsp;·&nbsp; <i>He is confusing</i> — его никто не понимает.</p>
-          <p><i>I am interested</i> — мне интересно. &nbsp;·&nbsp; <i>I am interesting</i> — я интересный человек.</p>
-          <p><b>Правило без исключений для A1:</b> говоришь про себя или про другого человека —
-            ставь <b>-ed</b>. Говоришь про фильм, книгу, новость, день, урок — ставь <b>-ing</b>.</p>
-        </div>
-      </div>
       <div class="task"><b>Task 5 · Fix the mistake.</b> In every sentence <b class="was">one word</b>
         is wrong — it is underlined in red. Type the right form of that word and press
         <b>Check answers</b>. Then read the correct sentence out loud.</div>
@@ -668,8 +646,6 @@ p{margin:0 0 12px}
           3 After the trip I was very tired. · 4 Are you interested in football? ·
           5 Sorry, I am confused — say it again. · 6 The news about her was very shocking.</div>
       </div>
-
-      <div class="band cls">🎤 Homework ends here. Everything below we do together in the lesson.</div>
 
       <div class="task"><b>Task 6 · Finish it about you.</b> No right answers here — but every
         sentence must be true and longer than three words.</div>
@@ -746,9 +722,9 @@ p{margin:0 0 12px}
         <span class="time">about 40 min</span>
       </div>
       <p class="teacher">Everything from the three lessons in one place, plus one new rule to learn
-        on your own. Do it <b>out loud</b> — reading with your eyes does not count.
-        Tasks 1, 4 and 6 have <b>Show answers</b> under them — check yourself there.
-        The rest you bring to the lesson.</p>
+        on your own. Tasks 1, 3 and 4 you do <b>right here</b>: type the answer, press
+        <b>Check answers</b>, and the app says what is wrong and why. Tasks 2, 5, 6 and 7
+        are out loud — say them, don’t read them.</p>
 
       <h3>1 · The new rule: so and such</h3>
       <div class="gram">
@@ -761,16 +737,51 @@ p{margin:0 0 12px}
         </table>
         <div class="ex">Short cut: <b>so</b> + one word, <b>such a</b> + two words.</div>
       </div>
-      <div class="task"><b>Task 1 · so or such?</b> Say the whole sentence out loud, then check.</div>
-      <div>
-        <div class="qrow"><span class="qn">1</span><span>This song is ___ good.</span></div>
-        <div class="qrow"><span class="qn">2</span><span>It’s ___ a good song.</span></div>
-        <div class="qrow"><span class="qn">3</span><span>The last episode was ___ sad.</span></div>
-        <div class="qrow"><span class="qn">4</span><span>That was ___ a bad day.</span></div>
-        <div class="qrow"><span class="qn">5</span><span>She is ___ a kind person.</span></div>
-        <div class="qrow"><span class="qn">6</span><span>I was ___ tired after school.</span></div>
-        <div class="qrow"><span class="qn">7</span><span>They are ___ good friends.</span></div>
-        <div class="qrow"><span class="qn">8</span><span>The ending was ___ confusing.</span></div>
+
+      <div class="card">
+        <h4>Что это вообще такое — по-русски</h4>
+        <div class="ru" style="line-height:1.6">
+          <p>И <b>so</b>, и <b>such</b> переводятся одинаково — «такой, настолько».
+            Они нужны, чтобы усилить признак: не просто «хороший», а «такой хороший».
+            Разница только в том, <b>что стоит дальше в предложении</b>.</p>
+          <p><b>so</b> — дальше только признак и всё. <i>The song is <b>so</b> good.</i> —
+            песня такая хорошая. После <i>good</i> ничего нет, предложение кончилось.</p>
+          <p><b>such a</b> — дальше признак <b>и предмет</b>.
+            <i>It’s <b>such a</b> good song.</i> — это такая хорошая песня.
+            После <i>good</i> стоит <i>song</i>, поэтому нужен <b>such</b> и артикль <b>a</b>.</p>
+          <p><b>Как выбрать за одну секунду.</b> Посмотри, есть ли после прилагательного
+            существительное (предмет, человек, день, песня).
+            Есть — <b>such a</b>. Нет — <b>so</b>.</p>
+          <p><b>Когда «a» не нужна.</b> Если предмет во множественном числе или его нельзя
+            посчитать: <i>such good friends</i> (друзья), <i>such bad news</i> (новости).
+            Артикль <b>a</b> бывает только с одним предметом.</p>
+        </div>
+      </div>
+      <div class="task"><b>Task 1 · so or such?</b> Type one word in every gap —
+        <b>so</b> or <b>such</b> — and press <b>Check answers</b>.
+        Where you are wrong, the app explains why.</div>
+      <div class="tbox" id="hs">
+        <div class="tline"><span class="n">1</span>This song is <input class="ti" data-a="so" autocapitalize="off" autocomplete="off" spellcheck="false"> good.
+          <div class="why">После <b>good</b> ничего нет — предложение кончилось. Значит <b>so</b>.</div></div>
+        <div class="tline"><span class="n">2</span>It’s <input class="ti" data-a="such" autocapitalize="off" autocomplete="off" spellcheck="false"> a good song.
+          <div class="why">После <b>good</b> стоит предмет — <i>song</i>. Значит <b>such a</b>.</div></div>
+        <div class="tline"><span class="n">3</span>The last episode was <input class="ti" data-a="so" autocapitalize="off" autocomplete="off" spellcheck="false"> sad.
+          <div class="why">После <b>sad</b> ничего нет. Значит <b>so</b>.</div></div>
+        <div class="tline"><span class="n">4</span>That was <input class="ti" data-a="such" autocapitalize="off" autocomplete="off" spellcheck="false"> a bad day.
+          <div class="why">После <b>bad</b> стоит предмет — <i>day</i>. Значит <b>such a</b>.</div></div>
+        <div class="tline"><span class="n">5</span>She is <input class="ti" data-a="such" autocapitalize="off" autocomplete="off" spellcheck="false"> a kind person.
+          <div class="why">После <b>kind</b> стоит человек — <i>person</i>. Значит <b>such a</b>.</div></div>
+        <div class="tline"><span class="n">6</span>I was <input class="ti" data-a="so" autocapitalize="off" autocomplete="off" spellcheck="false"> tired after school.
+          <div class="why"><i>after school</i> — это не предмет при прилагательном, а обстоятельство. После <b>tired</b> предмета нет, значит <b>so</b>.</div></div>
+        <div class="tline"><span class="n">7</span>They are <input class="ti" data-a="such" autocapitalize="off" autocomplete="off" spellcheck="false"> good friends.
+          <div class="why">После <b>good</b> стоит предмет — <i>friends</i>, и он во множественном числе. Значит <b>such</b>, но уже без <b>a</b>.</div></div>
+        <div class="tline"><span class="n">8</span>The ending was <input class="ti" data-a="so" autocapitalize="off" autocomplete="off" spellcheck="false"> confusing.
+          <div class="why">После <b>confusing</b> ничего нет. Значит <b>so</b>.</div></div>
+        <div class="row-btn">
+          <button class="btn" onclick="checkType('hs')">Check answers</button>
+          <button class="btn ghost" onclick="clearType('hs')">Clear</button>
+          <span class="score"></span>
+        </div>
         <button class="btn ghost" style="margin-top:10px" onclick="flip('h1')">Show answers</button>
         <div class="reveal" id="h1">1 so · 2 such · 3 so · 4 such · 5 such · 6 so · 7 such · 8 so</div>
       </div>
@@ -794,8 +805,43 @@ p{margin:0 0 12px}
         <span>to talk behind your back</span><span>to support somebody</span><span>to apologise</span><span>to promise</span>
         <span>to keep a promise</span><span>to break a promise</span><span>on purpose</span><span>by mistake</span>
       </div>
-      <div class="task"><b>Task 3 · Ten out of twenty-eight.</b> Choose ten words you are least sure
-        about and say one true sentence with each. About real people, not about “a man”.</div>
+      <div class="task"><b>Task 3 · Do you still remember them?</b> Close the lists above
+        and write the English word. <i>to</i> at the start is up to you.
+        Then press <b>Check answers</b>.</div>
+      <div class="tbox" id="hw3">
+        <div class="tline"><span class="n">1</span>болтливый<br>
+          <input class="ti" data-a="talkative" autocapitalize="off" autocomplete="off" spellcheck="false"></div>
+        <div class="tline"><span class="n">2</span>уверенный в себе<br>
+          <input class="ti" data-a="confident" autocapitalize="off" autocomplete="off" spellcheck="false"></div>
+        <div class="tline"><span class="n">3</span>вежливый<br>
+          <input class="ti" data-a="polite" autocapitalize="off" autocomplete="off" spellcheck="false"></div>
+        <div class="tline"><span class="n">4</span>строгий<br>
+          <input class="ti" data-a="strict" autocapitalize="off" autocomplete="off" spellcheck="false"></div>
+        <div class="tline"><span class="n">5</span>совет (всегда без -s)<br>
+          <input class="ti" data-a="advice" autocapitalize="off" autocomplete="off" spellcheck="false"></div>
+        <div class="tline"><span class="n">6</span>подсказка, лайфхак<br>
+          <input class="ti" data-a="a tip|tip" autocapitalize="off" autocomplete="off" spellcheck="false"></div>
+        <div class="tline"><span class="n">7</span>спорить, ссориться<br>
+          <input class="ti" data-a="to argue|argue" autocapitalize="off" autocomplete="off" spellcheck="false"></div>
+        <div class="tline"><span class="n">8</span>помириться<br>
+          <input class="ti" data-a="to make up|make up" autocapitalize="off" autocomplete="off" spellcheck="false"></div>
+        <div class="tline"><span class="n">9</span>игнорировать кого-то<br>
+          <input class="ti" data-a="to ignore somebody|ignore somebody|to ignore someone|ignore someone" autocapitalize="off" autocomplete="off" spellcheck="false"></div>
+        <div class="tline"><span class="n">10</span>сдержать обещание<br>
+          <input class="ti" data-a="to keep a promise|keep a promise" autocapitalize="off" autocomplete="off" spellcheck="false"></div>
+        <div class="tline"><span class="n">11</span>поддерживать кого-то<br>
+          <input class="ti" data-a="to support somebody|support somebody|to support someone|support someone" autocapitalize="off" autocomplete="off" spellcheck="false"></div>
+        <div class="tline"><span class="n">12</span>специально, нарочно<br>
+          <input class="ti" data-a="on purpose" autocapitalize="off" autocomplete="off" spellcheck="false"></div>
+        <div class="row-btn">
+          <button class="btn" onclick="checkType('hw3')">Check answers</button>
+          <button class="btn ghost" onclick="clearType('hw3')">Clear</button>
+          <span class="score"></span>
+        </div>
+      </div>
+
+      <div class="task"><b>And out loud.</b> Take the five words you got wrong and say
+        one true sentence with each — about real people, not about “a man”.</div>
 
       <h3>3 · The four tenses, one more time</h3>
       <div class="gram">
@@ -812,17 +858,86 @@ p{margin:0 0 12px}
         </table>
         <div class="ex">The time word tells you the tense. Hear the time word first, then choose.</div>
       </div>
-      <div class="task"><b>Task 4 · Which tense?</b> Say the tense out loud, then say the same
-        sentence about a real person you know.</div>
-      <div>
-        <div class="qrow"><span class="qn">1</span><span>My best friend never says sorry first.</span></div>
-        <div class="qrow"><span class="qn">2</span><span>Look, he is calling me right now.</span></div>
-        <div class="qrow"><span class="qn">3</span><span>We had a big argument two days ago.</span></div>
-        <div class="qrow"><span class="qn">4</span><span>I will tell her the truth tonight.</span></div>
-        <div class="qrow"><span class="qn">5</span><span>She is watching the new season at the moment.</span></div>
-        <div class="qrow"><span class="qn">6</span><span>I usually watch one episode a day.</span></div>
-        <div class="qrow"><span class="qn">7</span><span>He broke his promise last Friday.</span></div>
-        <div class="qrow"><span class="qn">8</span><span>Next week I will apologise to him.</span></div>
+      <div class="task"><b>Task 4 · Which tense?</b> Choose the tense in the list,
+        then press <b>Check answers</b>. The marked word that gives it away is in bold.</div>
+      <div class="tbox" id="ht">
+        <div class="tline"><span class="n">1</span>My best friend <b>never</b> says sorry first.<br>
+          <select class="ts" data-a="Present Simple">
+            <option value="">— choose —</option>
+            <option value="Present Simple">Present Simple</option>
+            <option value="Present Continuous">Present Continuous</option>
+            <option value="Past Simple">Past Simple</option>
+            <option value="Future Simple">Future Simple</option>
+          </select>
+        </div>
+        <div class="tline"><span class="n">2</span><b>Look</b>, he is calling me <b>right now</b>.<br>
+          <select class="ts" data-a="Present Continuous">
+            <option value="">— choose —</option>
+            <option value="Present Simple">Present Simple</option>
+            <option value="Present Continuous">Present Continuous</option>
+            <option value="Past Simple">Past Simple</option>
+            <option value="Future Simple">Future Simple</option>
+          </select>
+        </div>
+        <div class="tline"><span class="n">3</span>We had a big argument <b>two days ago</b>.<br>
+          <select class="ts" data-a="Past Simple">
+            <option value="">— choose —</option>
+            <option value="Present Simple">Present Simple</option>
+            <option value="Present Continuous">Present Continuous</option>
+            <option value="Past Simple">Past Simple</option>
+            <option value="Future Simple">Future Simple</option>
+          </select>
+        </div>
+        <div class="tline"><span class="n">4</span>I will tell her the truth <b>tonight</b>.<br>
+          <select class="ts" data-a="Future Simple">
+            <option value="">— choose —</option>
+            <option value="Present Simple">Present Simple</option>
+            <option value="Present Continuous">Present Continuous</option>
+            <option value="Past Simple">Past Simple</option>
+            <option value="Future Simple">Future Simple</option>
+          </select>
+        </div>
+        <div class="tline"><span class="n">5</span>She is watching the new season <b>at the moment</b>.<br>
+          <select class="ts" data-a="Present Continuous">
+            <option value="">— choose —</option>
+            <option value="Present Simple">Present Simple</option>
+            <option value="Present Continuous">Present Continuous</option>
+            <option value="Past Simple">Past Simple</option>
+            <option value="Future Simple">Future Simple</option>
+          </select>
+        </div>
+        <div class="tline"><span class="n">6</span>I <b>usually</b> watch one episode a day.<br>
+          <select class="ts" data-a="Present Simple">
+            <option value="">— choose —</option>
+            <option value="Present Simple">Present Simple</option>
+            <option value="Present Continuous">Present Continuous</option>
+            <option value="Past Simple">Past Simple</option>
+            <option value="Future Simple">Future Simple</option>
+          </select>
+        </div>
+        <div class="tline"><span class="n">7</span>He broke his promise <b>last Friday</b>.<br>
+          <select class="ts" data-a="Past Simple">
+            <option value="">— choose —</option>
+            <option value="Present Simple">Present Simple</option>
+            <option value="Present Continuous">Present Continuous</option>
+            <option value="Past Simple">Past Simple</option>
+            <option value="Future Simple">Future Simple</option>
+          </select>
+        </div>
+        <div class="tline"><span class="n">8</span><b>Next week</b> I will apologise to him.<br>
+          <select class="ts" data-a="Future Simple">
+            <option value="">— choose —</option>
+            <option value="Present Simple">Present Simple</option>
+            <option value="Present Continuous">Present Continuous</option>
+            <option value="Past Simple">Past Simple</option>
+            <option value="Future Simple">Future Simple</option>
+          </select>
+        </div>
+        <div class="row-btn">
+          <button class="btn" onclick="checkType('ht')">Check answers</button>
+          <button class="btn ghost" onclick="clearType('ht')">Clear</button>
+          <span class="score"></span>
+        </div>
         <button class="btn ghost" style="margin-top:10px" onclick="flip('h2')">Show answers</button>
         <div class="reveal" id="h2">1 Present Simple · 2 Present Continuous · 3 Past Simple ·
           4 Future Simple · 5 Present Continuous · 6 Present Simple · 7 Past Simple · 8 Future Simple</div>
@@ -854,7 +969,7 @@ p{margin:0 0 12px}
 
       <div class="card">
         <h4>Before the next lesson</h4>
-        <div class="qrow"><span class="qn">✓</span><span>Tasks 1, 4 and 6 checked with the answers.</span></div>
+        <div class="qrow"><span class="qn">✓</span><span>Tasks 1, 3 and 4 done in the app, score checked.</span></div>
         <div class="qrow"><span class="qn">✓</span><span>Ten words said in your own sentences.</span></div>
         <div class="qrow"><span class="qn">✓</span><span>Four tenses about one real person.</span></div>
         <div class="qrow"><span class="qn">✓</span><span>Notes for the one-minute story ready.</span></div>
@@ -1315,7 +1430,7 @@ function tnorm(s){
 function checkType(id){
   var box = document.getElementById(id);
   if (!box) return;
-  var ins = [].slice.call(box.querySelectorAll('input.ti')), right = 0;
+  var ins = [].slice.call(box.querySelectorAll('input.ti, select.ts')), right = 0;
   ins.forEach(function(i){
     var typed = tnorm(i.value);
     var ok = typed !== '' && String(i.dataset.a || '').split('|').some(function(a){
@@ -1325,16 +1440,26 @@ function checkType(id){
     i.classList.toggle('no', !ok && typed !== '');
     if (ok) right++;
   });
+  /* объяснение показываем только там, где ученик ответил и ошибся */
+  box.querySelectorAll('.tline').forEach(function(l){
+    var w = l.querySelector('.why');
+    if (!w) return;
+    var fs = [].slice.call(l.querySelectorAll('input.ti, select.ts'));
+    var answered = fs.some(function(x){ return tnorm(x.value) !== ''; });
+    var wrong = fs.some(function(x){ return !x.classList.contains('ok'); });
+    w.classList.toggle('on', answered && wrong);
+  });
   var sc = box.querySelector('.score');
   if (sc) sc.textContent = right + ' / ' + ins.length;
 }
 function clearType(id){
   var box = document.getElementById(id);
   if (!box) return;
-  box.querySelectorAll('input.ti').forEach(function(i){
+  box.querySelectorAll('input.ti, select.ts').forEach(function(i){
     i.value = '';
     i.classList.remove('ok', 'no');
   });
+  box.querySelectorAll('.why').forEach(function(w){ w.classList.remove('on'); });
   var sc = box.querySelector('.score');
   if (sc) sc.textContent = '';
 }
