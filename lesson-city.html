@@ -214,6 +214,12 @@ p{margin:0 0 12px}
 .gap.over{background:var(--accent-soft);outline:3px solid var(--accent);outline-offset:4px}
 .gap.ok{border-color:#2C7A5B;color:#2C7A5B}
 .gap.no{border-color:#C2323F;color:#C2323F}
+.ticks{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px}
+.tlab{font-family:var(--display);font-weight:800;font-size:15px;color:var(--muted);margin-right:4px}
+.tick{width:42px;height:42px;border-radius:13px;border:2px solid var(--line);background:#fff;
+  font-family:var(--display);font-weight:900;font-size:16px;color:var(--muted);cursor:pointer}
+.tick.on{background:#2C7A5B;border-color:#2C7A5B;color:#fff}
+.tscore{font-weight:800;color:var(--accent);margin-left:8px;font-size:17px}
 .fcards{display:grid;gap:14px;margin:14px 0}
 @media(min-width:720px){.fcards{grid-template-columns:1fr 1fr}}
 .fcard{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--white);
@@ -1040,6 +1046,7 @@ p{margin:0 0 12px}
         <div class="qrow"><span class="qn">6</span><span>The ending of the season was (disappoint) ___.</span></div>
         <button class="btn ghost" style="margin-top:10px" onclick="flip('f1')">Check answers</button>
         <div class="reveal" id="f1">1 bored · 2 surprising · 3 annoying · 4 tired · 5 confused · 6 disappointing</div>
+        <div class="ticks" data-n="6"></div>
       </div>
 
       <h3>Task 3 · so or such · 3 min</h3>
@@ -1053,6 +1060,7 @@ p{margin:0 0 12px}
         <div class="qrow"><span class="qn">5</span><span>I was ___ upset after that conversation.</span></div>
         <button class="btn ghost" style="margin-top:10px" onclick="flip('f2')">Check answers</button>
         <div class="reveal" id="f2">1 such · 2 so · 3 such · 4 such · 5 so</div>
+        <div class="ticks" data-n="5"></div>
       </div>
 
       <h3>Task 4 · Put the verb in the right form · 10 min</h3>
@@ -1098,6 +1106,7 @@ p{margin:0 0 12px}
       <div class="reveal" id="f4">For example: <b>You should</b> tell her how you feel. ·
         <b>Why don’t you</b> apologise first? · <b>I’d recommend</b> a calm conversation, not a message. ·
         <b>You should</b> keep your promise next time, and say sorry now.</div>
+      <div class="ticks" data-n="4"></div>
 
       <h3>Task 6 · What did they really do? · 4 min</h3>
       <div class="task"><b>Look at the card.</b> Somebody put a label on this person.
@@ -1135,6 +1144,7 @@ p{margin:0 0 12px}
         2 He interrupted me three times. · 3 She told my secret to the whole class. ·
         4 They broke their promise and came an hour late. ·
         5 He supported me every evening — he just listened.</div>
+      <div class="ticks" data-n="5"></div>
 
       <h3>Task 7 · Speaking · 5 min</h3>
       <div class="task"><b>No check here — I listen.</b> One minute for each question,
@@ -1146,6 +1156,7 @@ p{margin:0 0 12px}
         <div class="line"><b>2.</b> Your friend asks you: “Should I always tell the truth?”
           Answer, give two reasons, and give one piece of advice.</div>
       </div>
+      <div class="ticks" data-n="2"></div>
     </div>
   </main>
 
@@ -1614,6 +1625,24 @@ function initSet(k){
     S.pick = null;
   });
 }
+/* устное задание проверяет преподаватель: отмечает верные ответы и видит счёт */
+function buildTicks(){
+  document.querySelectorAll('.ticks').forEach(function(box){
+    var n = parseInt(box.dataset.n, 10) || 0;
+    if (!n || box.dataset.ready) return;
+    var h = '<span class="tlab">Score</span>';
+    for (var i = 1; i <= n; i++) h += '<button class="tick" type="button">' + i + '</button>';
+    box.innerHTML = h + '<span class="tscore">0 / ' + n + '</span>';
+    box.dataset.ready = '1';
+    box.addEventListener('click', function(e){
+      var b = e.target.closest('.tick');
+      if (!b) return;
+      b.classList.toggle('on');
+      box.querySelector('.tscore').textContent =
+        box.querySelectorAll('.tick.on').length + ' / ' + n;
+    });
+  });
+}
 function buildWords(){ buildSet('w'); }
 function checkWords(){ checkSet('w'); }
 function initWords(){ initSet('w'); }
@@ -1671,6 +1700,7 @@ document.addEventListener('DOMContentLoaded', function(){
   initWords();
   buildFinal();
   initSet('f');
+  buildTicks();
   buildOrder('story3');
   initSortable(document.getElementById('story3'));
   buildGaps();
