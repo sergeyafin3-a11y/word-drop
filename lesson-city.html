@@ -20,6 +20,7 @@
 .t3{--accent:#DC5A26;--accent-soft:#FCE8DE;--grad:linear-gradient(140deg,#3A1408,#8C3413 45%,#E2742F)}
 .t4{--accent:#7A34C8;--accent-soft:#EEE3FB;--grad:linear-gradient(140deg,#230C3D,#5A1F94 45%,#9A4FE0)}
 .t5{--accent:#0F7355;--accent-soft:#DAF0E7;--grad:linear-gradient(140deg,#06251C,#0E5E46 45%,#1E9B72)}
+.t6{--accent:#B3123C;--accent-soft:#FCE1E8;--grad:linear-gradient(140deg,#2E0310,#7C0A28 45%,#D1274F)}
 
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
@@ -46,7 +47,8 @@ p{margin:0 0 12px}
 .navrow .navbtn:nth-child(2).active{background:#DC5A26}
 .navrow .navbtn:nth-child(3).active{background:#7A34C8}
 .navrow .navbtn:nth-child(4).active{background:#2456C6}
-.navrow .navbtn:nth-child(5).active{background:#0F7355}
+.navrow .navbtn:nth-child(5).active{background:#B3123C}
+.navrow .navbtn:nth-child(6).active{background:#0F7355}
 .navbtn.active{color:#fff;border-color:transparent}
 
 .hero{position:relative;border-radius:28px;overflow:hidden;padding:44px 26px 34px;color:#fff;
@@ -212,6 +214,15 @@ p{margin:0 0 12px}
 .gap.over{background:var(--accent-soft);outline:3px solid var(--accent);outline-offset:4px}
 .gap.ok{border-color:#2C7A5B;color:#2C7A5B}
 .gap.no{border-color:#C2323F;color:#C2323F}
+.fcards{display:grid;gap:14px;margin:14px 0}
+@media(min-width:720px){.fcards{grid-template-columns:1fr 1fr}}
+.fcard{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--white);
+  box-shadow:0 10px 26px rgba(30,10,40,.07)}
+.fscene{background:var(--accent-soft);padding:22px 16px;text-align:center;font-size:34px;letter-spacing:5px}
+.fbody{padding:14px 16px}
+.flabel{display:inline-block;background:var(--accent);color:#fff;border-radius:999px;
+  padding:7px 13px;font-family:var(--display);font-weight:900;font-size:15px;margin-bottom:9px}
+.fsit{font-weight:600;line-height:1.5}
 .credits{color:var(--muted);font-size:13px;line-height:1.5;padding:18px 4px 34px}
 .lesson{display:none}
 .lesson.active{display:block}
@@ -238,6 +249,7 @@ p{margin:0 0 12px}
       <button class="navbtn" onclick="showLesson(3,this)">2 · Friends &amp; Drama</button>
       <button class="navbtn" onclick="showLesson(4,this)">3 · What Do You Think</button>
       <button class="navbtn" onclick="showLesson(6,this)">4 · Homework</button>
+      <button class="navbtn" onclick="showLesson(7,this)">5 · Final Test</button>
       <button class="navbtn" onclick="showLesson(5,this)">Phrasebook</button>
     </div>
   </div>
@@ -993,6 +1005,150 @@ p{margin:0 0 12px}
     </div>
   </main>
 
+  <!-- ================= FINAL TEST ================= -->
+  <main id="lesson7" class="lesson t6">
+    <div class="section">
+      <div class="section-head">
+        <div><div class="kicker">End of the topic</div><h2>Final Test</h2></div>
+        <span class="time">about 35 min</span>
+      </div>
+      <p class="teacher">Everything from the three lessons, mixed together — words, endings,
+        tenses and advice in the same tasks. No dictionary and no notes.<br>
+        <b>Tasks 1 and 4</b> the app checks by itself. In the other tasks you <b>say</b> the answer
+        out loud first, and only then we press <b>Check answers</b> together.</p>
+
+      <h3>Task 1 · The words, all mixed · 6 min</h3>
+      <div class="task"><b>Put the phrase back.</b> Eight sentences from three different lessons,
+        in no order. Tap a phrase, then tap the empty box. Then press <b>Check</b>.</div>
+      <div class="dbank" id="fbank"></div>
+      <div class="dlines" id="flines"></div>
+      <div class="row-btn">
+        <button class="btn" onclick="checkFinal()">Check</button>
+        <button class="btn ghost" onclick="buildFinal()">Start again</button>
+        <span class="score" id="fscore"></span>
+      </div>
+
+      <h3>Task 2 · -ing or -ed · 4 min</h3>
+      <div class="task"><b>Say the whole sentence out loud.</b> Not just the word — the whole
+        sentence, with the right ending.</div>
+      <div>
+        <div class="qrow"><span class="qn">1</span><span>The lesson was two hours long. I was really (bore) ___.</span></div>
+        <div class="qrow"><span class="qn">2</span><span>Her story about that evening was (surprise) ___.</span></div>
+        <div class="qrow"><span class="qn">3</span><span>He never listens to anybody. It is so (annoy) ___.</span></div>
+        <div class="qrow"><span class="qn">4</span><span>After the trip everybody was (tire) ___.</span></div>
+        <div class="qrow"><span class="qn">5</span><span>I don’t understand this rule. I am (confuse) ___.</span></div>
+        <div class="qrow"><span class="qn">6</span><span>The ending of the season was (disappoint) ___.</span></div>
+        <button class="btn ghost" style="margin-top:10px" onclick="flip('f1')">Check answers</button>
+        <div class="reveal" id="f1">1 bored · 2 surprising · 3 annoying · 4 tired · 5 confused · 6 disappointing</div>
+      </div>
+
+      <h3>Task 3 · so or such · 3 min</h3>
+      <div class="task"><b>Say the whole sentence out loud</b> with <b>so</b> or <b>such</b>.
+        Remember to look at what comes after the adjective.</div>
+      <div>
+        <div class="qrow"><span class="qn">1</span><span>She is ___ a kind person.</span></div>
+        <div class="qrow"><span class="qn">2</span><span>My teacher was ___ strict last year.</span></div>
+        <div class="qrow"><span class="qn">3</span><span>They were ___ good friends.</span></div>
+        <div class="qrow"><span class="qn">4</span><span>That was ___ a surprising ending.</span></div>
+        <div class="qrow"><span class="qn">5</span><span>I was ___ upset after that conversation.</span></div>
+        <button class="btn ghost" style="margin-top:10px" onclick="flip('f2')">Check answers</button>
+        <div class="reveal" id="f2">1 such · 2 so · 3 such · 4 such · 5 so</div>
+      </div>
+
+      <h3>Task 4 · Put the verb in the right form · 10 min</h3>
+      <div class="task"><b>Fifteen sentences, four tenses, no order.</b> Look at the time word first,
+        then choose the tense and write the verb in that form. Watch the helper words:
+        <b>is</b>, <b>are</b>, <b>did</b>, <b>will</b>. Some verbs are irregular.</div>
+      <div class="tbox" id="ft4">
+        <div class="tline"><span class="n">1</span>Yesterday she (break) <input class="ti" data-a="broke" autocapitalize="off" autocomplete="off" spellcheck="false"> her promise.</div>
+        <div class="tline"><span class="n">2</span>Look, he (talk) <input class="ti" data-a="is talking" autocapitalize="off" autocomplete="off" spellcheck="false"> to her right now.</div>
+        <div class="tline"><span class="n">3</span>My best friend never (lie) <input class="ti" data-a="lies" autocapitalize="off" autocomplete="off" spellcheck="false"> to me.</div>
+        <div class="tline"><span class="n">4</span>Tomorrow I (apologise) <input class="ti" data-a="will apologise|will apologize" autocapitalize="off" autocomplete="off" spellcheck="false"> first.</div>
+        <div class="tline"><span class="n">5</span>Last week they (have) <input class="ti" data-a="had" autocapitalize="off" autocomplete="off" spellcheck="false"> a big argument.</div>
+        <div class="tline"><span class="n">6</span>She usually (keep) <input class="ti" data-a="keeps" autocapitalize="off" autocomplete="off" spellcheck="false"> her secrets.</div>
+        <div class="tline"><span class="n">7</span>Right now I (wait) <input class="ti" data-a="am waiting" autocapitalize="off" autocomplete="off" spellcheck="false"> for her message.</div>
+        <div class="tline"><span class="n">8</span>Next week we (go) <input class="ti" data-a="will go" autocapitalize="off" autocomplete="off" spellcheck="false"> to the cinema together.</div>
+        <div class="tline"><span class="n">9</span>He (tell) <input class="ti" data-a="told" autocapitalize="off" autocomplete="off" spellcheck="false"> me the truth two days ago.</div>
+        <div class="tline"><span class="n">10</span>They (not listen) <input class="ti" data-a="didn’t listen|did not listen|didnt listen" autocapitalize="off" autocomplete="off" spellcheck="false"> to me yesterday.</div>
+        <div class="tline"><span class="n">11</span>Why <input class="ti" data-a="are you ignoring" autocapitalize="off" autocomplete="off" spellcheck="false"> (you ignore) me at the moment?</div>
+        <div class="tline"><span class="n">12</span>She (take) <input class="ti" data-a="took" autocapitalize="off" autocomplete="off" spellcheck="false"> my phone by mistake last night.</div>
+        <div class="tline"><span class="n">13</span>He always (interrupt) <input class="ti" data-a="interrupts" autocapitalize="off" autocomplete="off" spellcheck="false"> me.</div>
+        <div class="tline"><span class="n">14</span>I (not forget) <input class="ti" data-a="won’t forget|will not forget|wont forget" autocapitalize="off" autocomplete="off" spellcheck="false"> your birthday next year.</div>
+        <div class="tline"><span class="n">15</span> <input class="ti" data-a="did you say" autocapitalize="off" autocomplete="off" spellcheck="false"> (you say) sorry to him last Friday?</div>
+        <div class="row-btn">
+          <button class="btn" onclick="checkType('ft4')">Check answers</button>
+          <button class="btn ghost" onclick="clearType('ft4')">Clear</button>
+          <span class="score"></span>
+        </div>
+        <button class="btn ghost" style="margin-top:10px" onclick="flip('f3')">Show answers</button>
+        <div class="reveal" id="f3">1 broke · 2 is talking · 3 lies · 4 will apologise · 5 had · 6 keeps · 7 am waiting · 8 will go · 9 told · 10 didn’t listen · 11 are you ignoring · 12 took · 13 interrupts · 14 won’t forget · 15 did you say</div>
+      </div>
+
+      <h3>Task 5 · Give advice · 4 min</h3>
+      <div class="task"><b>I read you a problem — you answer out loud.</b> Two pieces of advice
+        for every problem, and they must use <b>different</b> structures:
+        <b>You should…</b> · <b>Why don’t you…?</b> · <b>I’d recommend…</b></div>
+      <div class="pair">
+        <div class="line">“My best friend forgot my birthday. I am really upset.”</div>
+        <div class="line">“I told a lie about her, and now I can’t look at her.”</div>
+        <div class="line">“A boy in my class talks behind my back.”</div>
+        <div class="line">“I promised to help my sister and then I forgot.”</div>
+      </div>
+      <button class="btn ghost" style="margin-top:12px" onclick="flip('f4')">Check answers</button>
+      <div class="reveal" id="f4">For example: <b>You should</b> tell her how you feel. ·
+        <b>Why don’t you</b> apologise first? · <b>I’d recommend</b> a calm conversation, not a message. ·
+        <b>You should</b> keep your promise next time, and say sorry now.</div>
+
+      <h3>Task 6 · What did they really do? · 4 min</h3>
+      <div class="task"><b>Look at the card.</b> Somebody put a label on this person.
+        Take the label off and say <b>one action</b> instead —
+        what exactly did they do? <i>“She is a bad friend” → “She told my secret to everybody.”</i></div>
+      <div class="fcards">
+        <div class="fcard">
+          <div class="fscene">🎂 🙅‍♀️ 📵</div>
+          <div class="fbody"><span class="flabel">She is a bad friend</span>
+            <div class="fsit">It was your birthday. You waited all day. No call, no message, nothing.</div></div>
+        </div>
+        <div class="fcard">
+          <div class="fscene">🗣️ ✋ 😤</div>
+          <div class="fbody"><span class="flabel">He is so rude</span>
+            <div class="fsit">You started your story three times. Three times he started talking over you.</div></div>
+        </div>
+        <div class="fcard">
+          <div class="fscene">🤫 👀 📣</div>
+          <div class="fbody"><span class="flabel">She is a liar</span>
+            <div class="fsit">You told her one thing, only her. Next morning the whole class knew.</div></div>
+        </div>
+        <div class="fcard">
+          <div class="fscene">🧳 🕗 🚕</div>
+          <div class="fbody"><span class="flabel">They are selfish</span>
+            <div class="fsit">They said they would pick you up at eight. At nine you were still outside.</div></div>
+        </div>
+        <div class="fcard">
+          <div class="fscene">😢 🤝 ☕</div>
+          <div class="fbody"><span class="flabel">He is the best person in the world</span>
+            <div class="fsit">You had a terrible week. He came every evening and just listened.</div></div>
+        </div>
+      </div>
+      <button class="btn ghost" style="margin-top:12px" onclick="flip('f5')">Check answers</button>
+      <div class="reveal" id="f5">For example: 1 She forgot my birthday and didn’t call. ·
+        2 He interrupted me three times. · 3 She told my secret to the whole class. ·
+        4 They broke their promise and came an hour late. ·
+        5 He supported me every evening — he just listened.</div>
+
+      <h3>Task 7 · Speaking · 5 min</h3>
+      <div class="task"><b>No check here — I listen.</b> One minute for each question,
+        no stopping, no notes.</div>
+      <div class="pair">
+        <div class="line"><b>1.</b> Think of a person who did something wrong to you.
+          What exactly did they do? Was it on purpose or by mistake?
+          Was it a bad action or a bad person? What would you do now?</div>
+        <div class="line"><b>2.</b> Your friend asks you: “Should I always tell the truth?”
+          Answer, give two reasons, and give one piece of advice.</div>
+      </div>
+    </div>
+  </main>
+
   <!-- ================= PHRASEBOOK ================= -->
   <main id="lesson5" class="lesson t5">
     <div class="section">
@@ -1376,32 +1532,48 @@ var WPAIRS = [
   ['He didn’t do it ', ' — he just forgot.', 'on purpose'],
   ['Sorry, I sent that message to you ', '.', 'by mistake']
 ];
-var wPick = null;
-function wChip(ru){
+/* тот же набор слов нужен и в финальном тесте, поэтому движок общий */
+var FPAIRS = [
+  ['My brother never stops talking. He is so ', '.', 'talkative'],
+  ['Our maths teacher is very ', ' — he gives homework every day.', 'strict'],
+  ['I told her my secret and she said nothing to anybody. She can ', '.', 'keep a secret'],
+  ['She didn’t get the job, so now she is ', ' about it.', 'upset'],
+  ['Don’t ', ' me — I have two more things to say.', 'interrupt'],
+  ['He stepped on my foot ', ' — he looked at me and did it.', 'on purpose'],
+  ['I don’t know what to do. Can you give me some ', '?', 'advice'],
+  ['Everybody was against her, but her friends ', ' her.', 'supported']
+];
+var SETS = {
+  w: { bank: 'wbank', lines: 'wlines', score: 'wscore', data: WPAIRS, pick: null },
+  f: { bank: 'fbank', lines: 'flines', score: 'fscore', data: FPAIRS, pick: null }
+};
+function setChip(k, w){
   var found = null;
-  document.querySelectorAll('#wbank .dchip').forEach(function(c){
-    if (!found && c.dataset.w === ru) found = c;
+  document.querySelectorAll('#' + SETS[k].bank + ' .dchip').forEach(function(c){
+    if (!found && c.dataset.w === w) found = c;
   });
   return found;
 }
-function buildWords(){
-  var bank = document.getElementById('wbank'), lines = document.getElementById('wlines');
+function buildSet(k){
+  var S = SETS[k];
+  var bank = document.getElementById(S.bank), lines = document.getElementById(S.lines);
   if (!bank || !lines) return;
-  wPick = null;
-  bank.innerHTML = shuffleArr(WPAIRS.map(function(p){ return p[2]; })).map(function(w){
+  S.pick = null;
+  bank.innerHTML = shuffleArr(S.data.map(function(p){ return p[2]; })).map(function(w){
     return '<button class="dchip" data-w="' + w + '">' + w + '</button>';
   }).join('');
-  lines.innerHTML = WPAIRS.map(function(p){
+  lines.innerHTML = S.data.map(function(p){
     return '<div class="dline">' + p[0] + '<span class="gap" data-a="' + p[2] + '"></span>' + p[1] + '</div>';
   }).join('');
-  var sc = document.getElementById('wscore');
+  var sc = document.getElementById(S.score);
   if (sc) sc.textContent = '';
 }
-function checkWords(){
-  var gaps = [].slice.call(document.querySelectorAll('#wlines .gap')), right = 0, placed = 0;
-  var sc0 = document.getElementById('wscore');
+function checkSet(k){
+  var S = SETS[k];
+  var gaps = [].slice.call(document.querySelectorAll('#' + S.lines + ' .gap')), right = 0;
+  var sc = document.getElementById(S.score);
   if (!gaps.some(function(g){ return g.textContent.trim(); })){
-    if (sc0) sc0.textContent = 'Put the words in first';
+    if (sc) sc.textContent = 'Put the words in first';
     return;
   }
   gaps.forEach(function(g){
@@ -1410,38 +1582,44 @@ function checkWords(){
     g.classList.toggle('no', !ok);
     if (ok) right++;
   });
-  var sc = document.getElementById('wscore');
   if (sc) sc.textContent = right + ' / ' + gaps.length;
 }
-function initWords(){
-  var bank = document.getElementById('wbank'), lines = document.getElementById('wlines');
+function initSet(k){
+  var S = SETS[k];
+  var bank = document.getElementById(S.bank), lines = document.getElementById(S.lines);
   if (!bank || !lines) return;
   bank.addEventListener('click', function(e){
     var c = e.target.closest('.dchip');
     if (!c) return;
-    if (wPick === c.dataset.w){ wPick = null; c.classList.remove('sel'); return; }
-    document.querySelectorAll('#wbank .dchip.sel').forEach(function(x){ x.classList.remove('sel'); });
-    wPick = c.dataset.w;
+    if (S.pick === c.dataset.w){ S.pick = null; c.classList.remove('sel'); return; }
+    document.querySelectorAll('#' + S.bank + ' .dchip.sel').forEach(function(x){ x.classList.remove('sel'); });
+    S.pick = c.dataset.w;
     c.classList.add('sel');
   });
   lines.addEventListener('click', function(e){
     var g = e.target.closest('.gap');
     if (!g) return;
     if (g.textContent){                      /* в поле уже что-то лежит — вернуть в набор */
-      var back = wChip(g.textContent);
+      var back = setChip(k, g.textContent);
       if (back) back.classList.remove('used');
       g.textContent = '';
       g.classList.remove('ok', 'no');
-      if (!wPick) return;
+      if (!S.pick) return;
     }
-    if (!wPick) return;
-    g.textContent = wPick;
+    if (!S.pick) return;
+    g.textContent = S.pick;
     g.classList.remove('ok', 'no');
-    var ch = wChip(wPick);
+    var ch = setChip(k, S.pick);
     if (ch){ ch.classList.add('used'); ch.classList.remove('sel'); }
-    wPick = null;
+    S.pick = null;
   });
 }
+function buildWords(){ buildSet('w'); }
+function checkWords(){ checkSet('w'); }
+function initWords(){ initSet('w'); }
+function buildFinal(){ buildSet('f'); }
+function checkFinal(){ checkSet('f'); }
+
 
 /* ---------- ответы, которые ученик печатает сам ---------- */
 function tnorm(s){
@@ -1491,6 +1669,8 @@ document.addEventListener('DOMContentLoaded', function(){
   buildMatch();
   buildWords();
   initWords();
+  buildFinal();
+  initSet('f');
   buildOrder('story3');
   initSortable(document.getElementById('story3'));
   buildGaps();
