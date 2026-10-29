@@ -21,7 +21,7 @@ window.LESSONS = [
   {
     id: 'city',
     title: 'And Just Like That',
-    sub: 'Speaking course · A1–A2 · 3 lessons + homework + phrasebook',
+    sub: 'Speaking course · A1–A2 · 3 lessons + homework + final test',
     emoji: '🗽',
     file: 'lesson-city.html',
     date: '20 Sep'
