@@ -260,6 +260,16 @@
       b.onclick = function () { W.openHomework(b.dataset.hw); };
     });
 
+    /* папка шедоуинга: открыть / свернуть */
+    Array.prototype.forEach.call(document.querySelectorAll('[data-shg]'), function (b) {
+      b.onclick = function () {
+        var g = b.dataset.shg;
+        if (!W.shOpen) W.shOpen = {};
+        if (W.shOpen[g]) delete W.shOpen[g]; else W.shOpen[g] = 1;
+        W.render();
+      };
+    });
+
     Array.prototype.forEach.call(document.querySelectorAll('[data-shadow]'), function (b) {
       b.onclick = function () { W.openShadow(b.dataset.shadow); };
     });

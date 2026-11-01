@@ -26,21 +26,64 @@
   }
 
   /* ---------- блок со списком во вкладке Homework ---------- */
+  function shCard(v) {
+    var s = read(v.id);
+    return '<button class="shcard' + (s.done ? ' done' : '') + '" data-shadow="' + esc(v.id) + '">' +
+      '<div class="sh-top"><div class="sh-title">' + esc(v.title) + '</div>' +
+      '<div class="sh-time">' + mmss(v.secs) + '</div></div>' +
+      '<div class="sh-who">' + esc(v.who) + '</div>' +
+      '<div class="sh-about">' + esc(v.about) + '</div>' +
+      (s.done ? '<div class="sh-done">✓ done · ' + esc(s.done) + '</div>' : '') +
+      '</button>';
+  }
+
+  /* Шедоуинг лежит папками внизу вкладки Homework: это домашка, которая
+     не кончается. Порядок папок берём из SHADOW_FOLDERS, ролики без папки
+     складываем в конец, чтобы ничего не потерялось. */
   W.viewShadow = function () {
     var list = W.shadows();
     if (!list.length) return '';
-    return '<div class="h">🎧 Shadowing</div>' +
-      '<div class="task-note">Listen to a short video and speak at the same time as the speaker. ' +
-      'Same words, same speed. Five minutes a day is enough.</div>' +
-      list.map(function (v) {
-        var s = read(v.id);
-        return '<button class="shcard' + (s.done ? ' done' : '') + '" data-shadow="' + esc(v.id) + '">' +
-          '<div class="sh-top"><div class="sh-title">' + esc(v.title) + '</div>' +
-          '<div class="sh-time">' + mmss(v.secs) + '</div></div>' +
-          '<div class="sh-who">' + esc(v.who) + '</div>' +
-          '<div class="sh-about">' + esc(v.about) + '</div>' +
-          (s.done ? '<div class="sh-done">✓ done · ' + esc(s.done) + '</div>' : '') +
-          '</button>';
+
+    var folders = window.SHADOW_FOLDERS || [];
+    var by = {}, seen = [];
+    list.forEach(function (v) {
+      var k = v.folder || 'other';
+      if (!by[k]) { by[k] = []; seen.push(k); }
+      by[k].push(v);
+    });
+    var keys = [];
+    folders.forEach(function (f) { if (by[f.id]) keys.push(f.id); });
+    seen.forEach(function (k) { if (keys.indexOf(k) < 0) keys.push(k); });
+
+    if (!W.shOpen) {                       /* первая папка открыта, остальные свёрнуты */
+      W.shOpen = {};
+      if (keys.length) W.shOpen[keys[0]] = 1;
+    }
+
+    return '<div class="h">🎧 Shadowing · every week</div>' +
+      '<div class="task-note">This homework never ends. Open a video, play it and speak ' +
+      '<b>at the same time</b> as the person: same words, same speed. Five minutes a day is enough.</div>' +
+      keys.map(function (k) {
+        var meta = null;
+        folders.forEach(function (f) { if (f.id === k) meta = f; });
+        var vs = by[k];
+        var done = vs.filter(function (v) { return read(v.id).done; }).length;
+        var p = vs.length ? Math.round(done * 100 / vs.length) : 0;
+        var open = !!W.shOpen[k];
+
+        return '<div class="hgroup' + (open ? ' open' : '') + '">' +
+          '<button class="hg-head" data-shg="' + esc(k) + '">' +
+          '<div class="he">' + ((meta && meta.emoji) || '🎧') + '</div>' +
+          '<div style="flex:1;min-width:0">' +
+          '<div class="hg-title">' + esc((meta && meta.title) || 'Shadowing') + '</div>' +
+          '<div class="hsub">' + vs.length + ' videos · ' + done + ' done</div></div>' +
+          '<div class="hp">' + p + '%</div>' +
+          '<div class="hg-arrow">' + (open ? '▴' : '▾') + '</div></button>' +
+          (open ? '<div class="hg-body">' +
+            (meta && meta.about ? '<div class="task-note" style="margin:2px 2px 12px">' +
+              esc(meta.about) + '</div>' : '') +
+            vs.map(shCard).join('') + '</div>' : '') +
+          '</div>';
       }).join('');
   };
 
