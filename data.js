@@ -1166,6 +1166,98 @@ This is a nice addition to the story - это хорошее дополнени�
 easy peasy lemon squeezy - проще простого - 🍋
 Was it difficult? — No, easy peasy lemon squeezy! - было трудно? — нет, проще простого! - 🍋
 
+# NEW WORDS | Lesson 3 Nov | 3 Nov
+
+// --- 1. Три формы глагола ---
+give / gave / given - давать (три формы) - 🎁
+see / saw / seen - видеть (три формы) - 👀
+find / found / found - находить (три формы) - 🔎
+can / could - мочь, уметь (could — прошедшее) - 💪
+I gave him my phone number - я дал ему свой номер - 📱
+I have given you three examples - я уже дал тебе три примера - 3️⃣
+I saw this film last year - я видел этот фильм в прошлом году - 🎬
+Have you seen her today? - ты видел её сегодня? - 👀
+I couldn’t find anything - я не смог ничего найти - 🔎
+I could swim when I was five - я умел плавать в пять лет - 🏊
+
+// --- 2. Праздник и выступление ---
+National Unity Day - День народного единства - 🇷🇺
+a speech - речь, выступление - 🎙️
+to give a speech - выступать с речью - 🎙️
+a performance - выступление, представление - 🎭
+to perform - выступать - 🎭
+a debate - дебаты, спор - 💬
+a generation - поколение - 👨‍👩‍👧
+to invite a guest - приглашать гостя - 🤝
+They invite a guest every week - они приглашают гостя каждую неделю - 🤝
+He gave a speech at school - он выступил с речью в школе - 🎙️
+My generation listens to other music - моё поколение слушает другую музыку - 🎧
+
+// --- 3. Надо и не надо ---
+an obligation - обязанность - 📌
+obligatory - обязательный - ❗
+It is obligatory at school - в школе это обязательно - ❗
+It is not an obligation, you can choose - это не обязанность, можно выбрать - 🤷
+would - бы (вежливо, предположение) - 🙏
+will - буду, будет (будущее) - ➡️
+I will call her tonight - я позвоню ей сегодня вечером - 📞
+I would call her, but I have no phone - я бы позвонил, но у меня нет телефона - 📵
+
+// --- 4. Когда это было ---
+yesterday - вчера - 📅
+today - сегодня - 📆
+tomorrow - завтра - 🔜
+the whole day - весь день - 🕛
+we are going to - мы собираемся - 🚶
+we’re gonna - мы щас (разговорное, то же самое) - 💬
+to listen to - слушать (что-то) - 🎧
+I listened to that song the whole day - я слушал эту песню весь день - 🎧
+We are going to watch it tomorrow - мы посмотрим это завтра - 🔜
+to talk - разговаривать - 🗣️
+We talked about it yesterday - мы говорили об этом вчера - 🗣️
+
+// --- 5. Что-то, что угодно, ничего ---
+something - что-то (в утверждении) - ➕
+anything - что-нибудь, что угодно (в вопросе и отрицании) - ❓
+nothing - ничего - 🚫
+I have something for you - у меня для тебя кое-что есть - 🎁
+Do you have anything for me? - у тебя есть что-нибудь для меня? - ❓
+I don’t have anything for you - у меня для тебя ничего нет - 🚫
+I haven’t got anything for you - у меня для тебя ничего нет - 🚫
+I have nothing for you - у меня для тебя ничего нет - 🚫
+etc. - и так далее (сокращение) - ➕
+etcetera - и так далее (полностью) - ➕
+
+// --- 6. Одежда ---
+a jacket - куртка, пиджак - 🧥
+shoes - туфли, ботинки - 👟
+boots - сапоги, ботинки - 🥾
+Take your jacket, it is cold - возьми куртку, холодно - 🧥
+These boots are too small for me - эти сапоги мне малы - 🥾
+
+// --- 7. История и загадки ---
+the pyramids - пирамиды - 🔺
+aliens - инопланетяне - 👽
+slaves - рабы - ⛓️
+a corpse - труп (книжное слово) - ⚰️
+a dead body - мёртвое тело (так говорят чаще) - ⚰️
+a funeral - похороны - 🕯️
+Who built the pyramids — people or aliens? - кто построил пирамиды, люди или инопланетяне? - 🔺
+They were slaves, they had no choice - они были рабами, у них не было выбора - ⛓️
+
+// --- 8. Похожие слова, не перепутай ---
+a sheep - овца - 🐑
+a ship - корабль - 🚢
+annoying - раздражающий (про вещь или человека со стороны) - 😤
+annoyed - раздражённый (что я чувствую) - 😠
+A sheep says baa, a ship goes on the sea - овца говорит «бе», а корабль плывёт по морю - 🐑
+His question was annoying, so I was annoyed - его вопрос был раздражающим, и я разозлился - 😠
+
+// --- 9. Про кино ---
+a trailer - трейлер - 🎞️
+a clip - клип, короткое видео - 📹
+Have you seen the trailer? - ты видел трейлер? - 🎞️
+
 # TOPIC | Travel · Hotel & City | 🏨 | 🏨🗺️🚏
 = frames
 At the hotel I
