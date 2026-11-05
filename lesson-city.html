@@ -221,6 +221,11 @@ p{margin:0 0 12px}
 .tick.on{background:#2C7A5B;border-color:#2C7A5B;color:#fff}
 .tscore{font-weight:800;color:var(--accent);margin-left:8px;font-size:17px}
 .fpic{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.fwords{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.fwords span{border-radius:999px;padding:6px 10px;font-weight:800;font-size:13.5px;
+  background:var(--accent-soft)}
+.fwords span:nth-child(3n+2){background:#E2EAFB}
+.fwords span:nth-child(3n+3){background:#FBF0D8}
 .fcards{display:grid;gap:14px;margin:14px 0}
 @media(min-width:720px){.fcards{grid-template-columns:1fr 1fr}}
 .fcard{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--white);
@@ -1278,51 +1283,44 @@ p{margin:0 0 12px}
       <div class="ticks" data-n="10"></div>
 
       <h3>Task 7 · Describe the picture · 12 min</h3>
-      <div class="task"><b>Forty seconds for every picture.</b> Start with
-        <i>“In this picture I can see…”</i> and then answer:
-        Where are they? · What are they doing <b>right now</b>? · What are they wearing? ·
-        How do they feel, and why do you think so?<br>
-        At least <b>five words</b> from this topic in every picture, and Present Continuous
-        for what is happening now.</div>
+      <div class="task"><b>One minute for every picture.</b> First say what you see —
+        <i>“In this picture I can see…”</i> — then answer the question under it.
+        Do not just describe: <b>guess, invent, take a side</b>.<br>
+        Under every picture there are words you can use. Use at least <b>four</b> of them
+        and at least one sentence in <b>Present Continuous</b>.</div>
       <div class="fcards">
-        <div class="fcard"><img class="fpic" src="scene-game.jpg" alt="A crowd at a baseball game">
+        <div class="fcard"><img class="fpic" src="scene-game.jpg" alt="A crowd at a game">
           <div class="fbody"><span class="flabel">1</span>
-            <div class="fsit">A big crowd outside. What is the event? Who is enjoying it and who is not?</div></div></div>
-        <div class="fcard"><img class="fpic" src="scene-runway.jpg" alt="A fashion show">
-          <div class="fbody"><span class="flabel">2</span>
-            <div class="fsit">What kind of show is this? Describe one dress you can see.</div></div></div>
+            <div class="fsit">Four friends at a game. One of them really does not want to be here. Which one, how can you see it — and what is she thinking right now? Say her exact words.</div>
+            <div class="fwords"><span>a crowd</span><span>a seat</span><span>the front row</span><span>a match</span><span>to cheer</span><span>sunglasses</span><span>a fur coat</span><span>bored</span><span>excited</span><span>to pretend</span></div>
+          </div></div>
         <div class="fcard"><img class="fpic" src="scene-cameras.jpg" alt="Photographers in the street">
+          <div class="fbody"><span class="flabel">2</span>
+            <div class="fsit">Twenty cameras, one black car. Somebody famous is arriving — but who, and why? Invent a reason, and make it a ridiculous one.</div>
+            <div class="fwords"><span>a photographer</span><span>a camera</span><span>famous</span><span>to arrive</span><span>a black car</span><span>a leather jacket</span><span>to shout</span><span>to smile</span><span>surprising</span><span>on purpose</span></div>
+          </div></div>
+        <div class="fcard"><img class="fpic" src="scene-dinner.jpg" alt="Friends at a restaurant in the evening">
           <div class="fbody"><span class="flabel">3</span>
-            <div class="fsit">Why are all these people taking photos? How does she feel about it?</div></div></div>
-        <div class="fcard"><img class="fpic" src="scene-yoga.jpg" alt="An exercise class">
-          <div class="fbody"><span class="flabel">4</span>
-            <div class="fsit">What are they doing here? Do you think they come every week?</div></div></div>
-        <div class="fcard"><img class="fpic" src="scene-cafe.jpg" alt="Four friends at a café table">
-          <div class="fbody"><span class="flabel">5</span>
-            <div class="fsit">Four friends, one table. Who is talking? What is on the table?</div></div></div>
-        <div class="fcard"><img class="fpic" src="scene-dinner.jpg" alt="Friends at a restaurant">
-          <div class="fbody"><span class="flabel">6</span>
-            <div class="fsit">A restaurant in the evening. What did they order? What are they laughing about?</div></div></div>
-        <div class="fcard"><img class="fpic" src="scene-terrace.jpg" alt="A café terrace in the street">
-          <div class="fbody"><span class="flabel">7</span>
-            <div class="fsit">Outside, in the sun. Describe the clothes and the weather.</div></div></div>
+            <div class="fsit">Somebody at this table has just said something shocking. Look at the faces: who said it, who is shocked, and what exactly was it?</div>
+            <div class="fwords"><span>a restaurant</span><span>to order</span><span>a waiter</span><span>in the middle of dinner</span><span>to tell the truth</span><span>to interrupt</span><span>shocked</span><span>surprising</span><span>to laugh</span><span>such a</span></div>
+          </div></div>
         <div class="fcard"><img class="fpic" src="scene-brunch.jpg" alt="Two friends having brunch">
-          <div class="fbody"><span class="flabel">8</span>
-            <div class="fsit">Only two of them this time. Which one is upset? How can you see it?</div></div></div>
-        <div class="fcard"><img class="fpic" src="scene-street.jpg" alt="A woman walking in the street">
-          <div class="fbody"><span class="flabel">9</span>
-            <div class="fsit">One person, a whole city behind her. Where is she going and why?</div></div></div>
+          <div class="fbody"><span class="flabel">4</span>
+            <div class="fsit">Two friends, one very bad mood. What happened yesterday? Then be the other friend and give two pieces of advice out loud.</div>
+            <div class="fwords"><span>brunch</span><span>upset</span><span>annoyed</span><span>to apologise</span><span>to listen</span><span>advice</span><span>You should…</span><span>Why don’t you…?</span><span>to make up</span><span>It wasn’t like her</span></div>
+          </div></div>
         <div class="fcard"><img class="fpic" src="scene-car.jpg" alt="Four friends in a car at night">
-          <div class="fbody"><span class="flabel">10</span>
-            <div class="fsit">Night, a car, four people. Where are they coming from?</div></div></div>
-        <div class="fcard"><img class="fpic" src="scene-party.jpg" alt="Two women at a party">
-          <div class="fbody"><span class="flabel">11</span>
-            <div class="fsit">An evening event. Describe both dresses and both faces.</div></div></div>
+          <div class="fbody"><span class="flabel">5</span>
+            <div class="fsit">Three in the morning. Where are they coming from and how did the evening go — really? Tell it in Past Simple, then say what they will do tomorrow.</div>
+            <div class="fwords"><span>at night</span><span>a taxi</span><span>to come back</span><span>the whole evening</span><span>a party</span><span>tired</span><span>to argue</span><span>to laugh</span><span>tomorrow</span><span>we are going to</span></div>
+          </div></div>
         <div class="fcard"><img class="fpic" src="scene-coats.jpg" alt="Three women in bright coats">
-          <div class="fbody"><span class="flabel">12</span>
-            <div class="fsit">Three coats, three colours. Who would you talk to first?</div></div></div>
+          <div class="fbody"><span class="flabel">6</span>
+            <div class="fsit">Three coats, three different people. Describe each one in three words — and then say which of them you would ask for advice, and why.</div>
+            <div class="fwords"><span>a coat</span><span>bright</span><span>colours</span><span>confident</span><span>quiet</span><span>polite</span><span>talkative</span><span>strict</span><span>to look great</span><span>I would choose…</span></div>
+          </div></div>
       </div>
-      <div class="ticks" data-n="12"></div>
+      <div class="ticks" data-n="6"></div>
 
       <h3>Task 8 · Make up the story · 6 min</h3>
       <div class="task"><b>Nobody will tell you what happened — you decide.</b>
