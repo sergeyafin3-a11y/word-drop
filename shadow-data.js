@@ -58,6 +58,13 @@ window.SHADOW = [
     id: 'sh-doja-beauty',
     yt: 'tsk9c7KF76E',
     start: 10, end: 100, secs: 90,
+    dictation: [
+      { start: 10, end: 14.4, text: "I'm about to show you a look that I do pretty often." },
+      { start: 41, end: 44.8, text: "My hands are a little wet, so it kind of turns it into a paste." },
+      { start: 50.7, end: 52.3, text: "I do this like twice a day." },
+      { start: 56.2, end: 60, text: "I dry my face off and I make sure it's super dry." },
+      { start: 70.6, end: 74.8, text: "And then I start to go in circles around my nose first." }
+    ],
     folder: 'talk',
     title: 'My makeup routine',
     who: 'Doja Cat · Vogue',
@@ -86,6 +93,13 @@ window.SHADOW = [
     id: 'sh-cardi-fallon',
     yt: '8LPVjHxXvJM',
     start: 10, end: 100, secs: 90,
+    dictation: [
+      { start: 27.2, end: 30.1, text: "So everybody used to call me Bacardi." },
+      { start: 30.2, end: 31.3, text: "So I always called myself Bacardi, right?" },
+      { start: 46.2, end: 48.5, text: "So Cardi B is the jam. And I love that." },
+      { start: 51.8, end: 54, text: "You are from the Bronx?" },
+      { start: 67.8, end: 69.5, text: "Are you going home for the holidays, to the Bronx?" }
+    ],
     folder: 'talk',
     title: 'Where my name comes from',
     who: 'Cardi B & Jimmy Fallon · The Tonight Show',
@@ -100,6 +114,11 @@ window.SHADOW = [
     id: 'sh-cardi-words',
     yt: 'YplKPH_qcRw',
     start: 15, end: 105, secs: 90,
+    dictation: [
+      { start: 19.6, end: 21.4, text: "I didn't even know this was going to be a look." },
+      { start: 67.7, end: 71.1, text: "I was just scared of what people would think and say." },
+      { start: 98.6, end: 101.9, text: "Now, this record is certified gold already." }
+    ],
     folder: 'talk',
     title: 'Say it like me',
     who: 'Cardi B & Jimmy Fallon · The Tonight Show',
