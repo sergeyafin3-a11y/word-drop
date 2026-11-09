@@ -117,6 +117,9 @@
     if (!v) return;
     var mine = ++gen;      /* номер этого открытия */
     var s = read(id);      /* только для показа: отметку ставим ниже, по кнопке */
+    var dict = (v.dictation || []).filter(function (d) {
+      return d && d.text && d.end > d.start;
+    });
     var body = W.open('Shadowing');
     body.style.justifyContent = 'flex-start';
 
@@ -157,6 +160,28 @@
       '</div>' +
       '<div class="task-note">Copy the <b>music</b> of the voice, not only the words: where the voice goes up, ' +
       'where it stops, which word is loud. Twenty seconds done well is better than two minutes done badly.</div>' +
+
+      (dict.length ?
+        '<div class="h">Listen and write · ' + dict.length +
+        (dict.length === 1 ? ' line' : ' lines') + '</div>' +
+        '<div class="task-note">Play one line, stop, rewind, listen again as many times as you ' +
+        'need — and then type <b>exactly</b> what you heard. Commas and capital letters do not ' +
+        'matter, the words do. The next line opens only when this one is right.</div>' +
+        '<div class="card">' +
+        '<div class="dc-top">Line <b id="dcN">1</b> of ' + dict.length + '</div>' +
+        '<div class="row-btn">' +
+        '<button class="btn" id="dcPlay">▶ Play the line</button>' +
+        '<button class="btn ghost" id="dcSlow">0.75× slower</button>' +
+        '</div>' +
+        '<input class="dc-in" id="dcIn" autocapitalize="off" autocomplete="off" ' +
+        'spellcheck="false" placeholder="type what you heard">' +
+        '<div class="row-btn">' +
+        '<button class="btn" id="dcCheck">Check</button>' +
+        '<button class="btn ghost" id="dcHint">One more word</button>' +
+        '</div>' +
+        '<div class="dc-msg" id="dcMsg"></div>' +
+        '</div>'
+      : '') +
 
       '<div class="h">Say these first</div>' +
       '<div class="task-note">Short lines on the same topic. Say each one three times before you ' +
@@ -211,6 +236,78 @@
       };
     });
 
+    /* --- диктант: один кусок видео, одна строка --- */
+    if (dict.length) {
+      var di = 0, shown = 0;
+      var dIn = $('#dcIn'), dMsg = $('#dcMsg'), dN = $('#dcN');
+
+      /* сравниваем только слова: регистр, знаки и лишние пробелы не важны */
+      function dnorm(s) {
+        return String(s == null ? '' : s)
+          .toLowerCase()
+          .replace(/[\u2019\u2018\u00b4`]/g, "'")
+          .replace(/[^a-z0-9' ]+/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim();
+      }
+      function playLine(rate) {
+        var line = dict[di];
+        if (!player || !player.seekTo) { W.toast('The video is still loading'); return; }
+        if (window.__dcStop) { clearTimeout(window.__dcStop); window.__dcStop = null; }
+        try {
+          if (player.setPlaybackRate) player.setPlaybackRate(rate);
+          player.seekTo(line.start, true);
+          player.playVideo();
+        } catch (e) { return; }
+        var ms = Math.max(400, ((line.end - line.start) / rate) * 1000 + 250);
+        window.__dcStop = setTimeout(function () {
+          window.__dcStop = null;
+          try { player.pauseVideo(); } catch (e) {}
+        }, ms);
+      }
+      function showLine() {
+        dN.textContent = di + 1;
+        dIn.value = '';
+        dIn.classList.remove('ok', 'no');
+        dMsg.textContent = '';
+        dMsg.className = 'dc-msg';
+        shown = 0;
+      }
+      $('#dcPlay').onclick = function () { playLine(1); };
+      $('#dcSlow').onclick = function () { playLine(0.75); };
+      $('#dcHint').onclick = function () {
+        var words = dict[di].text.split(/\s+/);
+        shown = Math.min(shown + 1, words.length);
+        dMsg.className = 'dc-msg';
+        dMsg.textContent = words.slice(0, shown).join(' ') + (shown < words.length ? ' …' : '');
+      };
+      $('#dcCheck').onclick = function () {
+        var typed = dnorm(dIn.value);
+        if (!typed) { dIn.focus(); return; }
+        if (typed !== dnorm(dict[di].text)) {
+          dIn.classList.remove('ok');
+          dIn.classList.add('no');
+          dMsg.className = 'dc-msg no';
+          dMsg.textContent = 'Not yet. Play it again and listen to the end of the line.';
+          return;
+        }
+        dIn.classList.remove('no');
+        dIn.classList.add('ok');
+        if (di + 1 >= dict.length) {
+          dMsg.className = 'dc-msg ok';
+          dMsg.textContent = '✓ All ' + dict.length + ' lines done. Now go back and shadow the whole piece.';
+          return;
+        }
+        dMsg.className = 'dc-msg ok';
+        dMsg.textContent = '✓ Right. Next line.';
+        di++;
+        setTimeout(showLine, 700);
+      };
+      dIn.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') $('#dcCheck').click();
+      });
+    }
+
     /* --- запись голоса --- */
     var rec = null, chunks = [], blob = null, stream = null, starting = false, url = null;
     var recBtn = $('#shRec'), note = $('#shNote'), audio = $('#shAudio'), send = $('#shSend');
@@ -224,6 +321,7 @@
     /* экран закрыли крестиком: отпускаем микрофон, гасим плеер, чистим ссылки */
     W.onClose = function () {
       gen++;
+      try { if (window.__dcStop) { clearTimeout(window.__dcStop); window.__dcStop = null; } } catch (e) {}
       try { if (rec && rec.state === 'recording') rec.stop(); } catch (e) {}
       rec = null;
       stopStream();
