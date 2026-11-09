@@ -726,6 +726,19 @@ input,select{font-family:inherit;font-size:17px;color:inherit}
 /* ============================================================
    SHADOWING — список коротких видео и экран одного видео
    ============================================================ */
+/* диктант: слушаем кусок и печатаем, что услышали */
+.dc-top{font-weight:800;color:var(--muted);font-size:14px;margin-bottom:4px}
+.dc-top b{color:var(--accent);font-size:18px}
+.dc-in{width:100%;font:inherit;font-weight:700;font-size:16px;padding:12px 14px;
+  border-radius:16px;border:2px solid var(--line);background:var(--surface-2);
+  color:var(--ink);margin:12px 0 2px}
+.dc-in:focus{outline:none;border-color:var(--accent)}
+.dc-in.ok{border-color:var(--ok)}
+.dc-in.no{border-color:var(--bad)}
+.dc-msg{font-weight:700;font-size:15px;margin-top:10px;min-height:21px;line-height:1.4}
+.dc-msg.ok{color:var(--ok)}
+.dc-msg.no{color:var(--bad)}
+.dc-hint{color:var(--muted);font-size:14px;margin-top:8px}
 .shcard{display:block;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);
   border-radius:var(--r);padding:14px 16px;margin-bottom:10px}
 .shcard.done{border-color:var(--ok)}
