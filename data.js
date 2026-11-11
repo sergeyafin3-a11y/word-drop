@@ -1258,6 +1258,63 @@ a trailer - трейлер - 🎞️
 a clip - клип, короткое видео - 📹
 Have you seen the trailer? - ты видел трейлер? - 🎞️
 
+# NEW WORDS | Lesson 10 Nov | 10 Nov
+
+// --- 1. Похвалить и оценить ---
+my congratulations - мои поздравления - 🎉
+Congratulations! - поздравляю! - 🎉
+a grade - оценка, отметка - 📊
+great - отличный, классный - 👍
+grade / great - оценка / отличный (не перепутай!) - ⚠️
+10 out of 10 - десять из десяти - 💯
+1000 out of 10 - тысяча из десяти (так шутят, когда очень понравилось) - 💯
+respect - уважение - 🤝
+Respect! - уважуха! - 🤝
+I got a good grade for it - я получил за это хорошую оценку - 📊
+That was great, 10 out of 10 - это было отлично, десять из десяти - 💯
+
+// --- 2. Когда человек тебя двигает вперёд ---
+to inspire - вдохновлять - ✨
+inspiring - вдохновляющий (про вещь) - ✨
+inspired - вдохновлённый (про человека) - 🤩
+satisfied - довольный, удовлетворённый - 😌
+progress - прогресс, успехи - 📈
+to make progress - делать успехи - 📈
+Her story inspired me - её история меня вдохновила - ✨
+I am satisfied with my progress - я доволен своими успехами - 😌
+You are making real progress - ты делаешь настоящие успехи - 📈
+
+// --- 3. Когда вы совпали ---
+to share your opinion - делиться мнением - 💬
+on the same wavelength - на одной волне - 🌊
+We are on the same wavelength - мы с тобой на одной волне - 🌊
+to have something in common - иметь что-то общее - 🤝
+We have a lot in common - у нас много общего - 🤝
+to change your mind - передумать - 🔄
+I changed my mind - я передумал - 🔄
+Share your opinion, I really want to hear it - скажи своё мнение, мне правда интересно - 💬
+
+// --- 4. Ждать и ожидать ---
+to wait for - ждать (кого-то, чего-то) - ⏳
+to expect - ожидать, рассчитывать - 🔮
+I waited for you for an hour - я ждал тебя час - ⏳
+I didn't expect that at all - я этого совсем не ожидал - 😮
+What do you expect from this year? - чего ты ждёшь от этого года? - 🔮
+
+// --- 5. Мелочи, которые пригодятся ---
+go / went / gone - идти, ехать (три формы) - 🚶
+Where did you go yesterday? - куда ты вчера ходил? - 🚶
+a treat - угощение, что-то приятное - 🍬
+treats - угощения, вкусняшки - 🍬
+to treat somebody - угостить кого-то - 🍬
+a feature - особенность, черта - 🔎
+features - особенности, черты - 🔎
+tips - советы, подсказки - 📝
+a thing - вещь, штука - 📦
+the main thing - самое главное - 📌
+That's the thing - вот в этом и дело - 📌
+The main thing is to keep talking - самое главное, не переставать говорить - 📌
+
 # TOPIC | Travel · Hotel & City | 🏨 | 🏨🗺️🚏
 = frames
 At the hotel I
