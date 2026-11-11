@@ -1489,6 +1489,51 @@ interested - которому интересно - 👀
 surprising - неожиданный - 😲
 surprised - удивлённый - 😯
 tired - уставший - 😴
+tiring - утомительный - 🥵
+annoying - раздражающий - 😤
+annoyed - раздражённый - 😠
+confusing - запутанный - 🌀
+confused - сбитый с толку - 😵
+shocking - шокирующий - 😱
+shocked - шокированный - 😨
+disappointing - разочаровывающий - 😞
+disappointed - разочарованный - 😔
+relaxing - расслабляющий - 😌
+relaxed - расслабленный - 🧘
+amazing - потрясающий - 🤯
+
+// --- что люди делают ---
+to lie - врать - 🤥
+to tell the truth - говорить правду - ✅
+to ignore somebody - игнорировать кого-то - 🙈
+to interrupt - перебивать - ✋
+to talk behind your back - обсуждать за спиной - 🗣️
+to support somebody - поддерживать кого-то - 🤲
+to listen - слушать - 👂
+to apologise - извиняться - 🙏
+to promise - обещать - 🤞
+to keep a promise - сдержать обещание - 🤝
+to break a promise - нарушить обещание - 💔
+to help out - выручить, помочь - 🆘
+to argue - спорить, ссориться - ⚡
+to make up - помириться - 🫶
+to keep a secret - хранить секрет - 🤐
+on purpose - специально, нарочно - 🎯
+by mistake - случайно, по ошибке - 🙊
+
+// --- совет ---
+advice - совет, советы (всегда без -s) - 💡
+a piece of advice - один совет - 💡
+a recommendation - рекомендация - ⭐
+a tip - подсказка, лайфхак - 📝
+
+// --- кто-то, что-то, никто ---
+something - что-то (в утверждении) - ➕
+anything - что-нибудь (в вопросе и с not) - ❓
+nothing - ничего - 🚫
+somebody - кто-то - 🙋
+anybody - кто-нибудь - ❔
+nobody - никто - 🙅
 
 = phrases
 What does she look like? - как она выглядит? - 👀
@@ -1519,6 +1564,22 @@ Well, let me think - так, дай подумать - 🤔
 What's new? - что нового? - 👋
 Long time no see! - сколько лет, сколько зим! - 🫂
 I'd love to live there one day - я бы хотел когда-нибудь там жить - 🌍
+He interrupted me three times - он перебил меня три раза - ✋
+They argued and then they made up - они поссорились, а потом помирились - 🫶
+She always keeps her promises - она всегда держит обещания - 🤝
+He broke his promise again - он снова нарушил обещание - 💔
+I didn't do it on purpose - я сделал это не специально - 🎯
+Sorry, I took it by mistake - извини, я взял это по ошибке - 🙊
+She told my secret to everybody - она всем рассказала мой секрет - 🗣️
+Nobody believed her, but her friends supported her - ей никто не верил, но друзья её поддержали - 🤲
+Can you give me some advice? - можешь дать мне совет? - 💡
+I'd recommend talking to her - я бы посоветовал поговорить с ней - ⭐
+It wasn't like her - это было на неё не похоже - 💭
+The lesson was boring, so I was bored - урок был скучный, и мне было скучно - 🥱
+I have nothing to say - мне нечего сказать - 🤐
+I didn't see anybody there - я никого там не видел - 👻
+Did anybody call me? - мне кто-нибудь звонил? - 📞
+There is something I want to tell you - я хочу тебе кое-что сказать - ➕
 
 = questions
 What is your best friend like?
@@ -1531,4 +1592,9 @@ What series are you watching now?
 What is your favourite song this year?
 What do people love that you don't like?
 Would you like to live in another country? Why?
+Is it ever OK to lie to a friend?
+Do you say sorry first, or do you wait?
+Have you ever broken a promise?
+What do you do when somebody interrupts you?
+Who always supports you, whatever happens?
 `;
