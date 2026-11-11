@@ -21,6 +21,7 @@
 .t4{--accent:#7A34C8;--accent-soft:#EEE3FB;--grad:linear-gradient(140deg,#230C3D,#5A1F94 45%,#9A4FE0)}
 .t5{--accent:#0F7355;--accent-soft:#DAF0E7;--grad:linear-gradient(140deg,#06251C,#0E5E46 45%,#1E9B72)}
 .t6{--accent:#B3123C;--accent-soft:#FCE1E8;--grad:linear-gradient(140deg,#2E0310,#7C0A28 45%,#D1274F)}
+.t7{--accent:#0E6E82;--accent-soft:#DDF1F6;--grad:linear-gradient(140deg,#03222A,#0A5263 45%,#1498B4)}
 
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
@@ -48,7 +49,8 @@ p{margin:0 0 12px}
 .navrow .navbtn:nth-child(3).active{background:#7A34C8}
 .navrow .navbtn:nth-child(4).active{background:#2456C6}
 .navrow .navbtn:nth-child(5).active{background:#B3123C}
-.navrow .navbtn:nth-child(6).active{background:#0F7355}
+.navrow .navbtn:nth-child(6).active{background:#0E6E82}
+.navrow .navbtn:nth-child(7).active{background:#0F7355}
 .navbtn.active{color:#fff;border-color:transparent}
 
 .hero{position:relative;border-radius:28px;overflow:hidden;padding:44px 26px 34px;color:#fff;
@@ -221,6 +223,18 @@ p{margin:0 0 12px}
 .tick.on{background:#2C7A5B;border-color:#2C7A5B;color:#fff}
 .tscore{font-weight:800;color:var(--accent);margin-left:8px;font-size:17px}
 .fpic{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.sline{background:var(--white);border:1px solid var(--line);border-radius:18px;
+  padding:14px;margin-bottom:12px}
+.sline.done{border-color:#2C7A5B}
+.stext{font-weight:600;line-height:1.6;font-size:16.5px}
+.stext .sgap{display:inline-block;min-width:92px;border-bottom:3px solid var(--accent);
+  text-align:center;font-weight:900;color:var(--accent);padding:0 6px}
+.sopts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.opt{background:var(--accent-soft);border:2px solid transparent;border-radius:999px;
+  padding:11px 15px;font-weight:800;font-size:15px;font-family:var(--body);cursor:pointer}
+.opt.ok{background:#2C7A5B;color:#fff}
+.opt.no{background:#FDE8EC;border-color:#C2323F;color:#8C1F2B}
+.opt.off{opacity:.35;pointer-events:none}
 .fwords{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .fwords span{border-radius:999px;padding:6px 10px;font-weight:800;font-size:13.5px;
   background:var(--accent-soft)}
@@ -263,6 +277,7 @@ p{margin:0 0 12px}
       <button class="navbtn" onclick="showLesson(4,this)">3 · What Do You Think</button>
       <button class="navbtn" onclick="showLesson(6,this)">4 · Homework</button>
       <button class="navbtn" onclick="showLesson(7,this)">5 · Final Test</button>
+      <button class="navbtn" onclick="showLesson(8,this)">6 · Some · Any · No</button>
       <button class="navbtn" onclick="showLesson(5,this)">Phrasebook</button>
     </div>
   </div>
@@ -1399,6 +1414,128 @@ p{margin:0 0 12px}
     </div>
   </main>
 
+  <!-- ================= SOME · ANY · NO ================= -->
+  <main id="lesson8" class="lesson t7">
+    <div class="section">
+      <div class="section-head">
+        <div><div class="kicker">Extra chapter</div><h2>Some · Any · No</h2></div>
+        <span class="time">35 min</span>
+      </div>
+      <p class="teacher">something · anything · nothing · somebody · anybody · nobody.<br>
+        Six words, one rule. Look at the <b>shape of the sentence</b> and the word chooses itself.</p>
+
+      <div class="gram">
+        <h3>Look at the sentence, not at the meaning</h3>
+        <table>
+          <tr><td>+ it is true</td><td><b>some</b>thing · <b>some</b>body<br>
+            <i>I saw somebody in the park.</i></td></tr>
+          <tr><td>? a question</td><td><b>any</b>thing · <b>any</b>body<br>
+            <i>Did you see anybody?</i> · <i>Do you have anything for me?</i></td></tr>
+          <tr><td>− with <b>not</b></td><td><b>any</b>thing · <b>any</b>body<br>
+            <i>I didn’t see anybody.</i> · <i>I don’t have anything.</i></td></tr>
+          <tr><td>− without <b>not</b></td><td><b>no</b>thing · <b>no</b>body<br>
+            <i>I saw nobody.</i> · <i>I have nothing.</i></td></tr>
+        </table>
+        <div class="ex">Short cut: <b>+ → some</b> · <b>? → any</b> · <b>not → any</b> · <b>no not → no</b></div>
+      </div>
+
+      <div class="card">
+        <h4>Почему так — по-русски</h4>
+        <div class="ru" style="line-height:1.6">
+          <p><b>some-</b> — «что-то», «кто-то». Ставим, когда просто рассказываем, и это правда.</p>
+          <p><b>any-</b> — «что-нибудь», «кто-нибудь» в вопросе. А рядом с <b>not</b> то же самое
+            <b>any-</b> переводится уже как «ничего», «никого»: <i>I don’t know anything</i> — я ничего не знаю.</p>
+          <p><b>no-</b> — это <b>not + any</b>, слепленные в одно слово. Отрицание уже внутри.</p>
+          <p><b>Главная ошибка русского человека.</b> По-русски «я <u>ничего</u> <u>не</u> знаю» — два
+            отрицания, и это правильно. По-английски отрицание в предложении может быть
+            <b>только одно</b>: либо <i>I don’t know <b>anything</b></i>, либо <i>I know <b>nothing</b></i>.
+            <i>I don’t know nothing</i> — так нельзя.</p>
+          <p><b>Одно исключение.</b> <b>any</b> в утверждении значит «любой»:
+            <i>Take anything you want</i> — бери что хочешь.</p>
+        </div>
+      </div>
+
+      <h3>Task 1 · Three doors · 10 min</h3>
+      <div class="task"><b>Tap the word that fits.</b> Don’t think about the meaning —
+        look at the sentence first: is it <b>+</b>, is it <b>?</b>, is there a <b>not</b>?
+        Wrong tap shows you why.</div>
+      <div id="someBox"></div>
+      <div class="row-btn">
+        <button class="btn ghost" onclick="buildSome()">Start again</button>
+        <span class="score" id="someScore"></span>
+      </div>
+
+      <h3>Task 2 · The same thing, two ways · 8 min</h3>
+      <div class="task"><b>Say it without <i>not</i>.</b> Every sentence here has
+        <b>not + any</b>. Rewrite it with <b>nothing</b> or <b>nobody</b> — the meaning stays
+        exactly the same.<br>
+        <i>I don’t have anything. → I have nothing.</i></div>
+      <div class="tbox" id="sw2">
+        <div class="tline"><span class="n">1</span>I don’t have anything for you.<br>
+          → <input class="ti" data-a="i have nothing for you|I have nothing for you." autocapitalize="off" autocomplete="off" spellcheck="false" style="width:100%;max-width:22em"></div>
+        <div class="tline"><span class="n">2</span>I didn’t see anybody there.<br>
+          → <input class="ti" data-a="i saw nobody there" autocapitalize="off" autocomplete="off" spellcheck="false" style="width:100%;max-width:22em"></div>
+        <div class="tline"><span class="n">3</span>There isn’t anything in the fridge.<br>
+          → <input class="ti" data-a="there is nothing in the fridge|there’s nothing in the fridge|there s nothing in the fridge" autocapitalize="off" autocomplete="off" spellcheck="false" style="width:100%;max-width:22em"></div>
+        <div class="tline"><span class="n">4</span>She didn’t say anything.<br>
+          → <input class="ti" data-a="she said nothing" autocapitalize="off" autocomplete="off" spellcheck="false" style="width:100%;max-width:22em"></div>
+        <div class="tline"><span class="n">5</span>We don’t know anybody here.<br>
+          → <input class="ti" data-a="we know nobody here" autocapitalize="off" autocomplete="off" spellcheck="false" style="width:100%;max-width:22em"></div>
+        <div class="tline"><span class="n">6</span>He didn’t tell anybody.<br>
+          → <input class="ti" data-a="he told nobody" autocapitalize="off" autocomplete="off" spellcheck="false" style="width:100%;max-width:22em"></div>
+        <div class="row-btn">
+          <button class="btn" onclick="checkType('sw2')">Check answers</button>
+          <button class="btn ghost" onclick="clearType('sw2')">Clear</button>
+          <span class="score"></span>
+        </div>
+      </div>
+
+      <h3>Task 3 · One negative is enough · 7 min</h3>
+      <div class="task"><b>Every sentence has two negatives — one too many.</b>
+        The <b class="was">red word</b> is wrong because <b>not</b> is already there.
+        Type the right word.</div>
+      <div class="tbox" id="sw3">
+        <div class="tline"><span class="n">1</span>I don’t know <span class="was">nothing</span> about it.<br>
+          → I don’t know <input class="ti" data-a="anything" autocapitalize="off" autocomplete="off" spellcheck="false"> about it.</div>
+        <div class="tline"><span class="n">2</span>She didn’t say <span class="was">nothing</span> .<br>
+          → She didn’t say <input class="ti" data-a="anything" autocapitalize="off" autocomplete="off" spellcheck="false"> .</div>
+        <div class="tline"><span class="n">3</span>We don’t have <span class="was">no</span> time.<br>
+          → We don’t have <input class="ti" data-a="any" autocapitalize="off" autocomplete="off" spellcheck="false"> time.</div>
+        <div class="tline"><span class="n">4</span>He never tells <span class="was">nobody</span> .<br>
+          → He never tells <input class="ti" data-a="anybody" autocapitalize="off" autocomplete="off" spellcheck="false"> .</div>
+        <div class="tline"><span class="n">5</span>I can’t find <span class="was">nothing</span> in this bag.<br>
+          → I can’t find <input class="ti" data-a="anything" autocapitalize="off" autocomplete="off" spellcheck="false"> in this bag.</div>
+        <div class="tline"><span class="n">6</span>They didn’t invite <span class="was">nobody</span> .<br>
+          → They didn’t invite <input class="ti" data-a="anybody" autocapitalize="off" autocomplete="off" spellcheck="false"> .</div>
+        <div class="row-btn">
+          <button class="btn" onclick="checkType('sw3')">Check answers</button>
+          <button class="btn ghost" onclick="clearType('sw3')">Clear</button>
+          <span class="score"></span>
+        </div>
+      </div>
+
+      <h3>Task 4 · Ask me five questions · 5 min</h3>
+      <div class="task"><b>Out loud, no writing.</b> Ask me five questions about my day,
+        and every question must have <b>anything</b>, <b>anybody</b> or <b>anywhere</b> in it.
+        I answer, and then you ask the next one.</div>
+      <div class="pair">
+        <div class="line">Did you see <b>anybody</b> interesting today?</div>
+        <div class="line">Did anybody tell you <b>anything</b> about it?</div>
+        <div class="line">Do you have <b>anything</b> to do tonight?</div>
+        <div class="line">Are you going <b>anywhere</b> at the weekend?</div>
+        <div class="line">Is there <b>anything</b> you want to ask me?</div>
+      </div>
+      <div class="ticks" data-n="5"></div>
+
+      <h3>Task 5 · Nothing happened · 5 min</h3>
+      <div class="task"><b>The most boring day of your life.</b> Talk for one minute about a day
+        when <b>nothing</b> happened and you saw <b>nobody</b>.
+        Use <b>nothing</b> and <b>nobody</b> at least three times — and not a single <b>not</b>
+        next to them.</div>
+      <div class="ticks" data-n="1"></div>
+    </div>
+  </main>
+
   <!-- ================= PHRASEBOOK ================= -->
   <main id="lesson5" class="lesson t5">
     <div class="section">
@@ -1937,6 +2074,73 @@ function clearType(id){
   if (sc) sc.textContent = '';
 }
 
+/* ---------- три двери: тыкаем слово и сразу видим, почему ---------- */
+var SOME = [
+  ['Look, there is ', ' in your bag.', 'something', ['something', 'anything', 'nothing'],
+   'Это утверждение: ни вопроса, ни not. Значит some-.'],
+  ['Did you buy ', ' for her birthday?', 'anything', ['something', 'anything', 'nothing'],
+   'Это вопрос, а в вопросе всегда any-.'],
+  ['I didn’t tell ', ' about it.', 'anybody', ['somebody', 'anybody', 'nobody'],
+   'Рядом уже стоит didn’t. Второе отрицание нельзя, значит any-.'],
+  ['', ' called me yesterday, but I don’t know who it was.', 'Somebody', ['Somebody', 'Anybody', 'Nobody'],
+   'Кто-то правда звонил, это утверждение. Значит some-.'],
+  ['I looked in the fridge. There is ', ' there, it is empty.', 'nothing', ['something', 'anything', 'nothing'],
+   'Слова not здесь нет, а смысл отрицательный. Значит no-.'],
+  ['Is there ', ' at home?', 'anybody', ['somebody', 'anybody', 'nobody'],
+   'Вопрос — значит any-.'],
+  ['She said ', '. She just looked at me and left.', 'nothing', ['something', 'anything', 'nothing'],
+   'Not нет, а сказать надо «ничего». Значит no-.'],
+  ['We don’t have ', ' time, hurry up!', 'any', ['some', 'any', 'no'],
+   'Рядом don’t. Отрицание уже есть, значит any-.'],
+  ['I met ', ' from my old school yesterday.', 'somebody', ['somebody', 'anybody', 'nobody'],
+   'Встреча правда была, это утверждение. Значит some-.'],
+  ['', ' knows the answer. We are all stuck.', 'Nobody', ['Somebody', 'Anybody', 'Nobody'],
+   'Not в предложении нет, а смысл «никто». Значит no-.']
+];
+var someDone = 0;
+function buildSome(){
+  var box = document.getElementById('someBox');
+  if (!box) return;
+  someDone = 0;
+  box.innerHTML = SOME.map(function (s, i) {
+    var opts = s[3].map(function (w) {
+      return '<button class="opt" type="button" data-i="' + i + '" data-w="' + w + '">' + w + '</button>';
+    }).join('');
+    return '<div class="sline" data-i="' + i + '">' +
+      '<div class="stext">' + s[0] + '<span class="sgap">&nbsp;</span>' + s[1] + '</div>' +
+      '<div class="sopts">' + opts + '</div>' +
+      '<div class="why"></div></div>';
+  }).join('');
+  var sc = document.getElementById('someScore');
+  if (sc) sc.textContent = '0 / ' + SOME.length;
+}
+function initSome(){
+  var box = document.getElementById('someBox');
+  if (!box) return;
+  box.addEventListener('click', function (e) {
+    var b = e.target.closest('.opt');
+    if (!b) return;
+    var row = b.closest('.sline');
+    if (!row || row.classList.contains('done')) return;
+    var s = SOME[+b.dataset.i];
+    var why = row.querySelector('.why');
+    if (b.dataset.w !== s[2]) {          /* не то слово: объясняем и ждём ещё попытку */
+      b.classList.add('no');
+      why.textContent = s[4];
+      why.classList.add('on');
+      return;
+    }
+    b.classList.add('ok');
+    row.classList.add('done');
+    row.querySelector('.sgap').textContent = s[2];
+    why.classList.remove('on');
+    row.querySelectorAll('.opt').forEach(function (x) { if (x !== b) x.classList.add('off'); });
+    someDone++;
+    var sc = document.getElementById('someScore');
+    if (sc) sc.textContent = someDone + ' / ' + SOME.length;
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function(){
   buildMatch();
   buildWords();
@@ -1944,6 +2148,8 @@ document.addEventListener('DOMContentLoaded', function(){
   buildFinal();
   initSet('f');
   buildTicks();
+  buildSome();
+  initSome();
   buildOrder('story3');
   initSortable(document.getElementById('story3'));
   buildGaps();
