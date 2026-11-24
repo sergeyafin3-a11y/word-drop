@@ -256,7 +256,7 @@ p{margin:0 0 12px}
 .lesson{display:none}
 .lesson.active{display:block}
 /* квиз по сериалу: тык — и сразу видно, верно или нет */
-.qzbar{position:sticky;top:66px;z-index:5;display:flex;justify-content:space-between;align-items:center;
+.qzbar{display:flex;justify-content:space-between;align-items:center;
   gap:10px;background:var(--accent);color:#fff;border-radius:999px;padding:9px 9px 9px 18px;
   font-weight:800;margin:16px 0;box-shadow:0 8px 20px rgba(60,30,0,.18)}
 .qzbar .btn{background:#fff;color:var(--accent);padding:7px 13px;border-radius:999px;font-size:14px}
@@ -1580,6 +1580,7 @@ p{margin:0 0 12px}
       <div class="qzbar"><span>Score <span id="qzScore">0 / 0</span></span>
         <button class="btn" type="button" id="qzReset" onclick="buildQuiz()">Start again</button></div>
       <div id="qzBox"></div>
+      <div class="qzbar"><span>Score <span class="qzScore2">0 / 0</span></span></div>
 
       <h3>Last word · Debate</h3>
       <div class="pair">
@@ -2215,15 +2216,14 @@ var QUIZ = [
   ['🎭 Who is who', 'Samantha…', ['Jones', 'York', 'Hobbes'], 'What is her job?', 'city-samantha-2.jpg'],
   ['🎭 Who is who', 'Charlotte…', ['York', 'Jones', 'Bradshaw'], 'Is she like anybody you know?', 'city-charlotte.jpg'],
   ['📝 Words', 'Charlotte always says please and thank you. She is…', ['polite', 'rude', 'strict'], 'Who is the rudest character? Why?'],
-  ['🧩 Odd one out', 'Steve · Brady · Big', ['Big', 'Steve', 'Brady'], 'Who are the other two?'],
+  ['🧩 Odd one out', 'Harry · Lily · Aidan', ['Aidan', 'Harry', 'Lily'], 'Who are the other two?'],
   ['📺 Season 6 · last episode', 'Big’s real first name is…', ['John', 'Mark', 'Harry']],
   ['The series'],
-  ['📺 Season 2', 'Steve’s job?', ['a bartender', 'a doctor', 'a lawyer'], 'Miranda and Steve: why are they so different?'],
   ['📺 Season 3', 'Aidan makes…', ['furniture', 'films', 'music'], 'Describe Aidan. Three words.'],
   ['📺 Season 4', 'Charlotte’s dog is called…', ['Elizabeth Taylor', 'Coco', 'Lily']],
   ['📺 Season 4', 'At a fashion show, Carrie…', ['falls', 'sings', 'cries'], 'Tell the story. What happened next?'],
-  ['📝 -ing or -ed', 'Everybody in the room was…', ['shocked', 'shocking']],
-  ['📺 Season 4', 'Steve and Aidan open…', ['a bar', 'a shop', 'a gym']],
+  ['📺 Season 4', 'Miranda’s baby son is called…', ['Brady', 'Harry', 'John'], 'Miranda and Steve: why are they so different?'],
+  ['📺 Season 5', 'Harry, Charlotte’s second husband, is…', ['a lawyer', 'a doctor', 'a teacher']],
   ['📺 Season 6', 'At a party, Carrie’s shoes disappear. Why did she take them off?', ['The host asked', 'They hurt', 'It was hot'], 'Who was right? Start with: She should…', 'quiz-shoes.jpg'],
   ['📝 so or such', 'Carrie has ___ many shoes!', ['so', 'such', 'such a'], 'What do you have too many of?'],
   ['📺 Season 6', 'Miranda and Steve move to…', ['Brooklyn', 'Paris', 'Los Angeles'], '', 'quiz-brooklyn.jpg'],
@@ -2231,7 +2231,7 @@ var QUIZ = [
   ['📺 Season 6', 'Who comes to Paris to bring her home?', ['Big', 'Aidan', 'Steve']],
   ['The movies'],
   ['🎬 Movie 1', 'Carrie and Big plan the wedding at…', ['a library', 'a church', 'a beach'], '', 'quiz-library.jpg'],
-  ['🎬 Movie 1', 'On the day, Big…', ['doesn’t come in', 'is late', 'forgets'], 'What should he do? Give him advice.'],
+  ['🎬 Movie 1', 'On the day, Big…', ['doesn’t come', 'is late', 'forgets'], 'What should he do? Give him advice.'],
   ['📝 Past Simple', 'After that, the four friends ___ to Mexico together.', ['went', 'go', 'will go'], 'How did the friends help Carrie?'],
   ['🎬 Movie 1', 'Louise, Carrie’s new assistant, is from…', ['St. Louis', 'London', 'Paris']],
   ['🎬 Movie 1', 'In the end, Carrie and Big get married at…', ['City Hall', 'the library', 'a beach'], '', 'quiz-cityhall.jpg'],
@@ -2241,9 +2241,9 @@ var QUIZ = [
   ['✨ Season 1 · Episode 1', 'What happens to Big?', ['He dies', 'He leaves Carrie', 'He moves to Paris'], 'How does Carrie feel? Use -ed words.'],
   ['📝 -ing or -ed', 'The first episode was really…', ['shocking', 'shocked']],
   ['✨ Season 1', 'Samantha lives in…', ['London', 'Los Angeles', 'Paris'], 'Why don’t Carrie and Samantha talk now?', 'quiz-london.jpg'],
-  ['📝 some · any · no', 'Samantha didn’t come, but she sent ___ : flowers.', ['something', 'anything', 'nothing']],
-  ['✨ Season 1', 'Carrie’s new job:', ['a podcast', 'a TV show', 'a shop']],
-  ['✨ Season 1', 'Miranda goes back to…', ['university', 'a bar', 'a hospital']],
+  ['📝 some · any · no', 'Samantha didn’t come, but she sent ___: flowers.', ['something', 'anything', 'nothing']],
+  ['✨ Season 1', 'Carrie starts…', ['a podcast', 'a TV show', 'a shop']],
+  ['✨ Season 1', 'Miranda goes back to…', ['university', 'a hospital', 'a gym']],
   ['✨ Season 1', 'Lily, Charlotte’s daughter, plays…', ['the piano', 'football', 'the guitar']],
   ['✨ Season 1', 'Stanford moves to…', ['Tokyo', 'London', 'Los Angeles'], '', 'quiz-tokyo.jpg'],
   ['✨ Season 1 · last episode', 'Carrie says goodbye to Big in…', ['Paris', 'London', 'New York'], '', 'quiz-paris.jpg'],
@@ -2258,6 +2258,7 @@ function qzShuffle(a){
 function qzScore(){
   var s = document.getElementById('qzScore');
   if (s) s.textContent = qzRight + ' / ' + qzTotal;
+  document.querySelectorAll('.qzScore2').forEach(function (x) { x.textContent = qzRight + ' / ' + qzTotal; });
 }
 function buildQuiz(){
   var box = document.getElementById('qzBox');
