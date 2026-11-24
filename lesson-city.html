@@ -21,6 +21,7 @@
 .t4{--accent:#7A34C8;--accent-soft:#EEE3FB;--grad:linear-gradient(140deg,#230C3D,#5A1F94 45%,#9A4FE0)}
 .t5{--accent:#0F7355;--accent-soft:#DAF0E7;--grad:linear-gradient(140deg,#06251C,#0E5E46 45%,#1E9B72)}
 .t6{--accent:#B3123C;--accent-soft:#FCE1E8;--grad:linear-gradient(140deg,#2E0310,#7C0A28 45%,#D1274F)}
+.t8{--accent:#B7791F;--accent-soft:#FBF0D8;--grad:linear-gradient(140deg,#2E1A02,#7A4B08 45%,#D99A1E)}
 .t7{--accent:#0E6E82;--accent-soft:#DDF1F6;--grad:linear-gradient(140deg,#03222A,#0A5263 45%,#1498B4)}
 
 *{box-sizing:border-box}
@@ -50,7 +51,8 @@ p{margin:0 0 12px}
 .navrow .navbtn:nth-child(4).active{background:#2456C6}
 .navrow .navbtn:nth-child(5).active{background:#B3123C}
 .navrow .navbtn:nth-child(6).active{background:#0E6E82}
-.navrow .navbtn:nth-child(7).active{background:#0F7355}
+.navrow .navbtn:nth-child(7).active{background:#B7791F}
+.navrow .navbtn:nth-child(8).active{background:#0F7355}
 .navbtn.active{color:#fff;border-color:transparent}
 
 .hero{position:relative;border-radius:28px;overflow:hidden;padding:44px 26px 34px;color:#fff;
@@ -253,6 +255,26 @@ p{margin:0 0 12px}
 .credits{color:var(--muted);font-size:13px;line-height:1.5;padding:18px 4px 34px}
 .lesson{display:none}
 .lesson.active{display:block}
+/* квиз по сериалу: тык — и сразу видно, верно или нет */
+.qzbar{position:sticky;top:66px;z-index:5;display:flex;justify-content:space-between;align-items:center;
+  gap:10px;background:var(--accent);color:#fff;border-radius:999px;padding:9px 9px 9px 18px;
+  font-weight:800;margin:16px 0;box-shadow:0 8px 20px rgba(60,30,0,.18)}
+.qzbar .btn{background:#fff;color:var(--accent);padding:7px 13px;border-radius:999px;font-size:14px}
+.qzgrid{display:grid;gap:12px}
+@media(min-width:720px){.qzgrid{grid-template-columns:1fr 1fr}}
+.qz{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--white);
+  box-shadow:0 8px 22px rgba(30,10,40,.06)}
+.qz.done{border-color:var(--accent)}
+.qz .fpic{aspect-ratio:16/8}
+.qz .fpic.face{aspect-ratio:4/3;object-position:50% 18%}
+.qzb{padding:13px 15px 15px}
+.qzhead{display:flex;gap:10px;align-items:center;margin-bottom:6px}
+.qzn{font-family:var(--hero);font-size:30px;color:var(--accent);line-height:1}
+.qzhint{font-size:13px;font-weight:800;background:var(--accent-soft);border-radius:999px;padding:5px 10px}
+.qzq{font-weight:700;font-size:17.5px;line-height:1.4}
+.qztell{margin-top:11px;font-weight:700;font-size:15px;color:var(--muted)}
+.qzround{font-family:var(--hero);font-weight:400;text-transform:uppercase;font-size:26px;
+  letter-spacing:.01em;color:var(--accent);margin:26px 0 10px}
 @media(prefers-reduced-motion:reduce){.who,.chip,.navbtn{transition:none}}
 @media(max-width:800px){
   .wrap{padding:10px}
@@ -278,6 +300,7 @@ p{margin:0 0 12px}
       <button class="navbtn" onclick="showLesson(6,this)">4 · Homework</button>
       <button class="navbtn" onclick="showLesson(7,this)">5 · Final Test</button>
       <button class="navbtn" onclick="showLesson(8,this)">6 · Some · Any · No</button>
+      <button class="navbtn" onclick="showLesson(9,this)">7 · Quiz</button>
       <button class="navbtn" onclick="showLesson(5,this)">Phrasebook</button>
     </div>
   </div>
@@ -1535,6 +1558,39 @@ p{margin:0 0 12px}
     </div>
   </main>
 
+  <!-- ================= QUIZ ================= -->
+  <main id="lesson9" class="lesson t8">
+    <div class="section">
+      <div class="section-head">
+        <div><div class="kicker">End of the topic</div><h2>The Big Quiz</h2></div>
+        <span class="time">60 min</span>
+      </div>
+      <p class="teacher">Tap one answer. Then tell the story.</p>
+
+      <h3>Warm-up · 5 min</h3>
+      <div class="banner"><img src="quiz-stoop.jpg" alt="A house with steps in New York">
+        <div class="cap">Whose house is this?</div></div>
+      <div class="task"><b>This or that?</b> Choose one and say why.</div>
+      <div class="wordbank">
+        <span>New York or Paris?</span><span>Carrie or Miranda?</span><span>Big or Aidan?</span>
+        <span>shoes or sneakers?</span><span>a series or a film?</span><span>a big city or a small town?</span>
+      </div>
+      <div class="ticks" data-n="6"></div>
+
+      <div class="qzbar"><span>Score <span id="qzScore">0 / 0</span></span>
+        <button class="btn" type="button" id="qzReset" onclick="buildQuiz()">Start again</button></div>
+      <div id="qzBox"></div>
+
+      <h3>Last word · Debate</h3>
+      <div class="pair">
+        <div class="line"><b>Big or Aidan?</b> Who is better for Carrie? Two reasons.</div>
+        <div class="line"><b>The best friend.</b> Which of the four is the best friend? Why?</div>
+        <div class="line"><b>New York.</b> Would you like to live there one day? Why or why not?</div>
+      </div>
+      <div class="ticks" data-n="3"></div>
+    </div>
+  </main>
+
   <!-- ================= PHRASEBOOK ================= -->
   <main id="lesson5" class="lesson t5">
     <div class="section">
@@ -1590,7 +1646,16 @@ p{margin:0 0 12px}
     Stills of the four friends are used here for one private lesson only, provided by the teacher.
     City photos via Wikimedia Commons under free licences: Central Park — Anthony Quintano, CC BY 2.0 ·
     New York taxis — Z22, CC BY-SA 3.0 ·
-    Lower Manhattan skyline — Christian David, CC BY-SA 4.0.
+    Lower Manhattan skyline — Christian David, CC BY-SA 4.0 ·
+    Perry Street house — Rob Young, CC BY 2.0 ·
+    New York Public Library — Sharon Mollerus, CC BY 2.0 ·
+    New York City Hall — Momos, CC BY-SA 3.0 ·
+    Brooklyn Bridge — Suiseiseki, CC BY-SA 3.0 ·
+    Pont des Arts, Paris — Dietmar Rabich, CC BY-SA 4.0 ·
+    Tower Bridge, London — Diliff, CC BY-SA 3.0 ·
+    Shibuya, Tokyo — Benh Lieu Song, CC BY-SA 2.0 ·
+    Abu Dhabi — PotatoWitch, CC BY-SA 4.0 ·
+    Shoes at the Hermitage exhibition — Ninara, CC BY 2.0.
     And Just Like That · speaking course A1–A2.
   </div>
 </div>
@@ -2140,8 +2205,112 @@ function initSome(){
   });
 }
 
+/* ---------- квиз по сериалу ----------
+   [подсказка, вопрос, [ВЕРНЫЙ ответ первым, …], что рассказать, картинка]
+   строка из одного элемента — заголовок раунда; варианты перемешиваются */
+var QUIZ = [
+  ['The four friends'],
+  ['🎭 Who is who', 'Carrie…', ['Bradshaw', 'Hobbes', 'Jones'], 'What is she like? Three words.', 'city-carrie.jpg'],
+  ['🎭 Who is who', 'Miranda…', ['Hobbes', 'York', 'Bradshaw'], 'What does she look like?', 'city-miranda.jpg'],
+  ['🎭 Who is who', 'Samantha…', ['Jones', 'York', 'Hobbes'], 'What is her job?', 'city-samantha-2.jpg'],
+  ['🎭 Who is who', 'Charlotte…', ['York', 'Jones', 'Bradshaw'], 'Is she like anybody you know?', 'city-charlotte.jpg'],
+  ['📝 Words', 'Charlotte always says please and thank you. She is…', ['polite', 'rude', 'strict'], 'Who is the rudest character? Why?'],
+  ['🧩 Odd one out', 'Steve · Brady · Big', ['Big', 'Steve', 'Brady'], 'Who are the other two?'],
+  ['📺 Season 6 · last episode', 'Big’s real first name is…', ['John', 'Mark', 'Harry']],
+  ['The series'],
+  ['📺 Season 2', 'Steve’s job?', ['a bartender', 'a doctor', 'a lawyer'], 'Miranda and Steve: why are they so different?'],
+  ['📺 Season 3', 'Aidan makes…', ['furniture', 'films', 'music'], 'Describe Aidan. Three words.'],
+  ['📺 Season 4', 'Charlotte’s dog is called…', ['Elizabeth Taylor', 'Coco', 'Lily']],
+  ['📺 Season 4', 'At a fashion show, Carrie…', ['falls', 'sings', 'cries'], 'Tell the story. What happened next?'],
+  ['📝 -ing or -ed', 'Everybody in the room was…', ['shocked', 'shocking']],
+  ['📺 Season 4', 'Steve and Aidan open…', ['a bar', 'a shop', 'a gym']],
+  ['📺 Season 6', 'At a party, Carrie’s shoes disappear. Why did she take them off?', ['The host asked', 'They hurt', 'It was hot'], 'Who was right? Start with: She should…', 'quiz-shoes.jpg'],
+  ['📝 so or such', 'Carrie has ___ many shoes!', ['so', 'such', 'such a'], 'What do you have too many of?'],
+  ['📺 Season 6', 'Miranda and Steve move to…', ['Brooklyn', 'Paris', 'Los Angeles'], '', 'quiz-brooklyn.jpg'],
+  ['📺 Season 6', 'Carrie moves to…', ['Paris', 'London', 'Tokyo'], 'Was it a good idea? Why?'],
+  ['📺 Season 6', 'Who comes to Paris to bring her home?', ['Big', 'Aidan', 'Steve']],
+  ['The movies'],
+  ['🎬 Movie 1', 'Carrie and Big plan the wedding at…', ['a library', 'a church', 'a beach'], '', 'quiz-library.jpg'],
+  ['🎬 Movie 1', 'On the day, Big…', ['doesn’t come in', 'is late', 'forgets'], 'What should he do? Give him advice.'],
+  ['📝 Past Simple', 'After that, the four friends ___ to Mexico together.', ['went', 'go', 'will go'], 'How did the friends help Carrie?'],
+  ['🎬 Movie 1', 'Louise, Carrie’s new assistant, is from…', ['St. Louis', 'London', 'Paris']],
+  ['🎬 Movie 1', 'In the end, Carrie and Big get married at…', ['City Hall', 'the library', 'a beach'], '', 'quiz-cityhall.jpg'],
+  ['🎬 Movie 2', 'The four friends travel to…', ['Abu Dhabi', 'Mexico', 'Rome'], '', 'quiz-abudhabi.jpg'],
+  ['🎬 Movie 2', 'At a market there, Carrie meets…', ['Aidan', 'Big', 'Steve'], 'Should she tell Big? Give advice.'],
+  ['And Just Like That'],
+  ['✨ Season 1 · Episode 1', 'What happens to Big?', ['He dies', 'He leaves Carrie', 'He moves to Paris'], 'How does Carrie feel? Use -ed words.'],
+  ['📝 -ing or -ed', 'The first episode was really…', ['shocking', 'shocked']],
+  ['✨ Season 1', 'Samantha lives in…', ['London', 'Los Angeles', 'Paris'], 'Why don’t Carrie and Samantha talk now?', 'quiz-london.jpg'],
+  ['📝 some · any · no', 'Samantha didn’t come, but she sent ___ : flowers.', ['something', 'anything', 'nothing']],
+  ['✨ Season 1', 'Carrie’s new job:', ['a podcast', 'a TV show', 'a shop']],
+  ['✨ Season 1', 'Miranda goes back to…', ['university', 'a bar', 'a hospital']],
+  ['✨ Season 1', 'Lily, Charlotte’s daughter, plays…', ['the piano', 'football', 'the guitar']],
+  ['✨ Season 1', 'Stanford moves to…', ['Tokyo', 'London', 'Los Angeles'], '', 'quiz-tokyo.jpg'],
+  ['✨ Season 1 · last episode', 'Carrie says goodbye to Big in…', ['Paris', 'London', 'New York'], '', 'quiz-paris.jpg'],
+  ['✨ Season 2', 'Who comes back into Carrie’s life?', ['Aidan', 'Big', 'Steve'], 'A second chance: yes or no? Why?']
+];
+var qzRight = 0, qzTotal = 0;
+function qzShuffle(a){
+  a = a.slice();
+  for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
+  return a;
+}
+function qzScore(){
+  var s = document.getElementById('qzScore');
+  if (s) s.textContent = qzRight + ' / ' + qzTotal;
+}
+function buildQuiz(){
+  var box = document.getElementById('qzBox');
+  if (!box) return;
+  var h = '', n = 0, open = false;
+  qzRight = 0; qzTotal = 0;
+  QUIZ.forEach(function (q) {
+    if (q.length === 1){
+      if (open) h += '</div>';
+      h += '<div class="qzround">' + q[0] + '</div><div class="qzgrid">';
+      open = true;
+      return;
+    }
+    n++; qzTotal++;
+    var right = q[2][0];
+    var opts = qzShuffle(q[2]).map(function (o) {
+      return '<button class="opt qopt" type="button"' + (o === right ? ' data-r="1"' : '') + '>' + o + '</button>';
+    }).join('');
+    h += '<div class="qz">' +
+      (q[4] ? '<img class="fpic' + (/^city-/.test(q[4]) ? ' face' : '') + '" src="' + q[4] + '" alt="" loading="lazy">' : '') +
+      '<div class="qzb"><div class="qzhead"><span class="qzn">' + n + '</span>' +
+      '<span class="qzhint">' + q[0] + '</span></div>' +
+      '<div class="qzq">' + q[1] + '</div>' +
+      '<div class="sopts">' + opts + '</div>' +
+      (q[3] ? '<div class="qztell">🗣 ' + q[3] + '</div>' : '') +
+      '</div></div>';
+  });
+  if (open) h += '</div>';
+  box.innerHTML = h;
+  qzScore();
+}
+function initQuiz(){
+  var box = document.getElementById('qzBox');
+  if (!box) return;
+  box.addEventListener('click', function (e) {
+    var b = e.target.closest('.qopt');
+    if (!b || !box.contains(b)) return;
+    var card = b.closest('.qz');
+    if (!card || card.classList.contains('done')) return;   /* одна попытка — иначе счёт нечестный */
+    card.classList.add('done');
+    var good = card.querySelector('.qopt[data-r]');
+    if (b === good) qzRight++;
+    else b.classList.add('no');
+    good.classList.add('ok');
+    card.querySelectorAll('.qopt').forEach(function (x) { if (x !== b && x !== good) x.classList.add('off'); });
+    qzScore();
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function(){
   buildMatch();
+  buildQuiz();
+  initQuiz();
   buildWords();
   initWords();
   buildFinal();
